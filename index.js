@@ -23,6 +23,6 @@ mongoose.connect(CONNECTION_URL, {
 
 mongoose.set("useFindAndModify", false);
 
-app.get("/", (req, res) => res.status(200).send("hello world"));
+app.get("/", (req, res) => res.status(200).send("helloo world"));
 
 app.listen(port, () => console.log(`listening on localhost:${port}`));

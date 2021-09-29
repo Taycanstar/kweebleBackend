@@ -9,19 +9,19 @@ const { v4: uuidv4 } = require("uuid");
 const path = require("path");
 const { copyFile, mkdir } = require("fs/promises");
 const crypto = require("crypto");
+const cloudinary = require("cloudinary").v2;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require("../utils/email");
 
 //Register User
 const secret = "test";
 
-const storage = multer.diskStorage({
-  // destination: (req, file, cb) => {
-  //   cb(null, "uploads/");
-  // },
-  // filename: (req, file, cb) => {
-  //   console.log(file);
-  //   cb(null, Date.now() + path.extname(file.originalname));
-  // },
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    public_id: (req, file) => Date.now(),
+  },
 });
 
 const upload = multer({ storage: storage });
@@ -104,19 +104,10 @@ router.post(
         return;
     }
 
-    const name = `${uuidv4()}.${ext}`;
-
-    console.log(name);
-
-    await mkdir("uploads", { recursive: true });
-    await copyFile(req.file.path, `uploads/${name}`);
-
-    req.user.photo = name;
+    req.user.photo = req.file.path;
     await req.user.save();
 
-    console.log(req.user);
-
-    res.status(200).json({ photo: name });
+    res.status(200).json(req.user);
   }
 );
 
