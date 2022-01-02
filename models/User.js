@@ -11,6 +11,29 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    gender: {
+      type: String,
+      required: true,
+    },
+    birthDay: {
+      type: String,
+      required: true,
+    },
+    username: {
+      type: String,
+      required: true,
+    },
+    birthMonth: {
+      type: String,
+      required: true,
+    },
+    birthYear: {
+      type: String,
+      required: true,
+    },
+    graduationYear: { type: String },
+    typeOfDegree: { type: String },
+  
     phoneNumber: { type: String },
     major: { type: String },
     interests: { type: String },

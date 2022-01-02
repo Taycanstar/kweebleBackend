@@ -12,6 +12,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require("../utils/email");
+const Course = require("../models/Course");
 
 //Register User
 const secret = "test";
@@ -29,9 +30,9 @@ const upload = multer({ storage: storage });
 router.use("/photo", express.static("uploads"));
 
 router.post("/register", async (req, res) => {
-  const { name, email, password, college } = req.body;
+  const { name, email, password, college, gender, birthDay, birthMonth, birthYear, username } = req.body;
   try {
-    let user = await User.findOne({ email });
+    let user = (await User.findOne({ email })) || (await User.findOne({ username }));
     if (user) {
       return res.status(400).json({ error: "User already exists" });
     }
@@ -41,6 +42,12 @@ router.post("/register", async (req, res) => {
       email,
       password: hashed_password,
       college,
+      username,
+      gender,
+      birthYear,
+      birthMonth,
+      birthDay,
+      
     });
     await user.save();
 
@@ -122,6 +129,18 @@ router.put("/", requireLogin, async (req, res) => {
     interests,
     email,
     password,
+    typeOfDegree,
+    class1,
+    class2,
+    class3,
+    class4,
+    class5,
+    top1,
+    top1A1,
+    top1A2,
+    top1A3,
+    top1A4,
+    top1A5,
   } = req.body;
   const user = req.user;
   // const hashed_password = await bcrypt.hash(password, 10);
@@ -129,6 +148,18 @@ router.put("/", requireLogin, async (req, res) => {
   user.name = name;
   user.phoneNumber = phoneNumber;
   user.major = major;
+  user.typeOfDegree = typeOfDegree;
+  user.class1 = class1;
+  user.class2 = class2;
+  user.class3 = class3;
+  user.class4 = class4;
+  user.class5 = class5;
+  user.top1 = top1;
+  user.top1A1 = top1A1;
+  user.top1A2 = top1A2;
+  user.top1A3 = top1A3;
+  user.top1A4 = top1A4;
+  user.top1A5 = top1A5;
   // user.photo = photo;
   user.interests = interests;
   user.instagram = instagram;
@@ -260,5 +291,47 @@ router.put("/update-password", requireLogin, async (req, res) => {
 
   //4 log user in, send jwt
 });
+
+router.post("/courses", async(req, res) => {
+  try {
+    const course = await new Course(req.body).save()
+    res.send(course)
+  } catch (error) {
+    res.send(error)
+    
+  }
+})
+
+router.get('/courses', async (req, res) => {
+
+  try {
+    const courses = await Course.find()
+    res.send(courses)
+  } catch (error) {
+    res.send(error)
+  }
+
+})
+
+router.put("/courses/:id", async (req, res) => {
+  try {
+    const course = await Course.findOneAndUpdate(
+      {_id:req.params.id},
+      req.body
+            )
+      res.send(course)
+  } catch (error) {
+    res.send(error)
+  }
+})
+
+router.delete("/courses/:id", async (req, res) => {
+  try {
+    const course = await Course.findByIdAndDelete(req.params.id)
+    res.send(course)
+  } catch (error) {
+    res.send(error)
+  }
+})
 
 module.exports = router;
