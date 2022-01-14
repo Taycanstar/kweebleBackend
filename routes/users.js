@@ -130,17 +130,7 @@ router.put("/", requireLogin, async (req, res) => {
     email,
     password,
     typeOfDegree,
-    class1,
-    class2,
-    class3,
-    class4,
-    class5,
-    top1,
-    top1A1,
-    top1A2,
-    top1A3,
-    top1A4,
-    top1A5,
+  
   } = req.body;
   const user = req.user;
   // const hashed_password = await bcrypt.hash(password, 10);
@@ -149,17 +139,7 @@ router.put("/", requireLogin, async (req, res) => {
   user.phoneNumber = phoneNumber;
   user.major = major;
   user.typeOfDegree = typeOfDegree;
-  user.class1 = class1;
-  user.class2 = class2;
-  user.class3 = class3;
-  user.class4 = class4;
-  user.class5 = class5;
-  user.top1 = top1;
-  user.top1A1 = top1A1;
-  user.top1A2 = top1A2;
-  user.top1A3 = top1A3;
-  user.top1A4 = top1A4;
-  user.top1A5 = top1A5;
+  
   // user.photo = photo;
   user.interests = interests;
   user.instagram = instagram;
@@ -333,5 +313,8 @@ router.delete("/courses/:id", async (req, res) => {
     res.send(error)
   }
 })
+
+
+
 
 module.exports = router;

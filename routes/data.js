@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  const id = req.params.id
+  const id = req.params.id;
   User.findById(id)
     .then((data) => {
       console.log("Data: ", data);
@@ -21,6 +21,19 @@ router.get("/:id", (req, res) => {
     })
     .catch((error) => {
       console.log("error: ", error);
+    });
+});
+
+router.put("/:id", (req, res) => {
+  const id = req.params.id;
+  User.findByIdAndUpdate(id, { username: req.body.username }, {new: true})
+    .then((data) => {
+      console.log("Data: ", data);
+      res.json(data);
+    })
+    .catch((error) => {
+      console.log("error: ", error);
+      res.json(error)
     });
 });
 
