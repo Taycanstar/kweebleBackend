@@ -13,6 +13,8 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require("../utils/email");
 const Course = require("../models/Course");
+const Item = require("../models/Item");
+const Grade = require("../models/Grade");
 
 //Register User
 const secret = "test";
@@ -30,9 +32,21 @@ const upload = multer({ storage: storage });
 router.use("/photo", express.static("uploads"));
 
 router.post("/register", async (req, res) => {
-  const { name, email, password, college, gender, birthDay, birthMonth, birthYear, username } = req.body;
+  const {
+    name,
+    email,
+    password,
+    college,
+    gender,
+    birthDay,
+    birthMonth,
+    birthYear,
+    username,
+    
+  } = req.body;
   try {
-    let user = (await User.findOne({ email })) || (await User.findOne({ username }));
+    let user =
+      (await User.findOne({ email })) || (await User.findOne({ username }));
     if (user) {
       return res.status(400).json({ error: "User already exists" });
     }
@@ -130,7 +144,9 @@ router.put("/", requireLogin, async (req, res) => {
     email,
     password,
     typeOfDegree,
-  
+    btcAddress,
+    ethAddress,
+    dogeAddress
   } = req.body;
   const user = req.user;
   // const hashed_password = await bcrypt.hash(password, 10);
@@ -139,11 +155,14 @@ router.put("/", requireLogin, async (req, res) => {
   user.phoneNumber = phoneNumber;
   user.major = major;
   user.typeOfDegree = typeOfDegree;
-  
+
   // user.photo = photo;
   user.interests = interests;
   user.instagram = instagram;
   user.snapchat = snapchat;
+  user.btcAddress = btcAddress;
+  user.ethAddress = ethAddress;
+  user.dogeAddress = dogeAddress;
   await user.save();
   res.status(200).json(req.user);
 });
@@ -272,49 +291,125 @@ router.put("/update-password", requireLogin, async (req, res) => {
   //4 log user in, send jwt
 });
 
-router.post("/courses", async(req, res) => {
+router.post("/courses", async (req, res) => {
   try {
-    const course = await new Course(req.body).save()
-    res.send(course)
+    const course = await new Course(req.body).save();
+    res.send(course);
   } catch (error) {
-    res.send(error)
-    
+    res.send(error);
   }
-})
+});
 
-router.get('/courses', async (req, res) => {
-
+router.get("/courses", async (req, res) => {
   try {
-    const courses = await Course.find()
-    res.send(courses)
+    const courses = await Course.find();
+    res.send(courses);
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-
-})
+});
 
 router.put("/courses/:id", async (req, res) => {
   try {
-    const course = await Course.findOneAndUpdate(
-      {_id:req.params.id},
-      req.body
-            )
-      res.send(course)
+    const course = await Course.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.send(course);
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-})
+});
 
 router.delete("/courses/:id", async (req, res) => {
   try {
-    const course = await Course.findByIdAndDelete(req.params.id)
-    res.send(course)
+    const course = await Course.findByIdAndDelete(req.params.id);
+    res.send(course);
   } catch (error) {
-    res.send(error)
+    res.send(error);
   }
-})
+});
 
+router.post("/items/:course_id", async (req, res) => {
+  try {
+    const courses = await Course.findById(req.params.course_id);
+    courses.items.push(req.body);
+    const course = await new Course(courses).save();
+    res.send(course.items);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
+router.get("/items/:course_id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.course_id);
+    res.send(course.items);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
+router.put("/items/:course_id/:item_id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.course_id);
+    let item = course.items.find((item) => item._id == req.params.item_id);
+    item.itemGrade = req.body.itemGrade;
+    await new Course(course).save();
+    res.send(item);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.delete("/items/:course_id/:id", async (req, res) => {
+  try {
+    let course = await Course.findById(req.params.course_id);
+    const filteredItems = course.items.filter(
+      (item) => item._id != req.params.id
+    );
+    course.items = filteredItems;
+    await new Course(course).save();
+    res.send(course);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.post("/grades/:course_id/:item_id", async (req, res) => {
+  try {
+    const courses = await Course.findById(req.params.course_id);
+    const item = courses.items.find((item) => item._id == req.params.item_id);
+    item.grades.push(req.body);
+    await new Course(courses).save();
+    res.send(item);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.get("/grades/:course_id/:item_id", async (req, res) => {
+  try {
+    const courses = await Course.findById(req.params.course_id);
+    const item = courses.items.find((item) => item._id == req.params.item_id);
+    res.send(item.grades);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.delete("/grades/:course_id/:item_id/:grade_id", async (req, res) => {
+  try {
+    const course = await Course.findById(req.params.course_id);
+    let item = course.items.find((item) => item._id == req.params.item_id);
+    const filteredGrades = item.grades.filter(
+      (grade) => grade._id != req.params.grade_id
+    );
+    item.grades = filteredGrades;
+    await new Course(course).save();
+    res.send(item);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 module.exports = router;

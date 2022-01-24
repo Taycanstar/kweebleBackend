@@ -22,7 +22,7 @@ const userSchema = new Schema(
     username: {
       type: String,
       required: true,
-      unique:true
+      unique: true,
     },
     birthMonth: {
       type: String,
@@ -32,9 +32,13 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    btcAddress: { type: String },
+    ethAddress: { type: String },
+    dogeAddress: { type: String },
+
     graduationYear: { type: String },
     typeOfDegree: { type: String },
-  
+
     phoneNumber: { type: String },
     major: { type: String },
     interests: { type: String },

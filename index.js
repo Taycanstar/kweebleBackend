@@ -15,7 +15,7 @@ app.use("/api", require("./routes/data"));
 //db config
 const CONNECTION_URL =
   "mongodb+srv://dimerson:7l3QhcdYXc4H8fNG@cluster0.76ok5.mongodb.net/KweebleDatabase?retryWrites=true&w=majority";
-mongoose.connect(CONNECTION_URL, {
+  mongoose.connect(CONNECTION_URL, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
