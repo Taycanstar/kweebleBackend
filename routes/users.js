@@ -42,7 +42,6 @@ router.post("/register", async (req, res) => {
     birthMonth,
     birthYear,
     username,
-    
   } = req.body;
   try {
     let user =
@@ -61,7 +60,6 @@ router.post("/register", async (req, res) => {
       birthYear,
       birthMonth,
       birthDay,
-      
     });
     await user.save();
 
@@ -146,7 +144,10 @@ router.put("/", requireLogin, async (req, res) => {
     typeOfDegree,
     btcAddress,
     ethAddress,
-    dogeAddress
+    dogeAddress,
+    birthDay,
+    birthMonth,
+    birthYear,
   } = req.body;
   const user = req.user;
   // const hashed_password = await bcrypt.hash(password, 10);
@@ -155,7 +156,9 @@ router.put("/", requireLogin, async (req, res) => {
   user.phoneNumber = phoneNumber;
   user.major = major;
   user.typeOfDegree = typeOfDegree;
-
+  user.birthDay = birthDay;
+  user.birthMonth = birthMonth;
+  user.birthYear = birthYear;
   // user.photo = photo;
   user.interests = interests;
   user.instagram = instagram;
