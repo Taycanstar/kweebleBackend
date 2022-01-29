@@ -13,8 +13,8 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      required: true,
     },
+
     birthDay: {
       type: String,
       required: true,
@@ -32,6 +32,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    gradeLevel: { type: String },
     btcAddress: { type: String },
     ethAddress: { type: String },
     dogeAddress: { type: String },

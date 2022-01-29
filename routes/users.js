@@ -148,6 +148,7 @@ router.put("/", requireLogin, async (req, res) => {
     birthDay,
     birthMonth,
     birthYear,
+    gradeLevel,
   } = req.body;
   const user = req.user;
   // const hashed_password = await bcrypt.hash(password, 10);
@@ -166,6 +167,7 @@ router.put("/", requireLogin, async (req, res) => {
   user.btcAddress = btcAddress;
   user.ethAddress = ethAddress;
   user.dogeAddress = dogeAddress;
+  user.gradeLevel = gradeLevel;
   await user.save();
   res.status(200).json(req.user);
 });
