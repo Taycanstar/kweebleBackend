@@ -74,11 +74,10 @@ router.post("/login", async (req, res) => {
   const { email, password, username } = req.body;
   try {
     // let user = await User.findOne({ email });
+    // (await User.findOne({ email: req.body.email.toLowerCase() })) ||
+    //   (await User.findOne({ username: req.body.username.toLowerCase() }))
     let user =
-      (await User.findOne({ email: req.body.email.toLowerCase() })) ||
-      (await User.findOne({ username: req.body.username.toLowerCase() })) ||
-      (await User.findOne({ email })) ||
-      (await User.findOne({ username }));;
+      (await User.findOne({ email })) || (await User.findOne({ username }));
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
