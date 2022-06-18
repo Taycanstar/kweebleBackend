@@ -19,7 +19,7 @@ const eventSchema = new Schema({
   eventDescription: {
     type:String
   },
-  eventHost: {
+  host: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
