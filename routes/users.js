@@ -109,10 +109,15 @@ router.post(
 
     // TODO: Convert into appropriate dimensions (save a thumbnail)
 
-    if (req.file.size > 2 * 1024 * 1024) {
-      res.status(400).json({ error: "max file size of 2MB exceeded" });
-      return;
-    }
+    // if (req.file.size > 2 * 1024 * 1024) {
+    //   res.status(400).json({ error: "max file size of 2MB exceeded" });
+    //   return;
+    // }
+      if (req.file.size > 2 * 3000 * 3000) {
+        res.status(400).json({ error: "max file size of 2MB exceeded" });
+        return;
+      }
+
 
     let ext;
     switch (req.file.mimetype) {
