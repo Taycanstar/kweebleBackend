@@ -7,7 +7,7 @@ const eventSchema = new Schema({
     required: true,
   },
   startDay: {
-    type: Date,
+    type: String,
     required: true,
   },
   startTime: {
@@ -15,7 +15,7 @@ const eventSchema = new Schema({
     required: true,
   },
   endDay: {
-    type: Date,
+    type: String,
   },
   endTime: {
     type: String,
@@ -29,7 +29,6 @@ const eventSchema = new Schema({
   host: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
   },
 });
 
