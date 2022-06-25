@@ -11,6 +11,8 @@ app.use(express.json());
 // app.use("/upload", require("./routes/imageUpload"));
 app.use("/auth", require("./routes/users"));
 app.use("/api", require("./routes/data"));
+app.use("/posts", require("./routes/posts"));
+
 
 //db config
 const CONNECTION_URL =

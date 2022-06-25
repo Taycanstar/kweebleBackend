@@ -16,7 +16,7 @@ const Course = require("../models/Course");
 const Item = require("../models/Item");
 const Grade = require("../models/Grade");
 
-//Register User
+
 const secret = "test";
 
 const storage = new CloudinaryStorage({
@@ -31,6 +31,7 @@ const upload = multer({ storage: storage });
 
 router.use("/photo", express.static("uploads"));
 
+//Register User
 router.post("/register", async (req, res) => {
   const {
     name,
