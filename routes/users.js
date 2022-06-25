@@ -461,4 +461,38 @@ router.delete("/grades/:course_id/:item_id/:grade_id", async (req, res) => {
   }
 });
 
+//Add event
+router.post("/events", async (req, res) => {
+  const {
+    name,
+    location,
+    startDay,
+    startTime,
+    endDay,
+    endTime,
+    image,
+    description,
+    host,
+  } = req.body;
+  try {
+    const event = new Event({
+      name,
+      location,
+      startDay,
+      startTime,
+      endDay,
+      endTime,
+      image,
+      description,
+      host,
+    });
+    await event.save();
+
+    return res.status(201).json({ message: "Event created succesfully" });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
 module.exports = router;

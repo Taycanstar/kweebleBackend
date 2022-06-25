@@ -11,7 +11,7 @@ const { copyFile, mkdir } = require("fs/promises");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const Course = require("../models/Event");
+const Event = require("../models/Event");
 
 const secret = "test";
 
