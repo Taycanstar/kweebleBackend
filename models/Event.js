@@ -19,7 +19,7 @@ const eventSchema = new Schema({
   },
   endDay: {
     type: Date
-  }
+  },
   endTime: {
     type: String
   },
