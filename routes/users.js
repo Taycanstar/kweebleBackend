@@ -15,6 +15,7 @@ const sendEmail = require("../utils/email");
 const Course = require("../models/Course");
 const Item = require("../models/Item");
 const Grade = require("../models/Grade");
+const Event = require("../models/Grade");
 
 
 const secret = "test";
