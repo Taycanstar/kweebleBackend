@@ -17,7 +17,6 @@ const Item = require("../models/Item");
 const Grade = require("../models/Grade");
 const Event = require("../models/Grade");
 
-
 const secret = "test";
 
 const storage = new CloudinaryStorage({
@@ -115,11 +114,10 @@ router.post(
     //   res.status(400).json({ error: "max file size of 2MB exceeded" });
     //   return;
     // }
-      if (req.file.size > 2 * 3000 * 3000) {
-        res.status(400).json({ error: "max file size of 2MB exceeded" });
-        return;
-      }
-
+    if (req.file.size > 2 * 3000 * 3000) {
+      res.status(400).json({ error: "max file size of 2MB exceeded" });
+      return;
+    }
 
     let ext;
     switch (req.file.mimetype) {
@@ -495,5 +493,13 @@ router.post("/events", async (req, res) => {
   }
 });
 
+router.get("/events", async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.send(events);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 module.exports = router;
