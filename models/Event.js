@@ -26,9 +26,10 @@ const eventSchema = new Schema({
   description: {
     type: String,
   },
-  host: {
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
 });
 
