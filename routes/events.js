@@ -72,7 +72,7 @@ router.post("/", async (req, res) => {
     endTime,
     image,
     description,
-    host,
+    user,
   } = req.body;
   try {
     const event = new Event({
@@ -84,7 +84,7 @@ router.post("/", async (req, res) => {
       endTime,
       image,
       description,
-      host,
+      user,
     });
     await event.save();
 
