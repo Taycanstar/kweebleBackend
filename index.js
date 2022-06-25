@@ -11,6 +11,7 @@ app.use(express.json());
 // app.use("/upload", require("./routes/imageUpload"));
 app.use("/auth", require("./routes/users"));
 app.use("/api", require("./routes/data"));
+app.use("/events", require("./routes/events"));
 
 
 
