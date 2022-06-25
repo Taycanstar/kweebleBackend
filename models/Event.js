@@ -5,38 +5,33 @@ const eventSchema = new Schema({
   name: {
     type: String,
     required: true,
-    
   },
   startDay: {
     type: Date,
     required: true,
-
   },
   startTime: {
     type: String,
     required: true,
-
   },
   endDay: {
-    type: Date
+    type: Date,
   },
   endTime: {
-    type: String
+    type: String,
   },
   image: {
-    type: String
+    type: String,
   },
   description: {
-    type:String
+    type: String,
   },
   host: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  { timestamps: true }
 });
-
 
 const Event = mongoose.model("Event", eventSchema);
 
