@@ -64,23 +64,6 @@ router.post(
 //Add event
 router.post("/", async (req, res) => {
 
-     if (req.file.size > 2 * 3000 * 3000) {
-       res.status(400).json({ error: "max file size of 2MB exceeded" });
-       return;
-     }
-
-     let ext;
-     switch (req.file.mimetype) {
-       case "image/jpeg":
-         ext = "jpg";
-         break;
-       case "image/png":
-         ext = "png";
-         break;
-       default:
-         res.status(400).json({ error: "bad content type" });
-         return;
-     }
   const {
     name,
     location,
