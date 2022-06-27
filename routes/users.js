@@ -139,39 +139,6 @@ router.post(
   }
 );
 
-router.post(
-  "/event/image",
-  requireLogin,
-  upload.single("eventImage"),
-  async (req, res) => {
-    console.log("File is: ", req.file);
-
-    // TODO: Convert into appropriate dimensions (save a thumbnail)
-
-    if (req.file.size > 2 * 1024 * 1024) {
-      res.status(400).json({ error: "max file size of 2MB exceeded" });
-      return;
-    }
-
-    let ext;
-    switch (req.file.mimetype) {
-      case "image/jpeg":
-        ext = "jpg";
-        break;
-      case "image/png":
-        ext = "png";
-        break;
-      default:
-        res.status(400).json({ error: "bad content type" });
-        return;
-    }
-
-    req.user.photo = req.file.path;
-    await req.user.save();
-
-    res.status(200).json(req.user);
-  }
-);
 
 router.put("/", requireLogin, async (req, res) => {
   // TODO: Validate the data
