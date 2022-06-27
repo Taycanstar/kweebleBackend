@@ -62,7 +62,7 @@ router.post(
 );
 
 //Add event
-router.post("/", upload.single("image"), async (req, res) => {
+router.post("/", async (req, res) => {
   const {
     name,
     location,
@@ -76,48 +76,20 @@ router.post("/", upload.single("image"), async (req, res) => {
   } = req.body;
 
   try {
+    const event = new Event({
+      name,
+      location,
+      startDay,
+      startTime,
+      endDay,
+      endTime,
+      image,
+      description,
+      user,
+    });
+    await event.save();
 
-
-     if (req.file.size > 2 * 3000 * 3000) {
-       res.status(400).json({ error: "max file size of 2MB exceeded" });
-       return;
-     }
-
-     let ext;
-     switch (req.file.mimetype) {
-       case "image/jpeg":
-         ext = "jpg";
-         break;
-       case "image/png":
-         ext = "png";
-         break;
-       default:
-         res.status(400).json({ error: "bad content type" });
-         return;
-     }
-   console.log("processed image ===>", req.file.path;)
-
-    return res.status(201).json({ message: "Event created succesfully", image: req.file.path })
-
-
-// if(req.file.path){
-//     const event = new Event({
-//       name,
-//       location,
-//       startDay,
-//       startTime,
-//       endDay,
-//       endTime,
-//       image: req.file.path,
-//       description,
-//       user,
-//     });
-//     await event.save();
-
-//     return res.status(201).json({ message: "Event created succesfully" });
-// }else{
-//   console.log("image still processing...")
-// }
+    return res.status(201).json({ message: "Event created succesfully" });
   } catch (error) {
     res.send(error);
   }
