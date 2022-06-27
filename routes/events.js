@@ -95,27 +95,29 @@ router.post("/", upload.single("image"), async (req, res) => {
          res.status(400).json({ error: "bad content type" });
          return;
      }
-console.log("processed image ===>", req.file.path;)
+   console.log("processed image ===>", req.file.path;)
+
+    return res.status(201).json({ message: "Event created succesfully", image: req.file.path })
 
 
-if(req.file.path){
-    const event = new Event({
-      name,
-      location,
-      startDay,
-      startTime,
-      endDay,
-      endTime,
-      image: req.file.path,
-      description,
-      user,
-    });
-    await event.save();
+// if(req.file.path){
+//     const event = new Event({
+//       name,
+//       location,
+//       startDay,
+//       startTime,
+//       endDay,
+//       endTime,
+//       image: req.file.path,
+//       description,
+//       user,
+//     });
+//     await event.save();
 
-    return res.status(201).json({ message: "Event created succesfully" });
-}else{
-  console.log("image still processing...")
-}
+//     return res.status(201).json({ message: "Event created succesfully" });
+// }else{
+//   console.log("image still processing...")
+// }
   } catch (error) {
     res.send(error);
   }
