@@ -17,6 +17,9 @@ const eventSchema = new Schema({
   endDay: {
     type: String,
   },
+  location: {
+    type: String,
+  },
   endTime: {
     type: String,
   },
