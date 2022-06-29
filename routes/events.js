@@ -34,8 +34,6 @@ router.post(
   async (req, res) => {
     console.log("File is: ", req.file);
 
-    // TODO: Convert into appropriate dimensions (save a thumbnail)
-
     if (req.file.size > 2 * 3000 * 3000) {
       res.status(400).json({ error: "max file size of 2MB exceeded" });
       return;
@@ -54,10 +52,7 @@ router.post(
         return;
     }
 
-    req.event.image = req.file.path;
-    await req.event.save();
-
-    res.status(200).json(req.event);
+    res.status(200).json({ imageURL: req.file.path });
   }
 );
 
@@ -103,7 +98,5 @@ router.get("/", async (req, res) => {
     res.send(error);
   }
 });
-
-
 
 module.exports = router;
