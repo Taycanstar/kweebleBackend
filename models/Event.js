@@ -35,7 +35,7 @@ const eventSchema = new Schema({
     required: true,
   },
   host: {
-    type: String,
+    type: Boolean,
   },
 });
 
