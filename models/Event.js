@@ -34,6 +34,9 @@ const eventSchema = new Schema({
     ref: "User",
     required: true,
   },
+  host: {
+    type: String,
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);
