@@ -8,11 +8,9 @@ const eventSchema = new Schema({
   },
   startDay: {
     type: String,
-    required: true,
   },
   startTime: {
     type: String,
-    required: true,
   },
   endDay: {
     type: String,
