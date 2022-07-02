@@ -15,6 +15,7 @@ const sendEmail = async (options) => {
   //   },
   // });
   console.log("before transporter");
+  console.log("before transporter");
   const transporter = nodemailer.createTransport(
     sendgrid({
       apiKey: process.env.SENDGRID_API,
