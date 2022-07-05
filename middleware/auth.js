@@ -5,7 +5,7 @@ exports.requireLogin = async (req, res, next) => {
   try {
     if (req.headers.authorization) {
       const token = req.headers.authorization.split(" ")[1];
-      //verify token
+
       const payload = jwt.verify(token, process.env.SECRET); // TODO: replace secret with the actual secret
       const user = await User.findById(payload._id);
       if (user) {
