@@ -64,11 +64,13 @@ router.post("/", async (req, res) => {
     startDay,
     startTime,
     endDay,
+    latitude,
+    longitude,
     endTime,
     image,
     description,
     user,
-    host
+    host,
   } = req.body;
 
   try {
@@ -79,10 +81,12 @@ router.post("/", async (req, res) => {
       startTime,
       endDay,
       endTime,
+      latitude,
+      longitude,
       image,
       description,
       user,
-      host
+      host,
     });
     await event.save();
 
