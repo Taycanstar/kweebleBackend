@@ -16,17 +16,15 @@ const eventSchema = new Schema({
     type: String,
   },
   location: {
-    {name: {
-      type: String
-    },
-      lat: {
-        type: Number
-      },
-    lng:{
-      type: Number
-    }
-    }
+    type: String,
   },
+  latitude: {
+    type: Number,
+  },
+  longitude: {
+    type: Number,
+  },
+
   endTime: {
     type: String,
   },
