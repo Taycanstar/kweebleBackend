@@ -25,10 +25,10 @@ const eventSchema = new Schema({
     type: Number,
   },
 
-  dateOne: { type: String },
+  dateOne: { type: Date },
 
   dateTwo: {
-    type: String,
+    type: Date,
   },
 
   endTime: {
