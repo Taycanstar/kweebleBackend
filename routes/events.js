@@ -71,6 +71,8 @@ router.post("/", async (req, res) => {
     description,
     user,
     host,
+    dateOne,
+    dateTwo,
   } = req.body;
 
   try {
@@ -87,6 +89,8 @@ router.post("/", async (req, res) => {
       description,
       user,
       host,
+      dateOne,
+      dateTwo
     });
     await event.save();
 

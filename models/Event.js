@@ -25,6 +25,12 @@ const eventSchema = new Schema({
     type: Number,
   },
 
+  dateOne: { type: String },
+
+  dateTwo: {
+    type: String,
+  },
+
   endTime: {
     type: String,
   },
