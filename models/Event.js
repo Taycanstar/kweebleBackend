@@ -24,13 +24,6 @@ const eventSchema = new Schema({
   longitude: {
     type: Number,
   },
-
-  dateOne: { type: Date },
-
-  dateTwo: {
-    type: Date,
-  },
-
   endTime: {
     type: String,
   },
@@ -47,6 +40,9 @@ const eventSchema = new Schema({
   },
   host: {
     type: Boolean,
+  },
+  datetime: {
+    type: Number,
   },
 });
 
