@@ -44,6 +44,9 @@ const eventSchema = new Schema({
   datetime: {
     type: Number,
   },
+  icon:{
+    type: String
+  }
 });
 
 const Event = mongoose.model("Event", eventSchema);

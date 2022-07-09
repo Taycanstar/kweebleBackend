@@ -72,6 +72,7 @@ router.post("/", async (req, res) => {
     description,
     user,
     host,
+    icon,
   } = req.body;
 
   try {
@@ -89,6 +90,7 @@ router.post("/", async (req, res) => {
       description,
       user,
       host,
+      icon,
     });
     await event.save();
 
