@@ -6,7 +6,13 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
-  startDay: {
+  day: {
+    type: String,
+  },
+  month: {
+    type: String,
+  },
+  year: {
     type: String,
   },
   startTime: {
@@ -44,9 +50,9 @@ const eventSchema = new Schema({
   datetime: {
     type: Number,
   },
-  icon:{
-    type: String
-  }
+  icon: {
+    type: String,
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);
