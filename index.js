@@ -12,6 +12,7 @@ app.use(express.json());
 app.use("/auth", require("./routes/users"));
 app.use("/api", require("./routes/data"));
 app.use("/events", require("./routes/events"));
+app.use("/messages", require("./routes/messages"));
 
 
 
