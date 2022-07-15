@@ -5,7 +5,7 @@ const messageSchema = new Schema({
   name: {
     type: String,
   },
-  text: {
+  message: {
     type: String,
   },
   received: {

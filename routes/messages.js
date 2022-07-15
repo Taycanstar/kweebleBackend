@@ -14,16 +14,16 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Message = require("../models/Message");
 
 router.post("/", async (req, res) => {
-  const { name, text, timestamp, received } = req.body;
+  const { name, message, timestamp, received } = req.body;
 
   try {
-    const message = new Message({
+    const messages = new Message({
       name,
-      text,
+      message,
       timestamp,
       received,
     });
-    await message.save();
+    await messages.save();
 
     return res.status(201).json({ message: "Message created succesfully" });
   } catch (error) {

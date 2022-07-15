@@ -23,9 +23,9 @@ const pusher = new Pusher({
   useTLS: true,
 });
 
-pusher.trigger("my-channel", "my-event", {
-  message: "hello world",
-});
+// pusher.trigger("my-channel", "my-event", {
+//   message: "hello world",
+// });
 
 //db config
 const CONNECTION_URL =
@@ -51,7 +51,7 @@ db.once("open", () => {
       const messageDetails = change.fullDocument;
       pusher.trigger("messages", "inserted", {
         name: messageDetails.user,
-        text: messageDetails.message,
+        message: messageDetails.message,
       });
     } else {
       console.log("Error triggering pusher");
