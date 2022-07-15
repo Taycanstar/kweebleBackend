@@ -13,7 +13,7 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Message = require("../models/Message");
 
-router.post("/new", async (req, res) => {
+router.post("/", async (req, res) => {
   const { name, message, timestamp, received } = req.body;
 
   try {
