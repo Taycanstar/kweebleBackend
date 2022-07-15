@@ -17,13 +17,13 @@ router.post("/", async (req, res) => {
   const { name, message, timestamp, received } = req.body;
 
   try {
-    const message = new Message({
+    const messages = new Message({
       name,
       message,
       timestamp,
       received,
     });
-    await message.save();
+    await messages.save();
 
     return res.status(201).json({ message: "Message created succesfully" });
   } catch (error) {
