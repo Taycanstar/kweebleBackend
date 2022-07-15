@@ -6,12 +6,14 @@ const messageSchema = new Schema({
     type: String,
   },
   message: {
-    type: String
+    type: String,
+  },
+  received: {
+    type: Boolean,
   },
   timestamp: {
-    type: String
-  }
-
+    type: String,
+  },
 });
 
 const Message = mongoose.model("Message", messageSchema);

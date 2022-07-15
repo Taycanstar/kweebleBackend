@@ -36,6 +36,7 @@
     "nodemon": "^2.0.12",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
+    "pusher": "^5.1.1-beta",
     "stripe": "^8.165.0",
     "uui": "^1.0.7",
     "uuid": "^8.3.2",

@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const Pusher = require("pusher");
 
 const port = process.env.PORT || 5000;
 
@@ -16,6 +17,20 @@ app.use("/messages", require("./routes/messages"));
 
 
 
+const pusher = new Pusher({
+  appId: "1437686",
+  key: "1a01f4a6cdee8f5ea5a3",
+  secret: "7ee2259b9b49a36b95ca",
+  cluster: "us2",
+  useTLS: true,
+});
+
+pusher.trigger("my-channel", "my-event", {
+  message: "hello world",
+});
+
+
+
 //db config
 const CONNECTION_URL =
   "mongodb+srv://dimerson:7l3QhcdYXc4H8fNG@cluster0.76ok5.mongodb.net/KweebleDatabase?retryWrites=true&w=majority";
@@ -24,6 +39,14 @@ const CONNECTION_URL =
   useCreateIndex: true,
   useUnifiedTopology: true,
 });
+
+const db = mongoose.connection 
+
+db.once("open", () => {
+  console.log("db connected")
+
+  const msgCollection = db.collection("Message")
+})
 
 mongoose.set("useFindAndModify", false);
 
