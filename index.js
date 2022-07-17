@@ -4,8 +4,24 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const Pusher = require("pusher");
+const {Server } = require("socket.io");
+const http = require("http");
 
 const port = process.env.PORT || 5000;
+const server = http.createServer(app);
+
+const io = new Server(server)
+
+io.on("connection", (socket)=>{
+  console.log("user connected ", socket.id)
+
+  //socket.on("event")
+
+  socket.on("disconnect", () => {
+    console.log("user disconnected ", socket.id)
+  })
+})
+
 
 app.use(cors());
 app.use(express.json());
@@ -64,5 +80,6 @@ db.once("open", () => {
 mongoose.set("useFindAndModify", false);
 
 app.get("/", (req, res) => res.status(200).send("helloo world"));
+
 
 app.listen(port, () => console.log(`listening on localhost:${port}`));
