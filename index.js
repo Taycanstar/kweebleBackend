@@ -7,46 +7,49 @@ const Pusher = require("pusher");
 const { Server } = require("socket.io");
 const http = require("http");
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
+
 const server = http.createServer(app);
 
-const io = new Server(5000);
+const io = new Server(server);
+
 
 io.on("connection", (socket) => {
-  console.log("user connected ", socket.id);
+  console.log("User connecté => " + socket.id);
 
+  // socket.on("EVENT")
   socket.on("join_room", (room) => {
     socket.join(room);
-    console.log("user joined room ", room);
+    console.log("User a rejoint la room " + room);
   });
 
   socket.on("send_message", (message) => {
+    console.log("Send message", message);
     io.to(message.room).emit("new_message", {
-      id: newDate().getTime(),
+      id: new Date().getTime(),
       ...message,
     });
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected ", socket.id);
+    console.log("User déconnecté", socket.id);
   });
 });
 
 app.use(cors());
 app.use(express.json());
-// app.use("/upload", require("./routes/imageUpload"));
 app.use("/auth", require("./routes/users"));
 app.use("/api", require("./routes/data"));
 app.use("/events", require("./routes/events"));
 app.use("/messages", require("./routes/messages"));
 
-const pusher = new Pusher({
-  appId: "1437686",
-  key: "1a01f4a6cdee8f5ea5a3",
-  secret: "7ee2259b9b49a36b95ca",
-  cluster: "us2",
-  useTLS: true,
-});
+// const pusher = new Pusher({
+//   appId: "1437686",
+//   key: "1a01f4a6cdee8f5ea5a3",
+//   secret: "7ee2259b9b49a36b95ca",
+//   cluster: "us2",
+//   useTLS: true,
+// });
 
 // pusher.trigger("my-channel", "my-event", {
 //   message: "hello world",
@@ -61,30 +64,30 @@ mongoose.connect(CONNECTION_URL, {
   useUnifiedTopology: true,
 });
 
-const db = mongoose.connection;
+// const db = mongoose.connection;
 
-db.once("open", () => {
-  console.log("db connected");
+// db.once("open", () => {
+//   console.log("db connected");
 
-  const msgCollection = db.collection("messages");
-  const changeStream = msgCollection.watch();
+//   const msgCollection = db.collection("messages");
+//   const changeStream = msgCollection.watch();
 
-  changeStream.on("change", (change) => {
-    console.log(" A change occured", change);
+//   changeStream.on("change", (change) => {
+//     console.log(" A change occured", change);
 
-    if (change.operationType === "insert") {
-      const messageDetails = change.fullDocument;
-      pusher.trigger("messages", "inserted", {
-        name: messageDetails.name,
-        text: messageDetails.text,
-        timestamp: messageDetails.timestamp,
-        received: messageDetails.received,
-      });
-    } else {
-      console.log("Error triggering pusher");
-    }
-  });
-});
+//     if (change.operationType === "insert") {
+//       const messageDetails = change.fullDocument;
+//       pusher.trigger("messages", "inserted", {
+//         name: messageDetails.name,
+//         text: messageDetails.text,
+//         timestamp: messageDetails.timestamp,
+//         received: messageDetails.received,
+//       });
+//     } else {
+//       console.log("Error triggering pusher");
+//     }
+//   });
+// });
 
 mongoose.set("useFindAndModify", false);
 

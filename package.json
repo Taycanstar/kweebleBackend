@@ -16,6 +16,7 @@
     "aws-sdk": "^2.980.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "bufferutil": "^4.0.6",
     "cloudinary": "^1.27.0",
     "concurrently": "^6.2.0",
     "cors": "^2.8.5",
@@ -39,8 +40,10 @@
     "pusher": "^5.1.1-beta",
     "socket.io": "^4.5.1",
     "stripe": "^8.165.0",
+    "utf-8-validate": "^5.0.9",
     "uui": "^1.0.7",
     "uuid": "^8.3.2",
-    "validator": "^13.6.0"
+    "validator": "^13.6.0",
+    "ws": "^8.8.1"
   }
 }
