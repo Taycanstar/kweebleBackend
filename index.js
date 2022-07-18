@@ -7,7 +7,7 @@ const Pusher = require("pusher");
 const { Server } = require("socket.io");
 const http = require("http");
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 const server = http.createServer(app);
 
 const io = new Server(server);
@@ -20,9 +20,12 @@ io.on("connection", (socket) => {
     console.log("user joined room ", room);
   });
 
-  socket.on("send_message", (message) =>{
-    io.to(message.room).emit("new_message", {id: newDate().getTime(), ...message})
-  })
+  socket.on("send_message", (message) => {
+    io.to(message.room).emit("new_message", {
+      id: newDate().getTime(),
+      ...message,
+    });
+  });
 
   socket.on("disconnect", () => {
     console.log("user disconnected ", socket.id);
