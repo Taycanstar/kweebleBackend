@@ -14,6 +14,7 @@ const server = app.listen(port);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
+  socket.removeAllListeners();
   console.log("User connected => " + socket.id);
 
   // socket.on("EVENT")
