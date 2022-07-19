@@ -3,24 +3,23 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const Pusher = require("pusher");
 const { Server } = require("socket.io");
 const http = require("http");
 
 const port = process.env.PORT || 8000;
 
-const server = http.createServer(app);
+// const server = http.createServer(app);
+const server = app.listen(port);
 
 const io = new Server(server);
 
-
 io.on("connection", (socket) => {
-  console.log("User connecté => " + socket.id);
+  console.log("User connected => " + socket.id);
 
   // socket.on("EVENT")
   socket.on("join_room", (room) => {
     socket.join(room);
-    console.log("User a rejoint la room " + room);
+    console.log("User joined room " + room);
   });
 
   socket.on("send_message", (message) => {
@@ -32,7 +31,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("User déconnecté", socket.id);
+    console.log("User disconnected", socket.id);
   });
 });
 
@@ -93,4 +92,4 @@ mongoose.set("useFindAndModify", false);
 
 app.get("/", (req, res) => res.status(200).send("helloo world"));
 
-app.listen(port, () => console.log(`listening on localhost:${port}`));
+// app.listen(port, () => console.log(`listening on localhost:${port}`));
