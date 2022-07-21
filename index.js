@@ -14,7 +14,7 @@ const server = app.listen(port);
 const io = new Server(server);
 
 io.on("connection", (socket) => {
-  socket.removeAllListeners();
+  // socket.removeAllListeners();
   console.log("User connected => " + socket.id);
 
   // socket.on("EVENT")
@@ -33,6 +33,7 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("User disconnected", socket.id);
+    socket.removeAllListeners();
   });
 });
 
