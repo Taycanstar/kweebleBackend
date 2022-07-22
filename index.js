@@ -3,58 +3,48 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const { Server } = require("socket.io");
+// const { Server } = require("socket.io");
 const http = require("http");
+const socket = require("socket.io");
 
 const port = process.env.PORT || 8000;
 
 // const server = http.createServer(app);
-const server = app.listen(port);
+// const server = app.listen(port);
 
-const io = new Server(server);
 
-io.on("connection", (socket) => {
-  // socket.removeAllListeners();
-  console.log("User connected => " + socket.id);
+// const io = new Server(server);
 
-  // socket.on("EVENT")
-  socket.on("join_room", (room) => {
-    socket.join(room);
-    console.log("User joined room " + room);
-  });
+// io.on("connection", (socket) => {
+//   // socket.removeAllListeners();
+//   console.log("User connected => " + socket.id);
 
-  socket.on("send_message", (message) => {
-    console.log("Send message", message);
-    io.to(message.room).emit("new_message", {
-      id: new Date().getTime(),
-      ...message,
-    });
-  });
+//   socket.on("join_room", (room) => {
+//     socket.join(room);
+//     console.log("User joined room " + room);
+//   });
 
-  socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id);
-    socket.removeAllListeners();
-  });
-});
+//   socket.on("send_message", (message) => {
+//     console.log("Send message", message);
+//     io.to(message.room).emit("new_message", {
+//       id: new Date().getTime(),
+//       ...message,
+//     });
+//   }); 
+
+//   socket.on("disconnect", () => {
+//     console.log("User disconnected", socket.id);
+//     socket.removeAllListeners();
+//   });
+// });
 
 app.use(cors());
 app.use(express.json());
 app.use("/auth", require("./routes/users"));
 app.use("/api", require("./routes/data"));
 app.use("/events", require("./routes/events"));
-app.use("/messages", require("./routes/messages"));
-
-// const pusher = new Pusher({
-//   appId: "1437686",
-//   key: "1a01f4a6cdee8f5ea5a3",
-//   secret: "7ee2259b9b49a36b95ca",
-//   cluster: "us2",
-//   useTLS: true,
-// });
-
-// pusher.trigger("my-channel", "my-event", {
-//   message: "hello world",
-// });
+app.use("/messages", require("./routes/msgs"));
+// app.use("/messages", require("./routes/messages"));
 
 //db config
 const CONNECTION_URL =
@@ -65,33 +55,34 @@ mongoose.connect(CONNECTION_URL, {
   useUnifiedTopology: true,
 });
 
-// const db = mongoose.connection;
-
-// db.once("open", () => {
-//   console.log("db connected");
-
-//   const msgCollection = db.collection("messages");
-//   const changeStream = msgCollection.watch();
-
-//   changeStream.on("change", (change) => {
-//     console.log(" A change occured", change);
-
-//     if (change.operationType === "insert") {
-//       const messageDetails = change.fullDocument;
-//       pusher.trigger("messages", "inserted", {
-//         name: messageDetails.name,
-//         text: messageDetails.text,
-//         timestamp: messageDetails.timestamp,
-//         received: messageDetails.received,
-//       });
-//     } else {
-//       console.log("Error triggering pusher");
-//     }
-//   });
-// });
 
 mongoose.set("useFindAndModify", false);
 
 app.get("/", (req, res) => res.status(200).send("helloo world"));
 
 // app.listen(port, () => console.log(`listening on localhost:${port}`));
+
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
+
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:8000",
+    credentials: true,
+  },
+});
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  global.chatSocket = socket;
+  socket.on("add_user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send_message", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg_recieve", data.msg);
+    }
+  });
+});
