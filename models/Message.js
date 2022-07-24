@@ -19,7 +19,7 @@ const messageSchema = new Schema({
     ref: "User",
     required: true,
   },
-  photo, {
+  photo: {
     type: String
   },
   user: {
