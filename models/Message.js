@@ -8,9 +8,6 @@ const messageSchema = new Schema({
   text: {
     type: String,
   },
-  received: {
-    type: Boolean,
-  },
   timestamp: {
     type: String,
   },
@@ -18,9 +15,6 @@ const messageSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
-  },
-  photo: {
-    type: String
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
