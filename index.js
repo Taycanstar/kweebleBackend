@@ -32,11 +32,12 @@ io.on("connection", (socket) => {
 
   socket.on("join_room", (room) => {
     socket.join(room);
-    console.log("User joined room " + room);
+    console.log(`User with ID: ${socket.id} joined room: ${room}`);
   });
 
   socket.on("send_message", (message) => {
     console.log("Send message", message);
+
     io.to(message.room).emit("new_message", {
       id: new Date().getTime(),
       ...message,
