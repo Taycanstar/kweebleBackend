@@ -16,6 +16,9 @@ const messageSchema = new Schema({
     ref: "User",
     required: true,
   },
+  receiverHasRead: {
+    type: Boolean,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
