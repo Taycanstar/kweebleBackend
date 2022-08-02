@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
       timestamp,
       recipient,
       user,
-      receiverrHasRead,
+      receiverHasRead,
     });
     await message.save();
 
