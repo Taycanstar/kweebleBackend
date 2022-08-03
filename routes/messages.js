@@ -42,4 +42,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const message = await Message.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    const {receiverHasRead} = req.body;
+    // const hashed_password = await bcrypt.hash(password, 10);
+    message.receiverHasRead = receiverHasRead;
+
+    await message.save();
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+
 module.exports = router;
