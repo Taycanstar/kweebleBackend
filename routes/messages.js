@@ -44,16 +44,13 @@ router.get("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-      const  message  = await Message.findById(req.message.id).select("+receiverHasRead");
-      //2 check is posted current password is correct
-      const receiverHasRead = req.body.receiverHasRead
-      //3if so, update password
-      message.receiverHasRead = receiverHasRead;
-    // const= await Message.findByIdAndUpdate(req.params.id, req.body, {
-    // });
-    // const {receiverHasRead} = req.body;
-    // message.receiverHasRead = receiverHasRead;
+    const message = await Message.findByIdAndUpdate(req.params.id, {
+      receiverHasRead: req.body.receiverHasRead,
+    });
 
+    //   const receiverHasRead = req.body.receiverHasRead
+
+    //   message.receiverHasRead = receiverHasRead;
     await message.save();
   } catch (error) {
     res.send(error);
