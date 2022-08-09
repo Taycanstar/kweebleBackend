@@ -19,6 +19,11 @@ const groupSchema = new Schema({
       type: [String],
     },
   ],
+  mesages: [
+    {
+      type: [String],
+    },
+  ],
 });
 
 const Group = mongoose.model("Group", groupSchema);

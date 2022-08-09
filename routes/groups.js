@@ -18,7 +18,8 @@ router.post("/", async (req, res) => {
     name,
 groupPhoto,
 description,
-members
+members,
+messages
   } = req.body;
 
   try {
@@ -26,7 +27,8 @@ members
       name,
    groupPhoto,
    description,
-   members
+   members,
+   messages
     });
     await group.save();
 
