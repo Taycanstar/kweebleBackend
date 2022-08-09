@@ -17,8 +17,8 @@ const groupSchema = new Schema({
   admin: {
     type: String,
   },
-  members: [userSchema],
-  messages: [messageSchema],
+//   members: [userSchema],
+//   messages: [messageSchema],
 });
 
 const Group = mongoose.model("Group", groupSchema);
