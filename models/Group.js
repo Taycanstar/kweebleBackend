@@ -14,7 +14,11 @@ const groupSchema = new Schema({
   description: {
     type: String,
   },
-  members: [userSchema],
+  members: [
+   member: {
+      type: String
+   }
+]
 });
 
 const Group = mongoose.model("Group", groupSchema);
