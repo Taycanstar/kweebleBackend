@@ -26,7 +26,8 @@ router.post("/", async (req, res) => {
       description
     );
     await group.save();
-    res.send(group);
+   
+    return res.status(201).json({ message: "Group created succesfully" });
   } catch (error) {
     res.send(error);
   }
