@@ -48,7 +48,8 @@ router.put("/:id", async (req, res) => {
       receiverHasRead: req.body.receiverHasRead,
     });
 
-      const receiverHasRead = req.body.receiverHasRead
+
+     const receiverHasRead = req.body.receiverHasRead
 
       message.receiverHasRead = receiverHasRead;
     await message.save();
