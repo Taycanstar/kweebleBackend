@@ -13,20 +13,19 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-
-
-
 router.post("/", async (req, res) => {
-    const {
-      name,
-     members,
-     profilePhoto,
-     description,
-     admin,
-     messages
-    } = req.body;
+  const { name, members, profilePhoto, description, admin, messages } =
+    req.body;
   try {
-    const group = await new Group(name,messages, admin, members, profilePhoto, description).save();
+    const group = await new Group(
+      name,
+      messages,
+      admin,
+      members,
+      profilePhoto,
+      description
+    );
+    group.save();
     res.send(group);
   } catch (error) {
     res.send(error);
@@ -81,6 +80,5 @@ router.get("/items/:course_id", async (req, res) => {
     res.send(error);
   }
 });
-
 
 module.exports = router;
