@@ -14,7 +14,7 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 router.post("/", async (req, res) => {
-  const { name,profilePhoto, description, admin} =
+  const { name,groupPhoto, description, admin} =
     req.body;
   try {
     const group = new Group(
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
     //   messages,
       admin,
     //   members,
-      profilePhoto,
+      groupPhoto,
       description
     );
     await group.save();
