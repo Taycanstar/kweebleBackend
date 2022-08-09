@@ -15,10 +15,10 @@ const groupSchema = new Schema({
     type: String,
   },
   members: [
-   member: {
-      type: String
-   }
-]
+    {
+      type: [String],
+    },
+  ],
 });
 
 const Group = mongoose.model("Group", groupSchema);
