@@ -11,6 +11,9 @@ const groupSchema = new Schema({
   groupPhoto: {
     type: String,
   },
+  description: {
+    type: String,
+  },
 });
 
 const Group = mongoose.model("Group", groupSchema);
