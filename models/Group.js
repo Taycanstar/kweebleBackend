@@ -14,6 +14,7 @@ const groupSchema = new Schema({
   description: {
     type: String,
   },
+  members: [userSchema],
 });
 
 const Group = mongoose.model("Group", groupSchema);

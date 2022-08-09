@@ -17,14 +17,16 @@ router.post("/", async (req, res) => {
   const {
     name,
 groupPhoto,
-description
+description,
+members
   } = req.body;
 
   try {
     const group = new Group({
       name,
    groupPhoto,
-   description
+   description,
+   members
     });
     await group.save();
 
