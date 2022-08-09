@@ -19,9 +19,7 @@ router.post("/", async (req, res) => {
   try {
     const group = new Group(
       name,
-    //   messages,
       admin,
-    //   members,
       groupPhoto,
       description
     );

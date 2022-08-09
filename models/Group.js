@@ -8,17 +8,18 @@ const groupSchema = new Schema({
     type: String,
     required: true,
   },
+  admin: {
+    type: String,
+  },
   description: {
     type: String,
   },
   groupPhoto: {
     type: String,
   },
-  admin: {
-    type: String,
-  },
-//   members: [userSchema],
-//   messages: [messageSchema],
+
+  //   members: [userSchema],
+  //   messages: [messageSchema],
 });
 
 const Group = mongoose.model("Group", groupSchema);
