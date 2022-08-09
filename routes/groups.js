@@ -13,71 +13,42 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
-router.post("/", async (req, res) => {
-  const { name,groupPhoto, description, admin} =
-    req.body;
-  try {
-    const group = new Group(
-      name,
-      admin,
-      groupPhoto,
-      description
-    );
-    await group.save();
+// router.post("/", async (req, res) => {
+//   const { name,groupPhoto, description, admin} =
+//     req.body;
+//   try {
+//     const group = new Group(
+//       name,
+//       admin,
+//       groupPhoto,
+//       description
+//     );
+//     await group.save();
    
-    return res.status(201).json({ message: "Group created succesfully" });
-  } catch (error) {
-    res.send(error);
-  }
-});
+//     return res.status(201).json({ message: "Group created succesfully" });
+//   } catch (error) {
+//     res.send(error);
+//   }
+// });
 
-router.get("/", async (req, res) => {
-  try {
-    const groups = await Group.find();
-    res.send(groups);
-  } catch (error) {
-    res.send(error);
-  }
-});
+router.post("/", async (req, res) => {
+  const {
+    name,
+groupPhoto
+  } = req.body;
 
-router.put("/:id", async (req, res) => {
   try {
-    const group = await Group.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+    const group = new group({
+      name,
+   groupPhoto
     });
-    res.send(group);
+    await group.save();
+
+    return res.status(201).json({ message: "group created succesfully" });
   } catch (error) {
     res.send(error);
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  try {
-    const group = await Group.findByIdAndDelete(req.params.id);
-    res.send(group);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.post("/users/:course_id", async (req, res) => {
-  try {
-    const courses = await Course.findById(req.params.course_id);
-    courses.items.push(req.body);
-    const course = await new Course(courses).save();
-    res.send(course.items);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.get("/items/:course_id", async (req, res) => {
-  try {
-    const course = await Course.findById(req.params.course_id);
-    res.send(course.items);
-  } catch (error) {
-    res.send(error);
-  }
-});
 
 module.exports = router;
