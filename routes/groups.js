@@ -38,7 +38,7 @@ groupPhoto
   } = req.body;
 
   try {
-    const group = new group({
+    const group = new Group({
       name,
    groupPhoto
     });
