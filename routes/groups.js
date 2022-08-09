@@ -22,10 +22,11 @@ router.post("/", async (req, res) => {
      members,
      profilePhoto,
      description,
-     admin
+     admin,
+     messages
     } = req.body;
   try {
-    const group = await new Group(name, admin, members, profilePhoto, description).save();
+    const group = await new Group(name,messages, admin, members, profilePhoto, description).save();
     res.send(group);
   } catch (error) {
     res.send(error);
