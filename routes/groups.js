@@ -13,6 +13,37 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
+router.use("/image", express.static("uploads"));
+
+router.post(
+  "/image",
+  requireLogin,
+  upload.single("image"),
+  async (req, res) => {
+    console.log("File is: ", req.file);
+
+    if (req.file.size > 2 * 3000 * 3000) {
+      res.status(400).json({ error: "max file size of 2MB exceeded" });
+      return;
+    }
+
+    let ext;
+    switch (req.file.mimetype) {
+      case "image/jpeg":
+        ext = "jpg";
+        break;
+      case "image/png":
+        ext = "png";
+        break;
+      default:
+        res.status(400).json({ error: "bad content type" });
+        return;
+    }
+
+    res.status(200).json({ imageURL: req.file.path });
+  }
+);
+
 router.post("/", async (req, res) => {
   const {
     name,
@@ -37,6 +68,8 @@ messages
     res.send(error);
   }
 });
+
+
 
 
 module.exports = router;
