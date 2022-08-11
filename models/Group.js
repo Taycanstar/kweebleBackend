@@ -24,6 +24,11 @@ const groupSchema = new Schema({
       type: [String],
     },
   ],
+  admin: [
+    {
+      type: [mongoose.Schema.Types.ObjectId],
+    },
+  ],
 });
 
 const Group = mongoose.model("Group", groupSchema);
