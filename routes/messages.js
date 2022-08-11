@@ -14,7 +14,8 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Message = require("../models/Message");
 
 router.post("/", async (req, res) => {
-  const { name, text, user, timestamp, recipient, receiverHasRead, groupId } = req.body;
+  const { name, text, user, timestamp, recipient, receiverHasRead, isGroup } =
+    req.body;
 
   try {
     const message = new Message({
@@ -24,7 +25,7 @@ router.post("/", async (req, res) => {
       recipient,
       user,
       receiverHasRead,
-      groupId,
+      isGroup,
     });
     await message.save();
 
@@ -49,15 +50,13 @@ router.put("/:id", async (req, res) => {
       receiverHasRead: req.body.receiverHasRead,
     });
 
+    const receiverHasRead = req.body.receiverHasRead;
 
-     const receiverHasRead = req.body.receiverHasRead
-
-      message.receiverHasRead = receiverHasRead;
+    message.receiverHasRead = receiverHasRead;
     await message.save();
   } catch (error) {
     res.send(error);
   }
 });
-
 
 module.exports = router;
