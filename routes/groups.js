@@ -70,7 +70,7 @@ router.post("/", async (req, res) => {
 
     return res
       .status(201)
-      .json({ message: "group created succesfully", groupId: "hi" });
+      .json({ message: "group created succesfully", groupId: group._id });
   } catch (error) {
     res.send(error);
   }
