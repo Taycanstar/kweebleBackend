@@ -79,6 +79,15 @@ messages
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const groups = await Group.find();
+    res.send(groups);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 
 
 
