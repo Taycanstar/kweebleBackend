@@ -17,7 +17,10 @@ const messageSchema = new Schema({
     required: true,
   },
   receiverHasRead: {
-    type: Boolean, 
+    type: Boolean,
+  },
+  groupId: {
+    type: mongoose.Schema.Types.ObjectId,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
