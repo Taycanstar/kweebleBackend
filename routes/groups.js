@@ -13,6 +13,16 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    public_id: (req, file) => Date.now(),
+  },
+});
+
+const upload = multer({ storage: storage });
+
 router.use("/image", express.static("uploads"));
 
 router.post(
