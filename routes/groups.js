@@ -55,27 +55,22 @@ router.post(
 );
 
 router.post("/", async (req, res) => {
-  const {
-    name,
-groupPhoto,
-description,
-members,
-messages,
-admin
-  } = req.body;
+  const { name, groupPhoto, description, members, messages, admin } = req.body;
 
   try {
     const group = new Group({
       name,
-   groupPhoto,
-   description,
-   members,
-   messages,
-   admin
+      groupPhoto,
+      description,
+      members,
+      messages,
+      admin,
     });
     await group.save();
 
-    return res.status(201).json({ message: "group created succesfully" });
+    return res
+      .status(201)
+      .json({ message: "group created succesfully", groupId: "hi" });
   } catch (error) {
     res.send(error);
   }
@@ -89,8 +84,5 @@ router.get("/", async (req, res) => {
     res.send(error);
   }
 });
-
-
-
 
 module.exports = router;
