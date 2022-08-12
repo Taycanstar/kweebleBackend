@@ -8,7 +8,7 @@ const groupSchema = new Schema({
     type: String,
     required: true,
   },
-  groupPhoto: {
+  photo: {
     type: String,
   },
   description: {

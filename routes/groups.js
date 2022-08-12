@@ -55,12 +55,12 @@ router.post(
 );
 
 router.post("/", async (req, res) => {
-  const { name, groupPhoto, description, members, messages, admin } = req.body;
+  const { name, photo, description, members, messages, admin } = req.body;
 
   try {
     const group = new Group({
       name,
-      groupPhoto,
+      photo,
       description,
       members,
       messages,
