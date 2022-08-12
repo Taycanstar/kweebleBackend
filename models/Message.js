@@ -19,8 +19,8 @@ const messageSchema = new Schema({
   receiverHasRead: {
     type: Boolean,
   },
-  groupId: {
-    type: mongoose.Schema.Types.ObjectId,
+  isGroup: {
+    type: Boolean,
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
