@@ -28,6 +28,9 @@ const groupSchema = new Schema({
     {
       type: [mongoose.Schema.Types.ObjectId],
     },
+    isGroup: {
+        type:Boolean
+    }
   ],
 });
 
