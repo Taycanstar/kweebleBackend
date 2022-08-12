@@ -8,6 +8,9 @@ const groupSchema = new Schema({
     type: String,
     required: true,
   },
+  isGroup: {
+    type: Boolean,
+  },
   photo: {
     type: String,
   },
@@ -28,9 +31,6 @@ const groupSchema = new Schema({
     {
       type: [mongoose.Schema.Types.ObjectId],
     },
-    isGroup: {
-        type:Boolean
-    }
   ],
 });
 
