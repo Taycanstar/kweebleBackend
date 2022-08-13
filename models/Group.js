@@ -19,12 +19,12 @@ const groupSchema = new Schema({
   },
   members: [
     {
-      type: [String],
+      type: [mongoose.Schema.Types.ObjectId],
     },
   ],
   mesages: [
     {
-      type: [String],
+      type: [mongoose.Schema.Types.ObjectId],
     },
   ],
   admin: [
