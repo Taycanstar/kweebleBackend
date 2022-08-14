@@ -87,4 +87,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const group = await Group.findByIdAndUpdate(req.params.id, {
+      name: req.body.name,
+      description: req.body.description,
+    });
+
+    // const name = req.body.name;
+
+    // message.receiverHasRead = receiverHasRead;
+    await group.save();
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
