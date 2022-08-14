@@ -17,25 +17,9 @@ const groupSchema = new Schema({
   description: {
     type: String,
   },
-  mesages: [
-    {
-      type: [mongoose.Schema.Types.ObjectId],
-    },
-  ],
-  admins: [
-     admin: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  ],
-  members: [
-   member: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  ],
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: "Message" }],
+  admins: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Group = mongoose.model("Group", groupSchema);
