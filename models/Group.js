@@ -17,20 +17,24 @@ const groupSchema = new Schema({
   description: {
     type: String,
   },
-  members: [
-    {
-      type: [mongoose.Schema.Types.ObjectId],
-    },
-  ],
   mesages: [
     {
       type: [mongoose.Schema.Types.ObjectId],
     },
   ],
-  admin: [
-    {
-      type: [mongoose.Schema.Types.ObjectId],
-    },
+  admins: [
+     admin: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  ],
+  members: [
+   member: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   ],
 });
 
