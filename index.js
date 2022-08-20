@@ -56,6 +56,7 @@ app.use("/api", require("./routes/data"));
 app.use("/events", require("./routes/events"));
 app.use("/groups", require("./routes/groups"));
 app.use("/messages", require("./routes/messages"));
+app.use("/products", require("./routes/products"));
 
 //db config
 const CONNECTION_URL =
