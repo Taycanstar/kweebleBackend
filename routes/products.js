@@ -11,7 +11,7 @@ const { copyFile, mkdir } = require("fs/promises");
 const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const Event = require("../models/Event");
+const Product = require("../models/Product");
 
 const secret = "test";
 
@@ -55,5 +55,28 @@ router.post(
     res.status(200).json({ imageURL: req.file.path });
   }
 );
+
+//Add product
+router.post("/", async (req, res) => {
+  const { title, description, photos, category, price, condition, seller } =
+    req.body;
+
+  try {
+    const product = new Product({
+      title,
+      description,
+      photos,
+      category,
+      price,
+      condition,
+      seller,
+    });
+    await product.save();
+
+    return res.status(201).json({ message: "Product created succesfully" });
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 module.exports = router;

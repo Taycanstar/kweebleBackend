@@ -7,7 +7,7 @@ const productSchema = new Schema(
     description: { type: String },
     photos: { type: Array, required: true },
     category: { type: String },
-    size: { type: String },
+    condition: { type: String },
     price: { type: Number, required: true },
     seller: {
       type: mongoose.Schema.Types.ObjectId,
