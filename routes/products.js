@@ -79,4 +79,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+//Get Product
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.send(products);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
