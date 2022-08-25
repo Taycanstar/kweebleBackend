@@ -36,18 +36,18 @@ router.post("/image", upload.array("image", 3), async (req, res) => {
     return;
   }
 
-  let ext;
-  switch (type) {
-    case "image/jpeg":
-      ext = "jpg";
-      break;
-    case "image/png":
-      ext = "png";
-      break;
-    default:
-      res.status(400).json({ error: "bad content type" });
-      return;
-  }
+  //   let ext;
+  //   switch (type) {
+  //     case "image/jpeg":
+  //       ext = "jpg";
+  //       break;
+  //     case "image/png":
+  //       ext = "png";
+  //       break;
+  //     default:
+  //       res.status(400).json({ error: "bad content type" });
+  //       return;
+  //   }
 
   res.status(200).json({ imageURL: path });
 });
