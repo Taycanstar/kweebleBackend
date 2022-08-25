@@ -28,15 +28,15 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 
 router.post("/image", upload.any(), async (req, res) => {
-  console.log("File is: ", req.file);
+  console.log("File is: ", req.filename);
 
-  if (req.file.size > 25 * 1024 * 1024) {
+  if (req.size > 25 * 1024 * 1024) {
     res.status(400).json({ error: "max file size of 2MB exceeded" });
     return;
   }
 
   let ext;
-  switch (req.file.mimetype) {
+  switch (req.mime) {
     case "image/jpeg":
       ext = "jpg";
       break;
@@ -48,7 +48,7 @@ router.post("/image", upload.any(), async (req, res) => {
       return;
   }
 
-  res.status(200).json({ imageURL: req.file.path });
+  res.status(200).json({ imageURL: req.path });
 });
 
 //Add product
