@@ -27,28 +27,82 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/image", upload.array("image", 3), async (req, res) => {
-  console.log("File is: ", req.filename);
+// router.post("/image", upload.array("image", 3), async (req, res) => {
+//   console.log("File is: ", req.filename);
 
-  if (req.size > 25 * 1024 * 1024) {
-    res.status(400).json({ error: "max file size of 2MB exceeded" });
-    return;
-  }
+//   if (req.size > 25 * 1024 * 1024) {
+//     res.status(400).json({ error: "max file size of 2MB exceeded" });
+//     return;
+//   }
 
-  let ext;
-  switch (req.mime) {
-    case "image/jpeg":
-      ext = "jpg";
-      break;
-    case "image/png":
-      ext = "png";
-      break;
-    default:
-      res.status(400).json({ error: "bad content type" });
+//   let ext;
+//   switch (req.mime) {
+//     case "image/jpeg":
+//       ext = "jpg";
+//       break;
+//     case "image/png":
+//       ext = "png";
+//       break;
+//     default:
+//       res.status(400).json({ error: "bad content type" });
+//       return;
+//   }
+
+//   res.status(200).json({ imageURL: req.path });
+// });
+
+const multi_upload = multer({
+  storage,
+  limits: { fileSize: 25 * 1024 * 1024 }, // 1MB
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      const err = new Error("Only .png, .jpg and .jpeg format allowed!");
+      err.name = "ExtensionError";
+      return cb(err);
+    }
+  },
+}).array("uploadedImages", 3);
+
+app.post("/image", (req, res) => {
+  multi_upload(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading.
+      res
+        .status(500)
+        .send({ error: { message: `Multer uploading error: ${err.message}` } })
+        .end();
       return;
-  }
+    } else if (err) {
+      // An unknown error occurred when uploading.
+      if (err.name == "ExtensionError") {
+        res
+          .status(413)
+          .send({ error: { message: err.message } })
+          .end();
+      } else {
+        res
+          .status(500)
+          .send({
+            error: { message: `unknown uploading error: ${err.message}` },
+          })
+          .end();
+      }
+      return;
+    }
 
-  res.status(200).json({ imageURL: req.path });
+    // Everything went fine.
+    // show file `req.files`
+    // show body `req.body`
+    // res.status(200).end("Your files uploaded.");
+    res.status(200).json({ imageURL: req.path });
+  });
 });
 
 //Add product
