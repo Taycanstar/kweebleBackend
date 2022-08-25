@@ -27,27 +27,27 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/image", upload.array("image", 3), async (req, res) => {
+router.post("/image", upload.array("image", 3), async (req, res, next) => {
   const type = req.body.type;
   const size = req.body.size;
   const path = req.body.path;
-  if (size > 25 * 1024 * 1024) {
-    res.status(400).json({ error: "max file size of 2MB exceeded" });
-    return;
-  }
+  //   if (size > 25 * 1024 * 1024) {
+  //     res.status(400).json({ error: "max file size of 2MB exceeded" });
+  //     return;
+  //   }
 
-  let ext;
-  switch (type) {
-    case "image/jpeg":
-      ext = "jpg";
-      break;
-    case "image/png":
-      ext = "png";
-      break;
-    default:
-      res.status(400).json({ error: "bad content type" });
-      return;
-  }
+  //   let ext;
+  //   switch (type) {
+  //     case "image/jpeg":
+  //       ext = "jpg";
+  //       break;
+  //     case "image/png":
+  //       ext = "png";
+  //       break;
+  //     default:
+  //       res.status(400).json({ error: "bad content type" });
+  //       return;
+  //   }
 
   res.status(200).json({ content: req.body });
 });
