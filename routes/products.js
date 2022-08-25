@@ -70,7 +70,7 @@ const multi_upload = multer({
   },
 }).array("uploadedImages", 3);
 
-app.post("/image", (req, res) => {
+router.post("/image", (req, res) => {
   multi_upload(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       // A Multer error occurred when uploading.
