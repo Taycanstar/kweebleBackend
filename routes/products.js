@@ -49,7 +49,7 @@ router.post("/image", upload.array("image", 3), async (req, res, next) => {
   //       return;
   //   }
 
-  res.status(200).json({ content: req.body });
+  res.status(200).json({ content: req._parts });
 });
 
 // const multi_upload = multer({
