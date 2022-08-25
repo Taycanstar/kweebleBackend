@@ -30,7 +30,7 @@ const upload = multer({ storage: storage });
 router.post("/image", upload.any(), async (req, res) => {
   console.log("File is: ", req.file);
 
-  if (req.file.size > 2 * 3000 * 3000) {
+  if (req.file.size > 25 * 1024 * 1024) {
     res.status(400).json({ error: "max file size of 2MB exceeded" });
     return;
   }
