@@ -107,8 +107,20 @@ router.post("/image", upload.array("image", 3), async (req, res, next) => {
 
 //Add product
 router.post("/", async (req, res) => {
-  const { title, description, photos, category, price, condition, seller } =
-    req.body;
+  const {
+    title,
+    description,
+    photos,
+    category,
+    price,
+    condition,
+    seller,
+    sellerPhoto,
+    sellerName,
+    sellerGradeLevel,
+    sellerMajor,
+    sellerUsername,
+  } = req.body;
 
   try {
     const product = new Product({
@@ -119,6 +131,11 @@ router.post("/", async (req, res) => {
       price,
       condition,
       seller,
+      sellerPhoto,
+      sellerName,
+      sellerGradeLevel,
+      sellerMajor,
+      sellerUsername,
     });
     await product.save();
 

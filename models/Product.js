@@ -14,6 +14,11 @@ const productSchema = new Schema(
       ref: "User",
       required: true,
     },
+    sellerPhoto: { type: String },
+    sellerName: { type: String },
+    sellerGradeLevel: { type: String },
+    sellerMajor: { type: String },
+    sellerUsername: { type: String },
   },
   { timestamps: true }
 );
