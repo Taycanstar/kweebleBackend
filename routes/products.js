@@ -28,7 +28,7 @@ router.use("/image", express.static("uploads"));
 
 router.post(
   "/image",
-  requireLogin,
+
   upload.array("image", 3),
   async (req, res, next) => {
     //   if (size > 25 * 1024 * 1024) {
@@ -49,7 +49,7 @@ router.post(
     //       return;
     //   }
 
-    return res.status(200).json({ content: req.file });
+    return res.status(200).json({ content: req.body });
   }
 );
 
