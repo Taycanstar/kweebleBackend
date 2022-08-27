@@ -15,8 +15,6 @@ const Product = require("../models/Product");
 
 const secret = "test";
 
-router.use("/image", express.static("uploads"));
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -26,6 +24,7 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
+router.use("/image", express.static("uploads"));
 
 router.post("/image", upload.array("image", 10), async (req, res, next) => {
   //   if (size > 25 * 1024 * 1024) {
