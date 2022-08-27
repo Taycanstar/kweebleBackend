@@ -99,8 +99,8 @@ router.post("/image", (req, res) => {
     // show file `req.files`
     // show body `req.body`
 
-    res.status(200).end("Your files uploaded.");
-    // res.status(200).json({ imageURL: req.body });
+    // res.status(200).end("Your files uploaded.");
+    res.status(200).json({ imageURL: req.body });
   });
 });
 
