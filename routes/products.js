@@ -46,7 +46,7 @@ router.post("/image", upload.any("image"), async (req, res, next) => {
   //       return;
   //   }
 
-  res.status(200).json({ content: req });
+  res.status(200).json({ content: req.image });
 });
 
 // const multi_upload = multer({
