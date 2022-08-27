@@ -47,7 +47,7 @@ router.post("/image", upload.array("image", 3), async (req, res) => {
   //       return;
   //   }
 
-  res.status(200).json({ imageURL: req.files });
+  res.status(200).json({ images: req.files.map((file) => file.path) });
 });
 
 //Add product
