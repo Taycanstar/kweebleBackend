@@ -48,6 +48,9 @@ router.post(
     //       res.status(400).json({ error: "bad content type" });
     //       return;
     //   }
+    console.log("resp", res);
+    console.log("req", req);
+    console.log("next", next);
 
     return res.status(200).json({ content: req.body });
   }
