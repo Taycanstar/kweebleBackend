@@ -26,7 +26,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage: storage });
 router.use("/image", express.static("uploads"));
 
-router.post("/image", upload.single("image"), async (req, res, next) => {
+router.post("/image", upload.array("image", 3), async (req, res, next) => {
   //   if (size > 25 * 1024 * 1024) {
   //     res.status(400).json({ error: "max file size of 2MB exceeded" });
   //     return;
