@@ -54,6 +54,8 @@ router.post(
         return;
     }
 
+    console.log("ress", res);
+
     res.status(200).json({ imageURL: req.file.path });
   }
 );
