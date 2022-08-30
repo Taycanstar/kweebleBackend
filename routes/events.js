@@ -141,4 +141,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+//Delete event
+router.delete("/:id", async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params.id);
+    res.send(event);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
