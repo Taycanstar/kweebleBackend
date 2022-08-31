@@ -100,4 +100,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+//Delete product
+router.delete("/:id", async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    res.send(product);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
