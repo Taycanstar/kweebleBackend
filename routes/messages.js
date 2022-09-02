@@ -59,4 +59,14 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//Delete message
+router.delete("/:id", async (req, res) => {
+  try {
+    const message = await Message.findByIdAndDelete(req.params.id);
+    res.send(message);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
