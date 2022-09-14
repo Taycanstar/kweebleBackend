@@ -103,4 +103,14 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//Delete group
+router.delete("/:id", async (req, res) => {
+  try {
+    const group = await Group.findByIdAndDelete(req.params.id);
+    res.send(group);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
