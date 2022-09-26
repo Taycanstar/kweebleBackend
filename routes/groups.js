@@ -55,7 +55,7 @@ router.post(
 );
 
 router.post("/", async (req, res) => {
-  const { name, photo, description, members, messages, admin, isGroup } =
+  const { name, photo, description, members, messages, admins, isGroup } =
     req.body;
 
   try {
@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
       description,
       members,
       messages,
-      admin,
+      admins,
       isGroup,
     });
     await group.save();
