@@ -116,7 +116,7 @@ router.delete("/:id", async (req, res) => {
 router.put("/admins/:id", async (req, res) => {
   try {
     const group = await Group.findByIdAndUpdate(req.params.id, {
-      admins: req.body.participants,
+      admins: req.body.admins,
     });
 
     // const name = req.body.name;
