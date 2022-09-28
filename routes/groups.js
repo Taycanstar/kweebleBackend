@@ -113,10 +113,10 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/participants/:id", async (req, res) => {
+router.put("/admins/:id", async (req, res) => {
   try {
     const group = await Group.findByIdAndUpdate(req.params.id, {
-      participants: req.body.participants,
+      admins: req.body.participants,
     });
 
     // const name = req.body.name;
