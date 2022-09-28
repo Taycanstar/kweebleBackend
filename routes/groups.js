@@ -113,4 +113,19 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/participants/:id", async (req, res) => {
+  try {
+    const group = await Group.findByIdAndUpdate(req.params.id, {
+      participants: req.body.participants,
+    });
+
+    // const name = req.body.name;
+
+    // message.receiverHasRead = receiverHasRead;
+    await group.save();
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
