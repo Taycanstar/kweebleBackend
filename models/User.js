@@ -51,6 +51,7 @@ const userSchema = new Schema(
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
+    scopes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Scope" }],
   },
   { timestamps: true }
 );
