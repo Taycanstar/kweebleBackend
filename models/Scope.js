@@ -8,6 +8,15 @@ const scopeSchema = new Schema({
   name: {
     type: String,
   },
+  details: {
+    type: String,
+  },
+  photo: {
+    type: String,
+  },
+  type: {
+    type: String,
+  },
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   products: [productSchema],
   events: [eventSchema],
