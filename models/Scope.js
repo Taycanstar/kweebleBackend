@@ -17,7 +17,9 @@ const scopeSchema = new Schema({
   type: {
     type: String,
   },
-  products: [productSchema],
+  products: {
+    type: [productSchema],
+  },
   events: [eventSchema],
   messages: [messageSchema],
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
