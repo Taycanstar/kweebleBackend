@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const productSchema = require("./Product");
+const productSchema = require("./Product").schema;
 const eventSchema = require("./Event");
 const messageSchema = require("./Message");
 
@@ -17,9 +17,7 @@ const scopeSchema = new Schema({
   type: {
     type: String,
   },
-  products: {
-    type: [productSchema],
-  },
+  products: [productSchema],
   events: [eventSchema],
   messages: [messageSchema],
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
