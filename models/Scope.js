@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const productSchema = require("./Product").schema;
-const eventSchema = require("./Event");
-const messageSchema = require("./Message");
+const eventSchema = require("./Event").schema;
+const messageSchema = require("./Message").schema;
 
 const scopeSchema = new Schema({
   name: {
