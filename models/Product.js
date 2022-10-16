@@ -19,7 +19,12 @@ const productSchema = new Schema(
     sellerGradeLevel: { type: String },
     sellerMajor: { type: String },
     sellerUsername: { type: String },
+    scope: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Scope",
+    },
   },
+
   { timestamps: true }
 );
 

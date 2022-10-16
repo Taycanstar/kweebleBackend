@@ -103,6 +103,7 @@ router.post("/", async (req, res) => {
     user,
     host,
     icon,
+    scope,
   } = req.body;
 
   try {
@@ -123,6 +124,7 @@ router.post("/", async (req, res) => {
       user,
       host,
       icon,
+      scope,
     });
     await event.save();
 
