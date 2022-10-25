@@ -23,6 +23,9 @@ const productSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Scope",
     },
+    isSold: {
+      type: Boolean,
+    },
   },
 
   { timestamps: true }
