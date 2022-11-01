@@ -104,6 +104,7 @@ router.post("/", async (req, res) => {
     host,
     icon,
     scope,
+    going,
   } = req.body;
 
   try {
@@ -125,6 +126,7 @@ router.post("/", async (req, res) => {
       host,
       icon,
       scope,
+      going,
     });
     await event.save();
 
