@@ -145,6 +145,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    res.send(event);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 //Delete event
 router.delete("/:id", async (req, res) => {
   try {
