@@ -63,6 +63,9 @@ const eventSchema = new Schema({
   goingBtn: {
     type: String,
   },
+  goingBtnText: {
+    type: String,
+  },
 });
 
 const Event = mongoose.model("Event", eventSchema);
