@@ -165,19 +165,26 @@ router.put("/:id", async (req, res) => {
     //singleEvent.data.users.push(clientEventdata);
     // await Event.save(singleEvent);
 
-    // const sameUser = singleEvent.users.find((user) => user.id === id);
-    // console.log(singleEvent.users);
-    // res.send(singleEvent);
+    const sameUser = singleEvent.users.find((user) => user.id == id);
+    //console.log(sameUser);
+    //res.send(singleEvent);
 
-    // if (sameUser) {
-    //   res.send("you can't update for same user");
-    // } else {
-    const event = await Event.update(
-      { _id: req.params.id },
-      { $addToSet: { users: clientEventdata } }
-    );
-    res.send(event);
-    // }
+    if (sameUser) {
+      res.send("you can't update for same user");
+      const sameUser = singleEvent.users.find((user) => user.id == id);
+      singleEvent.users = singleEvent.users.map((i) =>
+        i.id == id ? req.body : i
+      );
+
+      await singleEvent.save();
+      res.send(singleEvent);
+    } else {
+      const event = await Event.update(
+        { _id: req.params.id },
+        { $addToSet: { users: clientEventdata } }
+      );
+      res.send(event);
+    }
 
     //console.log(req.body, "<===body");
 
