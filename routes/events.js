@@ -165,7 +165,7 @@ router.put("/:id", async (req, res) => {
     //singleEvent.data.users.push(clientEventdata);
     // await Event.save(singleEvent);
 
-    const sameUser = singleEvent.data.users.find((user) => user.id === id);
+    const sameUser = singleEvent.users.find((user) => user.id === id);
 
     res.send(sameUser);
 
