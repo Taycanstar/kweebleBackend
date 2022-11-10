@@ -107,6 +107,7 @@ router.post("/", async (req, res) => {
     going,
     goingBtn,
     goingBtnText,
+    users,
   } = req.body;
 
   try {
@@ -131,6 +132,7 @@ router.post("/", async (req, res) => {
       going,
       goingBtn,
       goingBtnText,
+      users,
     });
     await event.save();
 
