@@ -153,11 +153,17 @@ router.get("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const going = req.body.going;
-    const goingBtn = req.body.goingBtn;
-    const goingBtnText = req.body.goingBtnText;
+    const { id, going, goingBtn, goingBtnText } = req.body;
 
     const singleEvent = await Event.findById(req.params.id);
+    const clientEventdata = {
+      id,
+      going,
+      goingBtn,
+      goingBtnText,
+    };
+    singleEvent.users.push(clientEventdata);
+    await Event.save(singleEvent);
     res.send(singleEvent);
     //console.log(req.body, "<===body");
 
