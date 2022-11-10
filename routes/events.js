@@ -162,7 +162,7 @@ router.put("/:id", async (req, res) => {
       goingBtn,
       goingBtnText,
     };
-    singleEvent.users.push(clientEventdata);
+    singleEvent.data.users.push(clientEventdata);
     await Event.save(singleEvent);
     res.send(singleEvent);
     //console.log(req.body, "<===body");
