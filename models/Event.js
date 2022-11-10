@@ -57,6 +57,10 @@ const eventSchema = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Scope",
   },
+  users: {
+    id: mongoose.Schema.Types.ObjectId,
+    going: String,
+  },
   going: {
     type: String,
   },
