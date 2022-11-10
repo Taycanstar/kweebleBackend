@@ -157,7 +157,9 @@ router.put("/:id", async (req, res) => {
     const goingBtn = req.body.goingBtn;
     const goingBtnText = req.body.goingBtnText;
 
-    console.log(req.body, "<===body");
+    const singleEvent = await Event.findById(req.params.id);
+    res.send(singleEvent);
+    //console.log(req.body, "<===body");
 
     // const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
     //   new: true,

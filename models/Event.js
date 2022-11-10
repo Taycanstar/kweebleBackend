@@ -61,17 +61,10 @@ const eventSchema = new Schema({
     {
       id: mongoose.Schema.Types.ObjectId,
       going: String,
+      goingBtn: String,
+      goingBtnText: String,
     },
   ],
-  going: {
-    type: String,
-  },
-  goingBtn: {
-    type: String,
-  },
-  goingBtnText: {
-    type: String,
-  },
 });
 
 const Event = mongoose.model("Event", eventSchema);
