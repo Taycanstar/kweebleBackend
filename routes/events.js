@@ -164,7 +164,7 @@ router.put("/:id", async (req, res) => {
     };
     //singleEvent.data.users.push(clientEventdata);
     // await Event.save(singleEvent);
-    res.send(singleEvent.data);
+    res.send(singleEvent);
     //console.log(req.body, "<===body");
 
     // const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
