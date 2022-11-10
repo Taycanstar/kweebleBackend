@@ -164,7 +164,12 @@ router.put("/:id", async (req, res) => {
     };
     //singleEvent.data.users.push(clientEventdata);
     // await Event.save(singleEvent);
-    res.send(singleEvent);
+
+    const event = await Event.update(
+      { _id: req.params.id },
+      { $addToSet: { users: clientEventdata } }
+    );
+    res.send(event);
     //console.log(req.body, "<===body");
 
     // const event = await Event.findByIdAndUpdate(req.params.id, req.body, {
