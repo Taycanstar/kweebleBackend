@@ -164,7 +164,6 @@ router.put("/:id", async (req, res) => {
     //res.send(singleEvent);
 
     if (sameUser) {
-      res.send("you can't update for same user");
       const sameUser = singleEvent.users.find((user) => user.id == id);
       singleEvent.users = singleEvent.users.map((i) =>
         i.id == id ? req.body : i
