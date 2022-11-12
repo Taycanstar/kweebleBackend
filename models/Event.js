@@ -60,7 +60,7 @@ const eventSchema = new Schema({
   users: [
     {
       id: mongoose.Schema.Types.ObjectId,
-      going: String,
+      going: Boolean,
       goingBtn: String,
       goingBtnText: String,
     },
