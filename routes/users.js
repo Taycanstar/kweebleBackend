@@ -470,11 +470,11 @@ router.get("/events", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   try {
-    const { scope } = req.body;
+    const { scope, id } = req.body;
 
     // const user = req.user;
     const user = await User.update(
-      { _id: req.params.id },
+      { _id: id },
       { $addToSet: { scopes: scope } }
     );
     await user.save();
