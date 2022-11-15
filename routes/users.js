@@ -480,7 +480,7 @@ router.put("/:id", async (req, res) => {
     await user.save();
     res.send(user);
 
-    // console.log(req.body, "<===body");
+    console.log(req.body, "<===body");
   } catch (error) {
     res.send(error);
   }
