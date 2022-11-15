@@ -472,10 +472,13 @@ router.put("/:id", async (req, res) => {
   try {
     const { scope } = req.body;
 
-    const user = req.user;
-    user.data.scopes.push(scope);
+    // const user = req.user;
+    const user = await User.update(
+      { _id: req.params.id },
+      { $addToSet: { scopes: scope } }
+    );
     await user.save();
-    res.send(req.user);
+    res.send(user);
 
     // console.log(req.body, "<===body");
   } catch (error) {
