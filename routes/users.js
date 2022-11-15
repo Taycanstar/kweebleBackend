@@ -139,7 +139,6 @@ router.post(
   }
 );
 
-
 router.put("/", requireLogin, async (req, res) => {
   // TODO: Validate the data
   const {
@@ -464,6 +463,21 @@ router.get("/events", async (req, res) => {
   try {
     const events = await Event.find();
     res.send(events);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  try {
+    const { scope } = req.body;
+
+    const user = req.user;
+    user.data.scopes.push(scope);
+    await user.save();
+    res.send(req.user);
+
+    // console.log(req.body, "<===body");
   } catch (error) {
     res.send(error);
   }
