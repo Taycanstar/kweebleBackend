@@ -77,7 +77,9 @@ router.post("/newScope", async (req, res) => {
     });
     await scope.save();
 
-    return res.status(201).json({ message: "Scope created succesfully" });
+    return res
+      .status(201)
+      .json({ message: "Scope created succesfully", scope: scope });
   } catch (error) {
     res.send(error);
   }

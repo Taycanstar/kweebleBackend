@@ -18,6 +18,7 @@ const scopeSchema = new Schema({
   },
   type: {
     type: String,
+    required: true,
   },
   products: [productSchema],
   events: [eventSchema],

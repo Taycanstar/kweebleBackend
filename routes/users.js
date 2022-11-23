@@ -471,16 +471,14 @@ router.get("/events", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
-
-    // const user = req.user;
+    console.log(req.body, "<===body");
     const user = await User.update(
       { _id: id },
       { $addToSet: { scopes: scope } }
     );
+    console.log(user, "<==user");
     await user.save();
     res.send(user);
-
-    console.log(req.body, "<===body");
   } catch (error) {
     res.send(error);
   }
