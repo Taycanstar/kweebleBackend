@@ -468,15 +468,31 @@ router.get("/events", async (req, res) => {
   }
 });
 
+// router.put("/:id", async (req, res) => {
+//   try {
+//     const { scope, id } = req.body;
+//     console.log(req.body, "<===body");
+//     const user = await User.update(
+//       { _id: id },
+//       { $addToSet: { scopes: scope } }
+//     );
+//     console.log(user, "<==user");
+//     await user.save();
+//     res.send(user);
+//   } catch (error) {
+//     res.send(error);
+//   }
+// });
+
 router.put("/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
-    console.log(req.body, "<===body");
+    // console.log(req.body, "<===body");
     const user = await User.update(
       { _id: id },
       { $addToSet: { scopes: scope } }
     );
-    console.log(user, "<==user");
+    // console.log(user, "<==user");
     await user.save();
     res.send(user);
   } catch (error) {
