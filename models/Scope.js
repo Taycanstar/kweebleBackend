@@ -20,6 +20,9 @@ const scopeSchema = new Schema({
     type: String,
     required: true,
   },
+  isScope: {
+    type: Boolean,
+  },
   products: [productSchema],
   events: [eventSchema],
   messages: [messageSchema],
