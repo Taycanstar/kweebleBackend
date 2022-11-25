@@ -61,14 +61,24 @@ router.post(
 
 //Add event
 router.post("/newScope", async (req, res) => {
-  const { name, details, photo, type, members, products, events, messages } =
-    req.body;
+  const {
+    name,
+    isScope,
+    details,
+    photo,
+    type,
+    members,
+    products,
+    events,
+    messages,
+  } = req.body;
 
   try {
     const scope = new Scope({
       name,
       details,
       photo,
+      isScope,
       type,
       members,
       products,
