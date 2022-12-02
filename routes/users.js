@@ -492,7 +492,7 @@ router.put("/:id", async (req, res) => {
       { _id: id },
       { $addToSet: { scopes: scope } }
     );
-    // console.log(user, "<==user");
+    console.log(user, "<==user");
     await user.save();
     res.send(user);
   } catch (error) {
