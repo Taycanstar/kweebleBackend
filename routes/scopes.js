@@ -132,4 +132,22 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//delete member
+router.put("/del/:id", async (req, res) => {
+  try {
+    const { member, id } = req.body;
+
+    // console.log(req.body, "<===body");
+    const scope = await Scope.update(
+      { _id: id },
+      { $pull: { members: member } }
+    );
+    // console.log(user, "<==user");
+    await scope.save();
+    res.send(scope);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
