@@ -139,7 +139,7 @@ router.put("/del/:id", async (req, res) => {
 
     // console.log(req.body, "<===body");
     const scope = await Scope.updateOne(
-      { _id: id },
+      { _id: req.params.id },
       { $pull: { members: { $in: [member] } } }
     );
     // console.log(user, "<==user");
