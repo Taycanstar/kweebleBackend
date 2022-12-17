@@ -120,7 +120,7 @@ router.put("/:id", async (req, res) => {
     const { member, id } = req.body;
 
     // console.log(req.body, "<===body");
-    const scope = await Scope.update(
+    const scope = await Scope.updateOne(
       { _id: req.params.id },
       { $addToSet: { members: member } }
     );
@@ -135,12 +135,12 @@ router.put("/:id", async (req, res) => {
 //delete member
 router.put("/del/:id", async (req, res) => {
   try {
-    const { member, id } = req.body;
+    const { mem, id } = req.body;
 
-    // console.log(req.body, "<===body");
+    console.log(req.body, "<===body");
     const scope = await Scope.updateOne(
       { _id: req.params.id },
-      { $pull: { members: { $in: [member] } } }
+      { $pull: { members: { $in: [mem] } } }
     );
     // console.log(user, "<==user");
     await scope.save();
