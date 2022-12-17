@@ -172,7 +172,7 @@ router.put("/:id", async (req, res) => {
       await singleEvent.save();
       res.send(singleEvent);
     } else {
-      const event = await Event.update(
+      const event = await Event.updateOne(
         { _id: req.params.id },
         { $addToSet: { users: clientEventdata } }
       );

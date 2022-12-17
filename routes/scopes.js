@@ -138,7 +138,7 @@ router.put("/del/:id", async (req, res) => {
     const { member, id } = req.body;
 
     // console.log(req.body, "<===body");
-    const scope = await Scope.update(
+    const scope = await Scope.updateOne(
       { _id: id },
       { $pull: { members: { $in: [member] } } }
     );

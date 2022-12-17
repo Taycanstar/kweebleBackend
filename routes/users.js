@@ -488,7 +488,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
     console.log(req.body, "<===body");
-    const user = await User.update(
+    const user = await User.updateOne(
       { _id: id },
       { $addToSet: { scopes: scope } }
     );
