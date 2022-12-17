@@ -114,54 +114,15 @@ router.delete("/newScopes/:id", async (req, res) => {
   }
 });
 
+//Add member
 router.put("/:id", async (req, res) => {
   try {
-    const {
-      name,
-      location,
-      month,
-      day,
-      year,
-      startTime,
-      endDay,
-      endTime,
-      datetime,
-      latitude,
-      longitude,
-      image,
-      description,
-      user,
-      host,
-      icon,
-      scope,
-      users,
-      id,
-    } = req.body;
+    const { member, id } = req.body;
 
-    const eventDetails = {
-      name,
-      location,
-      month,
-      day,
-      year,
-      startTime,
-      endDay,
-      endTime,
-      datetime,
-      latitude,
-      longitude,
-      image,
-      description,
-      user,
-      host,
-      icon,
-      scope,
-      users,
-    };
-    console.log(req.body, "<===body");
+    // console.log(req.body, "<===body");
     const scope = await Scope.update(
       { _id: id },
-      { $addToSet: { events: eventDetails } }
+      { $addToSet: { members: member } }
     );
     // console.log(user, "<==user");
     await scope.save();
