@@ -64,26 +64,24 @@ router.post("/newScope", async (req, res) => {
   const {
     name,
     isScope,
-    details,
+    info,
     photo,
-    type,
+    membership,
     members,
-    products,
-    events,
     messages,
+    moderators,
   } = req.body;
 
   try {
     const scope = new Scope({
       name,
-      details,
+      info,
       photo,
       isScope,
-      type,
+      membership,
       members,
-      products,
-      events,
       messages,
+      moderators,
     });
     await scope.save();
 

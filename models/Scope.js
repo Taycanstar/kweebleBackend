@@ -10,23 +10,22 @@ const scopeSchema = new Schema({
     unique: true,
     required: true,
   },
-  details: {
+  info: {
     type: String,
   },
   photo: {
     type: String,
   },
-  type: {
+  membership: {
     type: String,
     required: true,
   },
   isScope: {
     type: Boolean,
   },
-  products: [productSchema],
-  events: [eventSchema],
   messages: [messageSchema],
   members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  moderators: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Scope = mongoose.model("Scope", scopeSchema);
