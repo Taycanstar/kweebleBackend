@@ -144,7 +144,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Delete event
+//Delete scope
 router.delete("/newScopes/:id", async (req, res) => {
   try {
     const scope = await Scope.findByIdAndDelete(req.params.id);
@@ -191,7 +191,7 @@ router.put("/del/:id", async (req, res) => {
 });
 
 //Edit photo
-router.put("photo/:id", async (req, res) => {
+router.put("/photo/:id", async (req, res) => {
   try {
     const { photo, id } = req.body;
 
