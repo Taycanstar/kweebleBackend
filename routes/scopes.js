@@ -69,21 +69,15 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage: storage });
 
-router.use("/photo", express.static("uploads"));
+router.use("/image", express.static("uploads"));
 
 router.post(
-  "/photo",
+  "/image",
   requireLogin,
-  upload.single("photo"),
+  upload.single("image"),
   async (req, res) => {
     console.log("File is: ", req.file);
 
-    // TODO: Convert into appropriate dimensions (save a thumbnail)
-
-    // if (req.file.size > 2 * 1024 * 1024) {
-    //   res.status(400).json({ error: "max file size of 2MB exceeded" });
-    //   return;
-    // }
     if (req.file.size > 2 * 3000 * 3000) {
       res.status(400).json({ error: "max file size of 2MB exceeded" });
       return;
@@ -102,13 +96,11 @@ router.post(
         return;
     }
 
-    req.user.photo = req.file.path;
-    await req.user.save();
+    // console.log("ress", res);
 
-    res.status(200).json(req.user);
+    res.status(200).json({ imageURL: req.file.path });
   }
 );
-
 //Add event
 router.post("/newScope", async (req, res) => {
   const {
