@@ -62,14 +62,14 @@ const secret = "test";
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "uploads",
+    folder: "scopePP",
     public_id: (req, file) => Date.now(),
   },
 });
 
 const upload = multer({ storage: storage });
 
-router.use("/image", express.static("uploads"));
+router.use("/image", express.static("scopePP"));
 
 router.post(
   "/image",
@@ -193,7 +193,7 @@ router.put("/del/:id", async (req, res) => {
 //Edit photo
 router.put("/photo/:id", async (req, res) => {
   try {
-    // const { photo, id } = req.body;
+    const { photo, id } = req.body;
 
     const scope = await Scope.findByIdAndUpdate(req.params.id, {
       photo: photo,
