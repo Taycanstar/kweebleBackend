@@ -203,7 +203,7 @@ router.put("/photo/:id", async (req, res) => {
       { _id: req.params.id },
       { photo: photo }
     );
-    console.log(scope, "<==scope");
+    console.log(scope, "<=scope");
 
     await scope.save();
     res.send(scope);
