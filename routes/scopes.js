@@ -195,14 +195,14 @@ router.put("/photo/:id", async (req, res) => {
   try {
     const { photo, id } = req.body;
 
-    const scope = await Scope.findByIdAndUpdate(req.params.id, {
-      photo: photo,
-    });
+    // const scope = await Scope.findByIdAndUpdate(req.params.id, {
+    //   photo: photo,
+    // });
 
-    // const scope = await Scope.updateOne(
-    //   { _id: req.body.id },
-    //   { photo: req.body.photo }
-    // );
+    const scope = await Scope.updateOne(
+      { _id: req.params.id },
+      { photo: photo }
+    );
     console.log(scope, "<==scope");
 
     await scope.save();
