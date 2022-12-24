@@ -191,18 +191,21 @@ router.put("/del/:id", async (req, res) => {
 });
 
 //Edit photo
-router.put("/photo/:id", async (req, res) => {
+router.put("/edit/:id", async (req, res) => {
   try {
-    const { photo, id } = req.body;
+    const { name, info, type, photo, id } = req.body;
 
-    // const scope = await Scope.findByIdAndUpdate(req.params.id, {
-    //   photo: photo,
-    // });
+    const scope = await Scope.findByIdAndUpdate(req.params.id, {
+      name: name,
+      info: info,
+      membership: type,
+      photo: photo,
+    });
 
-    const scope = await Scope.updateOne(
-      { _id: req.params.id },
-      { photo: photo }
-    );
+    // const scope = await Scope.updateOne(
+    //   { _id: req.params.id },
+    //   { photo: photo }
+    // );
     console.log(scope, "<=scope");
 
     await scope.save();
