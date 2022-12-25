@@ -215,4 +215,40 @@ router.put("/edit/:id", async (req, res) => {
   }
 });
 
+//Add mod
+router.put("/mod/:id", async (req, res) => {
+  try {
+    const { member, id } = req.body;
+
+    // console.log(req.body, "<===body");
+    const scope = await Scope.updateOne(
+      { _id: req.params.id },
+      { $addToSet: { moderators: member } }
+    );
+    // console.log(user, "<==user");
+    await scope.save();
+    res.send(scope);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//delete member
+router.put("/mod/del/:id", async (req, res) => {
+  try {
+    const { mem, id } = req.body;
+
+    console.log(req.body, "<===body");
+    const scope = await Scope.updateOne(
+      { _id: req.params.id },
+      { $pull: { moderators: { $in: [mem] } } }
+    );
+    // console.log(user, "<==user");
+    await scope.save();
+    res.send(scope);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
