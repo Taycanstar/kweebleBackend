@@ -233,7 +233,7 @@ router.put("/mod/:id", async (req, res) => {
   }
 });
 
-//delete member
+//delete mod
 router.put("/mod/del/:id", async (req, res) => {
   try {
     const { mem, id } = req.body;
