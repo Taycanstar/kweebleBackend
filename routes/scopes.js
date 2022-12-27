@@ -16,49 +16,6 @@ const Scope = require("../models/Scope");
 
 const secret = "test";
 
-// const storage = new CloudinaryStorage({
-//   cloudinary: cloudinary,
-//   params: {
-//     folder: "uploads",
-//     public_id: (req, file) => Date.now(),
-//   },
-// });
-
-// const upload = multer({ storage: storage });
-
-// router.use("/image", express.static("uploads"));
-
-// router.post(
-//   "/image",
-
-//   upload.single("image"),
-//   async (req, res) => {
-//     console.log("File is: ", req.file);
-
-//     if (req.file.size > 2 * 3000 * 3000) {
-//       res.status(400).json({ error: "max file size of 2MB exceeded" });
-//       return;
-//     }
-
-//     let ext;
-//     switch (req.file.mimetype) {
-//       case "image/jpeg":
-//         ext = "jpg";
-//         break;
-//       case "image/png":
-//         ext = "png";
-//         break;
-//       default:
-//         res.status(400).json({ error: "bad content type" });
-//         return;
-//     }
-
-//     console.log("ress", res);
-
-//     res.status(200).json({ imageURL: req.file.path });
-//   }
-// );
-
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
@@ -101,7 +58,8 @@ router.post(
     res.status(200).json({ imageURL: req.file.path });
   }
 );
-//Add event
+
+//Add scope
 router.post("/newScope", async (req, res) => {
   const {
     name,
@@ -135,6 +93,7 @@ router.post("/newScope", async (req, res) => {
   }
 });
 
+//Fetch all scopes
 router.get("/", async (req, res) => {
   try {
     const scopes = await Scope.find();
