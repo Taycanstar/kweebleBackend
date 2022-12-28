@@ -40,7 +40,7 @@ router.post("/new", async (req, res) => {
   }
 });
 
-//Fetch all scopes
+//Fetch all notifications
 router.get("/", async (req, res) => {
   try {
     const notifications = await Notification.find();
@@ -50,7 +50,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-//Delete scope
+//Delete notification
 router.delete("/:id", async (req, res) => {
   try {
     const notification = await Notification.findByIdAndDelete(req.params.id);
