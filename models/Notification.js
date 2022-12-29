@@ -9,9 +9,13 @@ const notificationSchema = new Schema(
     type: {
       type: String,
     },
+    typeId: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
     photo: {
       type: String,
     },
+
     to: {
       type: String,
     },
