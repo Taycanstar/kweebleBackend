@@ -55,7 +55,9 @@ router.get("/", async (req, res) => {
 router.delete("/del", async (req, res) => {
   const { typeId } = req.body;
   try {
-    const notification = await Notification.deleteMany({ typeId: typeId });
+    const notification = await Notification.deleteMany({
+      typeId: { $in: TypeId },
+    });
     res.send(notification);
   } catch (error) {
     res.send(error);
