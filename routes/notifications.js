@@ -53,8 +53,9 @@ router.get("/", async (req, res) => {
 
 //Delete notification
 router.delete("/:id", async (req, res) => {
+  const { typeId } = req.body;
   try {
-    const notification = await Notification.findByIdAndDelete(req.params.id);
+    const notification = await Notification.deleteMany({ typeId: typeId });
     res.send(notification);
   } catch (error) {
     res.send(error);
