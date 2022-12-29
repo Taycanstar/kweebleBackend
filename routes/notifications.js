@@ -52,7 +52,7 @@ router.get("/", async (req, res) => {
 });
 
 //Delete notification
-router.delete("/:id", async (req, res) => {
+router.delete("/del", async (req, res) => {
   const { typeId } = req.body;
   try {
     const notification = await Notification.deleteMany({ typeId: typeId });
