@@ -18,8 +18,8 @@ const notificationSchema = new Schema(
     time: {
       type: Date,
     },
-    to: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    from: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    to: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    from: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
