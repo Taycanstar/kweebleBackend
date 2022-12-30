@@ -19,9 +19,7 @@ const notificationSchema = new Schema(
     to: {
       type: String,
     },
-    time: {
-      type: Date,
-    },
+
     to: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     from: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   },

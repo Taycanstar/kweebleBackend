@@ -18,14 +18,13 @@ const secret = "test";
 
 //new notification
 router.post("/new", async (req, res) => {
-  const { text, type, typeId, time, to, from, photo } = req.body;
+  const { text, type, typeId, to, from, photo } = req.body;
 
   try {
     const notification = new Notification({
       text,
       type,
       typeId,
-      time,
       to,
       from,
       photo,
