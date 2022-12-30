@@ -30,6 +30,8 @@ router.post("/new", async (req, res) => {
       from,
       photo,
     });
+
+    console.log(req.body, "lol");
     await notification.save();
 
     return res.status(201).json({
@@ -52,12 +54,14 @@ router.get("/", async (req, res) => {
 });
 
 //Delete notification
-router.delete("/del", async (req, res) => {
-  const { typeid } = req.body;
+router.delete("/del/:typeId", async (req, res) => {
   try {
     const notification = await Notification.deleteMany({
-      typeId: [typeid],
+      typeId: req.params.typeId,
     });
+    // console.log(notification, "=> res");
+    // console.log(req.params, "=> bodyx");
+
     res.send(notification);
   } catch (error) {
     res.send(error);
