@@ -116,4 +116,37 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+//Interested feature
+router.put("/:id", async (req, res) => {
+  try {
+    const { id, interested } = req.body;
+
+    const singleProduct = await Product.findById(req.params.id);
+    const clientEventdata = {
+      id,
+      interested,
+    };
+
+    const sameUser = singleProduct.users.find((user) => user.id == id);
+
+    if (sameUser) {
+      const sameUser = singleProduct.users.find((user) => user.id == id);
+      singleProduct.users = singleProduct.users.map((i) =>
+        i.id == id ? req.body : i
+      );
+
+      await singleProduct.save();
+      res.send(singleProduct);
+    } else {
+      const product = await Product.updateOne(
+        { _id: req.params.id },
+        { $addToSet: { users: clientEventdata } }
+      );
+      res.send(event);
+    }
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
