@@ -26,6 +26,12 @@ const productSchema = new Schema(
     isSold: {
       type: Boolean,
     },
+    users: [
+      {
+        id: mongoose.Schema.Types.ObjectId,
+        interested: Boolean,
+      },
+    ],
   },
 
   { timestamps: true }
