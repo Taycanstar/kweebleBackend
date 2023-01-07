@@ -142,7 +142,7 @@ router.put("/:id", async (req, res) => {
         { _id: req.params.id },
         { $addToSet: { users: clientEventdata } }
       );
-      res.send(event);
+      res.send(product);
     }
   } catch (error) {
     res.send(error);
