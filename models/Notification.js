@@ -19,9 +19,11 @@ const notificationSchema = new Schema(
     to: {
       type: String,
     },
-
     to: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     from: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    seen: {
+      type: Boolean,
+    },
   },
   { timestamps: true }
 );

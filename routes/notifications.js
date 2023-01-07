@@ -18,7 +18,7 @@ const secret = "test";
 
 //new notification
 router.post("/new", async (req, res) => {
-  const { text, type, typeId, to, from, photo } = req.body;
+  const { text, type, typeId, seen, to, from, photo } = req.body;
 
   try {
     const notification = new Notification({
@@ -28,6 +28,7 @@ router.post("/new", async (req, res) => {
       to,
       from,
       photo,
+      seen,
     });
 
     console.log(req.body, "lol");
@@ -61,6 +62,24 @@ router.delete("/del/:typeId", async (req, res) => {
     // console.log(notification, "=> res");
     // console.log(req.params, "=> bodyx");
 
+    res.send(notification);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//Set notification to seen
+router.put("/:id", async (req, res) => {
+  try {
+    const { seen, id } = req.body;
+
+    // console.log(req.body, "<===body");
+    const notification = await Notification.updateOne(
+      { _id: req.params.id },
+      { seen: seen }
+    );
+    // console.log(user, "<==user");
+    await notification.save();
     res.send(notification);
   } catch (error) {
     res.send(error);
