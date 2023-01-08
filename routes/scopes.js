@@ -118,16 +118,22 @@ router.put("/:id", async (req, res) => {
   try {
     const { member, id } = req.body;
 
-    // console.log(req.body, "<===body");
-    const scope = await Scope.updateOne(
-      { _id: req.params.id },
-      { $addToSet: { members: member } }
-    );
-    // console.log(user, "<==user");
-    await scope.save();
+    let user = await User.findOne({ member });
+    if (user) {
+      // console.log(req.body, "<===body");
+      const scope = await Scope.updateOne(
+        { _id: req.params.id },
+        { $addToSet: { members: member } }
+      );
+      // console.log(user, "<==user");
+      await scope.save();
+    } else {
+      return res.status(400).json({ error: "User not found" });
+    }
+
     res.send(scope);
   } catch (error) {
-    res.send(error);
+    res.send(error, { message: "User not found" });
   }
 });
 
@@ -188,7 +194,7 @@ router.put("/mod/:id", async (req, res) => {
     await scope.save();
     res.send(scope);
   } catch (error) {
-    res.send(error);
+    res.send(error, { message: "User not found" });
   }
 });
 

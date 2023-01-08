@@ -122,7 +122,7 @@ router.put("/:id", async (req, res) => {
     const { id, interested } = req.body;
 
     const singleProduct = await Product.findById(req.params.id);
-    const clientEventdata = {
+    const clientData = {
       id,
       interested,
     };
@@ -140,7 +140,7 @@ router.put("/:id", async (req, res) => {
     } else {
       const product = await Product.updateOne(
         { _id: req.params.id },
-        { $addToSet: { users: clientEventdata } }
+        { $addToSet: { users: clientData } }
       );
       res.send(product);
     }
