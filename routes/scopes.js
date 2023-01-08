@@ -118,7 +118,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { member, id } = req.body;
 
-    let user = await User.findOne({ member });
+    let user = await User.findOne({ _id: member });
     if (user) {
       // console.log(req.body, "<===body");
       const scope = await Scope.updateOne(
