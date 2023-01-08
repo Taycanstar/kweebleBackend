@@ -127,11 +127,10 @@ router.put("/:id", async (req, res) => {
       );
       // console.log(user, "<==user");
       await scope.save();
+      res.send(scope);
     } else {
       return res.status(400).json({ error: "User not found" });
     }
-
-    res.send(scope);
   } catch (error) {
     res.send(error, { message: "User not found" });
   }
