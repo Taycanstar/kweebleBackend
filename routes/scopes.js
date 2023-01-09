@@ -73,7 +73,11 @@ router.post("/newScope", async (req, res) => {
   } = req.body;
 
   try {
-    const scope = new Scope({
+    let scope = await Scope.findOne({ name });
+    if (scope) {
+      return res.status(400).json({ error: "Scope already exists" });
+    }
+    scope = new Scope({
       name,
       info,
       photo,
