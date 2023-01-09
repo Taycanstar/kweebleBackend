@@ -87,146 +87,127 @@ router.post("/newScope", async (req, res) => {
         .status(400)
         .json({ error: "Scope name can't special contain character $" });
     }
-     if (name.includes("#")) {
-       return res
-         .status(400)
-         .json({ error: "Scope name can't special contain character #" });
-     }
-        if (name.includes("@")) {
-          return res
-            .status(400)
-            .json({ error: "Scope name can't special contain character @" });
-        }
-           if (name.includes("%")) {
-             return res
-               .status(400)
-               .json({ error: "Scope name can't special contain character %" });
-           }
-             if (name.includes("^")) {
-               return res
-                 .status(400)
-                 .json({ error: "Scope name can't contain special character ^" });
-             }
-             if (name.includes("*")) {
-               return res
-                 .status(400)
-                 .json({ error: "Scope name can't contain special character *" });
-             }
-               if (name.includes("(")) {
-                 return res
-                   .status(400)
-                   .json({ error: "Scope name can't contain special character (" });
-               }
-                 if (name.includes(")")) {
-                   return res
-                     .status(400)
-                     .json({ error: "Scope name can't contain special character )" });
-                 }
-                  if (name.includes("+")) {
-                    return res
-                      .status(400)
-                      .json({ error: "Scope name can't contain special character +" });
-                  }
-                      if (name.includes("=")) {
-                        return res
-                          .status(400)
-                          .json({
-                            error: "Scope name can't contain special character =",
-                          });
-                      }
-                          if (name.includes("{")) {
-                            return res.status(400).json({
-                              error: "Scope name can't contain special character {",
-                            });
-                          }
-                          if (name.includes("}")) {
-                            return res.status(400).json({
-                              error: "Scope name can't contain special character }",
-                            });
-                          }
-                             if (name.includes("[")) {
-                               return res.status(400).json({
-                                 error: "Scope name can't contain special character ]",
-                               });
-                             }
-                                if (name.includes("""")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character """,
-                                  });
-                                }
-                                       if (name.includes("|")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character |",
-                                  });
-                                }
-                                    if (name.includes("/")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character /",
-                                  });
-                                }
-                                   if (name.includes("?")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character ?",
-                                  });
-                                }
-                                 if (name.includes("<")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character <",
-                                  });
-                                }
-                                 if (name.includes(">")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character >",
-                                  });
-                                }
-                                   if (name.includes(":")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character :",
-                                  });
-                                }
-                                   if (name.includes(";")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character ;",
-                                  });
-                                }
-                                 if (name.includes(",")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character ,",
-                                  });
-                                }
-                                if (name.includes("`")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character `",
-                                  });
-                                }
-                                   if (name.includes("~")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character ~",
-                                  });
-                                }
-                                 if (name.includes("!")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character !",
-                                  });
-                                }
-                                 if (name.includes("&")) {
-                                  return res.status(400).json({
-                                    error:
-                                      "Scope name can't contain special character &",
-                                  });
-                                }
+    if (name.includes("#")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't special contain character #" });
+    }
+    if (name.includes("@")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't special contain character @" });
+    }
+    if (name.includes("%")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't special contain character %" });
+    }
+    if (name.includes("^")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't contain special character ^" });
+    }
+    if (name.includes("*")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't contain special character *" });
+    }
+    if (name.includes("(")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't contain special character (" });
+    }
+    if (name.includes(")")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't contain special character )" });
+    }
+    if (name.includes("+")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't contain special character +" });
+    }
+    if (name.includes("=")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character =",
+      });
+    }
+    if (name.includes("{")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character {",
+      });
+    }
+    if (name.includes("}")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character }",
+      });
+    }
+    if (name.includes("[")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character ]",
+      });
+    }
+
+    if (name.includes("|")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character |",
+      });
+    }
+    if (name.includes("/")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character /",
+      });
+    }
+    if (name.includes("?")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character ?",
+      });
+    }
+    if (name.includes("<")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character <",
+      });
+    }
+    if (name.includes(">")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character >",
+      });
+    }
+    if (name.includes(":")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character :",
+      });
+    }
+    if (name.includes(";")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character ;",
+      });
+    }
+    if (name.includes(",")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character ,",
+      });
+    }
+    if (name.includes("`")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character `",
+      });
+    }
+    if (name.includes("~")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character ~",
+      });
+    }
+    if (name.includes("!")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character !",
+      });
+    }
+    if (name.includes("&")) {
+      return res.status(400).json({
+        error: "Scope name can't contain special character &",
+      });
+    }
     scope = new Scope({
       name,
       info,
