@@ -8,21 +8,26 @@ const eventSchema = new Schema({
   },
   day: {
     type: String,
+    required: true,
   },
   month: {
     type: String,
+    required: true,
   },
   year: {
     type: String,
+    required: true,
   },
   startTime: {
     type: String,
+    required: true,
   },
   endDay: {
     type: String,
   },
   location: {
     type: String,
+    required: true,
   },
   latitude: {
     type: Number,
@@ -56,6 +61,7 @@ const eventSchema = new Schema({
   scope: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Scope",
+    required: true,
   },
   users: [
     {
