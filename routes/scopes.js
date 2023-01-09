@@ -77,6 +77,11 @@ router.post("/newScope", async (req, res) => {
     if (scope) {
       return res.status(400).json({ error: "Scope already exists" });
     }
+    if (name.includes(" ")) {
+      return res
+        .status(400)
+        .json({ error: "Scope name can't contain blank spaces" });
+    }
     scope = new Scope({
       name,
       info,
