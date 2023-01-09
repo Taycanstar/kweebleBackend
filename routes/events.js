@@ -108,7 +108,28 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   if (name === "" || name === undefined) {
-    return res.status(400).json({ error: "Event name is required" });
+    return res.status(400).json({ error: "Name of the event is required" });
+  }
+  if (location === "" || location === undefined) {
+    return res.status(400).json({ error: "Location of the event is required" });
+  }
+  if (scope === "" || scope === undefined) {
+    return res.status(400).json({ error: "Scope of the event is required" });
+  }
+  if (month === "" || month === undefined) {
+    return res.status(400).json({ error: "Month of the event is required" });
+  }
+
+  if (year === "" || year === undefined) {
+    return res.status(400).json({ error: "Year of the event is required" });
+  }
+
+  if (day === "" || day === undefined) {
+    return res.status(400).json({ error: "Day of the event is required" });
+  }
+
+  if (startTime === "" || startTime === undefined) {
+    return res.status(400).json({ error: "Time of the event is required" });
   }
 
   try {
