@@ -107,6 +107,10 @@ router.post("/", async (req, res) => {
     users,
   } = req.body;
 
+  if (name === "" || name === undefined) {
+    return res.status(400).json({ error: "Event name is required" });
+  }
+
   try {
     const event = new Event({
       name,
