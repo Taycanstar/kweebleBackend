@@ -501,14 +501,14 @@ router.put("/:id", async (req, res) => {
 });
 
 //add scope to member thru username
-outer.put("/us/:id", async (req, res) => {
+router.put("/us/:id", async (req, res) => {
   try {
     const { scope, username } = req.body;
-    let user = await User.findOne({ username: username });
+    let userx = await User.findOne({ username: username });
 
     console.log(req.body, "<===body");
     const user = await User.updateOne(
-      { _id: user._id },
+      { _id: userx._id },
       { $addToSet: { scopes: scope } }
     );
     // console.log(user, "<==user");
