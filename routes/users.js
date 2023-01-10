@@ -64,7 +64,9 @@ router.post("/register", async (req, res) => {
     });
     await user.save();
 
-    return res.status(201).json({ message: "User created succesfully" });
+    return res
+      .status(201)
+      .json({ message: "User created succesfully", udc: user });
   } catch (err) {
     console.log(err);
   }
