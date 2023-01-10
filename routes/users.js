@@ -487,16 +487,35 @@ router.get("/events", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
-    console.log(req.body, "<===body");
+    // console.log(req.body, "<===body");
     const user = await User.updateOne(
       { _id: id },
       { $addToSet: { scopes: scope } }
     );
     // console.log(user, "<==user");
     await user.save();
-    res.send(user);
+    res.status(201).send(user);
   } catch (error) {
     res.send(error);
+  }
+});
+
+//Add scope thru username
+router.put("/us/:id", async (req, res) => {
+  try {
+    const { scope, member } = req.body;
+    let userx = await User.findOne({ username: member });
+    req.params = userx._id;
+    // console.log(req.body, "<===body");
+    const user = await User.updateOne(
+      { _id: userx._id },
+      { $addToSet: { scopes: scope } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.status(201).send(user);
+  } catch (error) {
+    res.status(400).send(error);
   }
 });
 
