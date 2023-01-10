@@ -64,9 +64,7 @@ router.post("/register", async (req, res) => {
     });
     await user.save();
 
-    return res
-      .status(201)
-      .json({ message: "User created succesfully", udc: user });
+    return res.status(201).json({ message: "User created succesfully" });
   } catch (err) {
     console.log(err);
   }
@@ -492,6 +490,25 @@ router.put("/:id", async (req, res) => {
     console.log(req.body, "<===body");
     const user = await User.updateOne(
       { _id: id },
+      { $addToSet: { scopes: scope } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//add scope to member thru username
+outer.put("/us/:id", async (req, res) => {
+  try {
+    const { scope, username } = req.body;
+    let user = await User.findOne({ username: username });
+
+    console.log(req.body, "<===body");
+    const user = await User.updateOne(
+      { _id: user._id },
       { $addToSet: { scopes: scope } }
     );
     // console.log(user, "<==user");
