@@ -9,7 +9,6 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     college: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
