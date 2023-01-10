@@ -357,27 +357,4 @@ router.put("/mod/del/:id", async (req, res) => {
   }
 });
 
-//add member thru username
-router.put("/us/:id", async (req, res) => {
-  try {
-    const { username, id } = req.body;
-
-    let user = await User.findOne({ username: username });
-    if (user) {
-      // console.log(req.body, "<===body");
-      const scope = await Scope.updateOne(
-        { _id: req.params.id },
-        { $addToSet: { members: user._id } }
-      );
-      // console.log(user, "<==user");
-      await scope.save();
-      res.send(scope);
-    } else {
-      return res.status(400).json({ error: "User not found" });
-    }
-  } catch (error) {
-    res.send(error, { message: "User not found" });
-  }
-});
-
 module.exports = router;

@@ -500,23 +500,4 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-//add scope to member thru username
-router.put("/us/:id", async (req, res) => {
-  try {
-    const { scope, username } = req.body;
-    let userx = await User.findOne({ username: username });
-
-    console.log(req.body, "<===body");
-    const user = await User.updateOne(
-      { _id: userx._id },
-      { $addToSet: { scopes: scope } }
-    );
-    // console.log(user, "<==user");
-    await user.save();
-    res.send(user);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
 module.exports = router;
