@@ -263,12 +263,14 @@ router.put("/:id", async (req, res) => {
       );
       // console.log(user, "<==user");
       await scope.save();
-      return res.status(200).json({ message: "success" });
+      // return res.status(200).json({ message: "success" });
+      res.send(scope);
     } else {
       return res.status(400).json({ error: "User not found" });
     }
   } catch (error) {
-    return res.status(400).json({ error: "User not found" });
+    // return res.status(400).json({ error: "User not found" });
+    res.send(error);
   }
 });
 
