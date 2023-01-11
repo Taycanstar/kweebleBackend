@@ -263,7 +263,7 @@ router.put("/:id", async (req, res) => {
       );
       // console.log(user, "<==user");
       await scope.save();
-      res.status(201).send(scope1);
+      return res.status(200).json({ message: "success" });
     } else {
       return res.status(400).json({ error: "User not found" });
     }
@@ -362,15 +362,16 @@ router.put("/mod/del/:id", async (req, res) => {
 router.put("/us/:id", async (req, res) => {
   try {
     const { member, id } = req.body;
-
+    console.log(req.body);
     let user = await User.findOne({ username: member });
-
+    console.log(user);
     if (user) {
       // console.log(req.body, "<===body");
       const scope = await Scope.updateOne(
         { _id: req.params.id },
-        { $addToSet: { members: user } }
+        { $addToSet: { members: user._id } }
       );
+      console.log(scope);
       // console.log(user, "<==user");
       await scope.save();
       res.status(201).send(scope);
