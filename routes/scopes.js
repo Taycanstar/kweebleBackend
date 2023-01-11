@@ -232,7 +232,7 @@ router.post("/newScope", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const scopes = await Scope.find();
-    res.status(200).send(scopes);
+    res.send(scopes);
     // res.send(scopes);
   } catch (error) {
     res.send(error);
@@ -243,7 +243,7 @@ router.get("/", async (req, res) => {
 router.delete("/newScopes/:id", async (req, res) => {
   try {
     const scope = await Scope.findByIdAndDelete(req.params.id);
-    res.status(204).send(scope);
+    res.send(scope);
   } catch (error) {
     res.send(error);
   }
@@ -286,9 +286,9 @@ router.put("/del/:id", async (req, res) => {
     );
     // console.log(user, "<==user");
     await scope.save();
-    res.status(204).send(scope);
+    res.send(scope);
   } catch (error) {
-    return res.status(400).json({ error: "couldn't delete" });
+    return res.send(error);
   }
 });
 
@@ -311,7 +311,7 @@ router.put("/edit/:id", async (req, res) => {
     console.log(scope, "<=scope");
 
     await scope.save();
-    res.status(200).send(scope);
+    res.send(scope);
   } catch (error) {
     res.send(error);
   }
@@ -330,15 +330,15 @@ router.put("/mod/:id", async (req, res) => {
         { $addToSet: { moderators: member } }
       );
       await scope.save();
-      res.status(200).send(scope);
+      res.send(scope);
     } else {
       return res.status(400).json({ error: "User not found" });
     }
 
     await scope.save();
-    res.status(201).send(scope);
+    res.send(scope);
   } catch (error) {
-    res.status(400).send(error);
+    res.send(error);
   }
 });
 
@@ -354,9 +354,9 @@ router.put("/mod/del/:id", async (req, res) => {
     );
     // console.log(user, "<==user");
     await scope.save();
-    res.status(204).send(scope);
+    res.send(scope);
   } catch (error) {
-    res.status(400).send(error);
+    res.send(error);
   }
 });
 
@@ -376,12 +376,12 @@ router.put("/us/:id", async (req, res) => {
       console.log(scope);
       // console.log(user, "<==user");
       await scope.save();
-      res.status(201).send(scope);
+      res.send(scope);
     } else {
       return res.status(400).json({ error: `User not found` });
     }
   } catch (error) {
-    return res.status(400).send(error);
+    return res.send(error);
   }
 });
 
