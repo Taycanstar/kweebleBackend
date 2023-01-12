@@ -484,6 +484,7 @@ router.get("/events", async (req, res) => {
 //   }
 // });
 
+//Add scope to user
 router.put("/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
@@ -494,9 +495,26 @@ router.put("/:id", async (req, res) => {
     );
     // console.log(user, "<==user");
     await user.save();
-    res.status(201).send(user);
+    res.send(user);
   } catch (error) {
     res.send(error);
+  }
+});
+
+//delete scope from user
+router.put("/del/:id", async (req, res) => {
+  try {
+    const { scope, id } = req.body;
+
+    const user = await User.updateOne(
+      { _id: req.params.id },
+      { $pull: { scopes: { $in: [scope] } } }
+    );
+    // console.log(user, "<==user");
+    await scope.save();
+    res.send(scope);
+  } catch (error) {
+    return res.send(error);
   }
 });
 
@@ -513,7 +531,7 @@ router.put("/us/:id", async (req, res) => {
     );
     // console.log(user, "<==user");
     await user.save();
-    res.status(201).send(user);
+    res.send(user);
   } catch (error) {
     res.status(400).send(error);
   }
