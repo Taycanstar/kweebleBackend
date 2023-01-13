@@ -557,7 +557,7 @@ router.put("/events/:id", async (req, res) => {
 });
 
 //save prodct
-router.put("/products/:id", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const { product, id } = req.body;
     // console.log(req.body, "<===body");
@@ -591,7 +591,7 @@ router.put("/events/del/:id", async (req, res) => {
 });
 
 //delete product from user
-router.put("/products/del/:id", async (req, res) => {
+router.put("/del/:id", async (req, res) => {
   try {
     const { product, id } = req.body;
 
