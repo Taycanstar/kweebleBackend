@@ -513,8 +513,8 @@ router.put("/del/:id", async (req, res) => {
       { $pull: { scopes: { $in: [scope] } } }
     );
     // console.log(user, "<==user");
-    await scope.save();
-    res.send(scope);
+    await user.save();
+    res.send(user);
   } catch (error) {
     return res.send(error);
   }
@@ -583,8 +583,8 @@ router.put("/del/:id", async (req, res) => {
       { $pull: { savedEvents: { $in: [event] } } }
     );
     // console.log(user, "<==user");
-    await scope.save();
-    res.send(scope);
+    await user.save();
+    res.send(user);
   } catch (error) {
     return res.send(error);
   }
@@ -600,8 +600,8 @@ router.put("/del/:id", async (req, res) => {
       { $pull: { savedProducts: { $in: [product] } } }
     );
     // console.log(user, "<==user");
-    await scope.save();
-    res.send(scope);
+    await user.save();
+    res.send(user);
   } catch (error) {
     return res.send(error);
   }
