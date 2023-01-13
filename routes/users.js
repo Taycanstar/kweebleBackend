@@ -38,7 +38,7 @@ router.post("/register", async (req, res) => {
     email,
     password,
     college,
-
+    saved,
     birthDay,
     birthMonth,
     birthYear,
@@ -57,7 +57,7 @@ router.post("/register", async (req, res) => {
       password: hashed_password,
       college,
       username,
-
+      saved,
       birthYear,
       birthMonth,
       birthDay,
