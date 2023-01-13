@@ -38,7 +38,8 @@ router.post("/register", async (req, res) => {
     email,
     password,
     college,
-    saved,
+    savedEvents,
+    savedProducts,
     birthDay,
     birthMonth,
     birthYear,
@@ -57,7 +58,8 @@ router.post("/register", async (req, res) => {
       password: hashed_password,
       college,
       username,
-      saved,
+      savedEvents,
+      savedProducts,
       birthYear,
       birthMonth,
       birthDay,
@@ -534,6 +536,74 @@ router.put("/us/:id", async (req, res) => {
     res.send(user);
   } catch (error) {
     res.status(400).send(error);
+  }
+});
+
+//save events
+router.put("/:id", async (req, res) => {
+  try {
+    const { event, id } = req.body;
+    // console.log(req.body, "<===body");
+    const user = await User.updateOne(
+      { _id: id },
+      { $addToSet: { savedEvents: event } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//save prodct
+router.put("/:id", async (req, res) => {
+  try {
+    const { product, id } = req.body;
+    // console.log(req.body, "<===body");
+    const user = await User.updateOne(
+      { _id: id },
+      { $addToSet: { savedProducts: product } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//delete event from user
+router.put("/del/:id", async (req, res) => {
+  try {
+    const { event, id } = req.body;
+
+    const user = await User.updateOne(
+      { _id: req.params.id },
+      { $pull: { savedEvents: { $in: [event] } } }
+    );
+    // console.log(user, "<==user");
+    await scope.save();
+    res.send(scope);
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
+//delete product from user
+router.put("/del/:id", async (req, res) => {
+  try {
+    const { product, id } = req.body;
+
+    const user = await User.updateOne(
+      { _id: req.params.id },
+      { $pull: { savedProducts: { $in: [product] } } }
+    );
+    // console.log(user, "<==user");
+    await scope.save();
+    res.send(scope);
+  } catch (error) {
+    return res.send(error);
   }
 });
 

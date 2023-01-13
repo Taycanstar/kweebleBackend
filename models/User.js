@@ -51,7 +51,8 @@ const userSchema = new Schema(
     passwordResetToken: String,
     passwordResetExpires: Date,
     scopes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Scope" }],
-    saved: [{ type: mongoose.Schema.Types.ObjectId }],
+    savedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
+    savedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
   },
   { timestamps: true }
 );
