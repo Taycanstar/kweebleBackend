@@ -47,6 +47,9 @@ const userSchema = new Schema(
     photo: {
       type: String,
     },
+    position: {
+      type: String,
+    },
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
