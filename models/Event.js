@@ -58,6 +58,9 @@ const eventSchema = new Schema({
   icon: {
     type: String,
   },
+  hostName: {
+    type: String,
+  },
   scope: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Scope",

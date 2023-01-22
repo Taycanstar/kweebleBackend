@@ -105,6 +105,7 @@ router.post("/", async (req, res) => {
     icon,
     scope,
     users,
+    hostName,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -152,6 +153,7 @@ router.post("/", async (req, res) => {
       icon,
       scope,
       users,
+      hostName,
     });
     await event.save();
 
