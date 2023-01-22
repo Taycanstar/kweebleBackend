@@ -43,7 +43,7 @@ router.post("/register", async (req, res) => {
     birthDay,
     birthMonth,
     birthYear,
-    position,
+
     username,
   } = req.body;
   try {
@@ -64,7 +64,6 @@ router.post("/register", async (req, res) => {
       birthYear,
       birthMonth,
       birthDay,
-      position,
     });
     await user.save();
 
