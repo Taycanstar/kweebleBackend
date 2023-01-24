@@ -68,6 +68,7 @@ router.post("/", async (req, res) => {
     scope,
     isSold,
     interested,
+    users,
   } = req.body;
 
   try {
@@ -87,6 +88,7 @@ router.post("/", async (req, res) => {
       sellerUsername,
       isSold,
       interested,
+      users,
     });
     await product.save();
 
