@@ -612,7 +612,7 @@ router.put("/products/del/:id", async (req, res) => {
 });
 
 //block user
-router.put("/:id", async (req, res) => {
+router.put("/block/:id", async (req, res) => {
   try {
     const { person, id } = req.body;
     // console.log(req.body, "<===body");
@@ -629,7 +629,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //unblock user
-router.put("/del/:id", async (req, res) => {
+router.put("/block/del/:id", async (req, res) => {
   try {
     const { person, id } = req.body;
 
