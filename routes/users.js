@@ -611,4 +611,38 @@ router.put("/products/del/:id", async (req, res) => {
   }
 });
 
+//block user
+router.put("/:id", async (req, res) => {
+  try {
+    const { person, id } = req.body;
+    // console.log(req.body, "<===body");
+    const user = await User.updateOne(
+      { _id: id },
+      { $addToSet: { blockedUsers: person } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//unblock user
+router.put("/del/:id", async (req, res) => {
+  try {
+    const { person, id } = req.body;
+
+    const user = await User.updateOne(
+      { _id: req.params.id },
+      { $pull: { blockedUsers: { $in: [person] } } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;
