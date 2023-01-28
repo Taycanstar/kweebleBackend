@@ -50,6 +50,7 @@ const userSchema = new Schema(
     position: {
       type: String,
     },
+    blockedUsers: [{ type: mongoose.Schema.Types.ObjectId }],
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
