@@ -629,7 +629,7 @@ router.put("/block/:id", async (req, res) => {
 });
 
 //unblock user
-router.put("/block/del/:id", async (req, res) => {
+router.put("/unblock/:id", async (req, res) => {
   try {
     const { person, id } = req.body;
 
