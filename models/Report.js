@@ -6,6 +6,9 @@ const reportSchema = new Schema(
     reason: {
       type: String,
     },
+    name: {
+      type: String,
+    },
     reportedUser: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

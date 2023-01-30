@@ -15,12 +15,13 @@ const Report = require("../models/Report");
 
 //new report
 router.post("/", async (req, res) => {
-  const { reason, reportedUser, reportedItem } = req.body;
+  const { reason, reportedUser, name, reportedItem } = req.body;
 
   try {
     const report = new Report({
       reason,
       reportedUser,
+      name,
       reportedItem,
     });
 
