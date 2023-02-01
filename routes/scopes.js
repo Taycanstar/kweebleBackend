@@ -28,36 +28,31 @@ const upload = multer({ storage: storage });
 
 router.use("/image", express.static("scopePP"));
 
-router.post(
-  "/image",
-  requireLogin,
-  upload.single("image"),
-  async (req, res) => {
-    console.log("File is: ", req.file);
+router.post("/image", upload.single("image"), async (req, res) => {
+  console.log("File is: ", req.file);
 
-    if (req.file.size > 2 * 3000 * 3000) {
-      res.status(400).json({ error: "max file size of 2MB exceeded" });
-      return;
-    }
-
-    let ext;
-    switch (req.file.mimetype) {
-      case "image/jpeg":
-        ext = "jpg";
-        break;
-      case "image/png":
-        ext = "png";
-        break;
-      default:
-        res.status(400).json({ error: "bad content type" });
-        return;
-    }
-
-    // console.log("ress", res);
-
-    res.status(200).json({ imageURL: req.file.path });
+  if (req.file.size > 2 * 3000 * 3000) {
+    res.status(400).json({ error: "max file size of 2MB exceeded" });
+    return;
   }
-);
+
+  let ext;
+  switch (req.file.mimetype) {
+    case "image/jpeg":
+      ext = "jpg";
+      break;
+    case "image/png":
+      ext = "png";
+      break;
+    default:
+      res.status(400).json({ error: "bad content type" });
+      return;
+  }
+
+  // console.log("ress", res);
+
+  res.status(200).json({ imageURL: req.file.path });
+});
 
 //Add scope
 router.post("/newScope", async (req, res) => {
