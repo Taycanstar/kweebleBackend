@@ -56,7 +56,11 @@ router.post(
 
     // console.log("ress", res);
 
-    res.status(200).json({ imageURL: req.file.path });
+    const img = JSON.parse(JSON.stringify(req.file.path));
+
+    res.status(200).json(img);
+
+    // res.status(200).json({ imageURL: req.file.path });
   }
 );
 
