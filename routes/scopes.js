@@ -57,7 +57,7 @@ router.post(
 
     const img = JSON.stringify(req.file.path);
 
-    res.status(200).json(img);
+    res.status(200).json({ img: img });
   }
 );
 
