@@ -53,11 +53,15 @@ router.post(
         return;
     }
 
+    const { filename } = req.body;
+
     // console.log("ress", res);
 
-    const img = JSON.parse(JSON.stringify(req.file.path));
+    // const photo = req.file.path;
 
-    res.status(200).json(img);
+    // const img = JSON.parse(JSON.stringify(req.file.path));
+
+    res.send(filename);
   }
 );
 
