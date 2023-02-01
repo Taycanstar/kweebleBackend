@@ -31,7 +31,7 @@ router.use("/icon", express.static("uploads"));
 
 router.post(
   "/image",
-  // requireLogin,
+  requireLogin,
   upload.single("image"),
   async (req, res) => {
     console.log("File is: ", req.file);

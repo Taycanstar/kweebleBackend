@@ -107,7 +107,7 @@ router.get("/", requireLogin, async (req, res) => {
 
 router.post(
   "/photo",
-  // requireLogin,
+  requireLogin,
   upload.single("photo"),
   async (req, res) => {
     console.log("File is: ", req.file);
