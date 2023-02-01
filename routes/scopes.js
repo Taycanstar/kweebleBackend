@@ -51,7 +51,7 @@ router.post("/image", upload.single("image"), async (req, res) => {
 
   // console.log("ress", res);
 
-  return res.status(201).json({ imageURL: req.file.path });
+  res.status(200).json(req.file.path);
 });
 
 //Add scope
