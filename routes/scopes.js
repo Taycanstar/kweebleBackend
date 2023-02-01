@@ -55,9 +55,9 @@ router.post(
 
     // console.log("ress", res);
 
-    const img = JSON.stringify(req.file.path);
+    const img = JSON.parse(JSON.stringify(req.file.path));
 
-    res.status(200).json({ img: img });
+    res.status(200).json(img);
   }
 );
 
