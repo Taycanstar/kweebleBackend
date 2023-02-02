@@ -101,7 +101,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
+router.get("/", requireLogin, async (req, res) => {
   res.status(200).json(req.user);
 });
 
