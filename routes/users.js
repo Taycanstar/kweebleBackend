@@ -135,13 +135,14 @@ router.post(
         res.status(400).json({ error: "bad content type" });
         return;
     }
-    console.log(req, "filebitch");
-    req.user.photo = req.file.path;
-    await req.user.save();
+    // console.log(req, "filebitch");
+    // req.user.photo = req.file.path;
+    // await req.user.save();
 
-    console.log(req.user);
+    // console.log(req.user);
 
-    res.status(200).json(req.user);
+    // res.status(200).json(req.user);
+    res.status(200).json(req.file.path);
   }
 );
 
