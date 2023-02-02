@@ -190,6 +190,58 @@ router.put("/", requireLogin, async (req, res) => {
   res.status(200).json(req.user);
 });
 
+//Edir profile method 2
+router.put("/user/:id", async (req, res) => {
+  try {
+    const {
+      snapchat,
+      instagram,
+      name,
+      phoneNumber,
+      major,
+      interests,
+      email,
+      password,
+      birthDay,
+      birthMonth,
+      birthYear,
+      gradeLevel,
+      position,
+      photo,
+      id,
+    } = req.body;
+
+    const user = await User.findByIdAndUpdate(req.params.id, {
+      snapchat,
+      instagram,
+      name,
+      phoneNumber,
+      major,
+      interests,
+      email,
+      password,
+      birthDay,
+      birthMonth,
+      birthYear,
+      gradeLevel,
+      position,
+      photo,
+      id,
+    });
+
+    // const scope = await Scope.updateOne(
+    //   { _id: req.params.id },
+    //   { photo: photo }
+    // );
+    console.log(user, "<= user");
+
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 //verify-password
 router.post("/verify-password", async (req, res) => {
   const { password, email } = req.body;
