@@ -47,9 +47,11 @@ router.post("/image", upload.any(), async (req, res) => {
   //       return;
   //   }
 
-  const img = JSON.parse(JSON.stringify(req.files.map((file) => file.path)));
+  // const img = JSON.parse(JSON.stringify(req.files.map((file) => file.path)));
 
-  res.status(200).json(img);
+  // res.status(200).json(img);
+
+  res.status(201).json(req.files.map((file) => file.path));
 
   // res.status(200).json({ images: req.files.map((file) => file.path) });
 });
