@@ -53,15 +53,10 @@ router.post(
         return;
     }
 
-    const { filename } = req.body;
+    // console.log(req.file.path, "size bitch");
 
-    // console.log("ress", res);
-
-    // const photo = req.file.path;
-
-    // const img = JSON.parse(JSON.stringify(req.file.path));
-
-    res.send(filename);
+    res.status(201).json(req.file.path);
+    // res.send(req.file.path);
   }
 );
 
