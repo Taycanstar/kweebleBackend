@@ -30,7 +30,7 @@ router.use("/image", express.static("scopePP"));
 
 router.post(
   "/image",
-  requireLogin,
+  // requireLogin,
   upload.single("image"),
   async (req, res) => {
     console.log("File is: ", req.file);
