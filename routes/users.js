@@ -207,7 +207,7 @@ router.put("/user/:id", async (req, res) => {
       id,
     } = req.body;
 
-    const user = await User.findByIdAndUpdate(req.body.id, {
+    const user = await User.findByIdAndUpdate(req.params.id, {
       snapchat,
       instagram,
       name,
