@@ -233,6 +233,31 @@ router.put("/user/:id", async (req, res) => {
   }
 });
 
+//Edit bd method 2
+router.put("/userBd/:id", async (req, res) => {
+  try {
+    const { birthDay, birthMonth, birthYear, id } = req.body;
+
+    const user = await User.findByIdAndUpdate(req.params.id, {
+      birthDay,
+      birthMonth,
+      birthYear,
+      id,
+    });
+
+    // const scope = await Scope.updateOne(
+    //   { _id: req.params.id },
+    //   { photo: photo }
+
+    console.log(user, "<= user");
+
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 //verify-password
 router.post("/verify-password", async (req, res) => {
   const { password, email } = req.body;
