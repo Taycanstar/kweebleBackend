@@ -228,7 +228,7 @@ router.put("/user/:id", async (req, res) => {
     // const scope = await Scope.updateOne(
     //   { _id: req.params.id },
     //   { photo: photo }
-    // );
+
     console.log(user, "<= user");
 
     await user.save();
