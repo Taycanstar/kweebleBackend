@@ -22,7 +22,7 @@ const sendEmail = async (options) => {
     })
   );
   console.log("after transporter", process.env.SENDGRID_API);
-  const from = "Kweeble <dimerson@kweeble.com>";
+  const from = "Kweeble <support@kweeble.com>";
   //2 define the email options
   const mailOptions = {
     from,
