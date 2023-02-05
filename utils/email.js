@@ -18,10 +18,10 @@ const sendEmail = async (options) => {
   console.log("before transporter");
   const transporter = nodemailer.createTransport(
     sendgrid({
-      apiKey: process.env.SENDGRID_API,
+      apiKey: process.env.SENDGRID_NEW_API,
     })
   );
-  console.log("after transporter", process.env.SENDGRID_API);
+  console.log("after transporter", process.env.SENDGRID_NEW__API);
   const from = "Kweeble <support@kweeble.com>";
   //2 define the email options
   const mailOptions = {

@@ -281,6 +281,29 @@ router.put("/email/:id", async (req, res) => {
   }
 });
 
+//Edit email method 2
+router.put("/email/:id", async (req, res) => {
+  try {
+    const { email, id } = req.body;
+
+    const user = await User.findByIdAndUpdate(req.params.id, {
+      email,
+      id,
+    });
+
+    // const scope = await Scope.updateOne(
+    //   { _id: req.params.id },
+    //   { photo: photo }
+
+    console.log(user, "<= user");
+
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 //verify-password
 router.post("/verify-password", async (req, res) => {
   const { password, email } = req.body;
