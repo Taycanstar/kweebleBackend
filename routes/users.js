@@ -376,6 +376,7 @@ router.post("/forgot-password", async (req, res, next) => {
     user.passwordResetExpires = undefined;
     await user.save({ requireLogin: false });
     return res.status(500).json({ error: "Email was unable to send" });
+    return res.status(500).json({ error: error });
   }
 });
 
