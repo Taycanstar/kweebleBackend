@@ -407,7 +407,7 @@ router.patch("/reset-password/:token", async (req, res) => {
 
   await user.save();
 
-  //4 log the user in set jwt
+  // log the user in set jwt
   const token = jwt.sign({ _id: user._id }, secret, {
     expiresIn: "1h",
   });
