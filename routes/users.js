@@ -12,6 +12,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require("../utils/email");
+const sendIt = require("../utils/newEmail");
 const Course = require("../models/Course");
 const Item = require("../models/Item");
 const Grade = require("../models/Grade");
@@ -361,7 +362,7 @@ router.post("/forgot-password", async (req, res, next) => {
   `;
 
   try {
-    await sendEmail({
+    await sendIt({
       email: user.email,
       subject: "Your password reset token (valid for 10 minutes)",
       message,
