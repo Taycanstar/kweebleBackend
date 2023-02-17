@@ -66,6 +66,9 @@ const eventSchema = new Schema({
     ref: "Scope",
     required: true,
   },
+  media: {
+    type: Array,
+  },
   users: [
     {
       id: mongoose.Schema.Types.ObjectId,

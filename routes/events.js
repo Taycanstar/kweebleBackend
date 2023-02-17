@@ -110,6 +110,7 @@ router.post("/", async (req, res) => {
     scope,
     users,
     hostName,
+    media,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -158,6 +159,7 @@ router.post("/", async (req, res) => {
       scope,
       users,
       hostName,
+      media,
     });
     await event.save();
 
@@ -244,6 +246,7 @@ router.put("/edit/:id", async (req, res) => {
       scope,
       host,
       id,
+      media,
     } = req.body;
 
     const event = await Event.findByIdAndUpdate(req.params.id, {
@@ -263,6 +266,7 @@ router.put("/edit/:id", async (req, res) => {
       scope,
       host,
       id,
+      media,
     });
 
     // const scope = await Scope.updateOne(
