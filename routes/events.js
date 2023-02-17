@@ -113,7 +113,7 @@ router.post("/", async (req, res) => {
   } = req.body;
 
   if (name === "" || name === undefined) {
-    return res.status(400).json({ error: "Name of the event is required" });
+    return res.status(400).json({ error: "Title of the event is required" });
   }
   if (location === "" || location === undefined) {
     return res.status(400).json({ error: "Location of the event is required" });
@@ -222,6 +222,65 @@ router.delete("/:id", async (req, res) => {
   } catch (error) {
     res.send(error);
   }
+});
+
+//Edit event
+router.put("/edit/:id", async (req, res) => {
+  try {
+    const {
+      name,
+      location,
+      month,
+      day,
+      year,
+      startTime,
+      endTime,
+      datetime,
+      image,
+      latitude,
+      longitude,
+      description,
+      icon,
+      scope,
+      host,
+      id,
+    } = req.body;
+
+    const event = await Event.findByIdAndUpdate(req.params.id, {
+      name,
+      location,
+      month,
+      day,
+      year,
+      startTime,
+      endTime,
+      datetime,
+      image,
+      latitude,
+      longitude,
+      description,
+      icon,
+      scope,
+      host,
+      id,
+    });
+
+    // const scope = await Scope.updateOne(
+    //   { _id: req.params.id },
+    //   { photo: photo }
+    // );
+    console.log(event, "<=event");
+
+    await event.save();
+    res.send(event);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//Add media
+router.post("/media", upload.any(), async (req, res) => {
+  res.status(201).json(req.files.map((file) => file.path));
 });
 
 module.exports = router;
