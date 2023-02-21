@@ -763,4 +763,18 @@ router.put("/unblock/:id", async (req, res) => {
   }
 });
 
+router.put("/following", async (req, res) => {
+  try {
+    const user = await User.updateMany(
+      { _id: req.params.id },
+      { $set: { followers: [] } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;

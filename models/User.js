@@ -50,6 +50,8 @@ const userSchema = new Schema(
     position: {
       type: String,
     },
+    following: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     blockedUsers: [{ type: mongoose.Schema.Types.ObjectId }],
     passwordChangedAt: Date,
     passwordResetToken: String,
