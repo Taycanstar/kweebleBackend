@@ -778,4 +778,50 @@ router.post("/following", async (req, res) => {
   }
 });
 
+//follow user
+router.put("/follow/:id", async (req, res) => {
+  try {
+    const { person, id } = req.body;
+    // console.log(req.body, "<===body");
+    const user = await User.updateOne(
+      { _id: id },
+      { $addToSet: { followers: person } }
+    );
+
+    const myUser = await User.updateOne(
+      { _id: person },
+      { $addToSet: { following: id } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    await myUser.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//Unfollow user
+router.put("/unfollow/:id", async (req, res) => {
+  try {
+    const { person, id } = req.body;
+
+    const user = await User.updateOne(
+      { _id: req.params.id },
+      { $pull: { followers: { $in: [person] } } }
+    );
+
+    const myUser = await User.updateOne(
+      { _id: person },
+      { $pull: { following: { $in: [id] } } }
+    );
+    // console.log(user, "<==user");
+    await user.save();
+    await myUser.save();
+    res.send(user);
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
 module.exports = router;
