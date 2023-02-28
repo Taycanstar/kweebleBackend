@@ -111,6 +111,7 @@ router.post("/", async (req, res) => {
     users,
     hostName,
     media,
+    modOnly,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -160,6 +161,7 @@ router.post("/", async (req, res) => {
       users,
       hostName,
       media,
+      modOnly,
     });
     await event.save();
 
@@ -247,6 +249,7 @@ router.put("/edit/:id", async (req, res) => {
       host,
       id,
       media,
+      modOnly,
     } = req.body;
 
     const event = await Event.findByIdAndUpdate(req.params.id, {
@@ -267,6 +270,7 @@ router.put("/edit/:id", async (req, res) => {
       host,
       id,
       media,
+      modOnly,
     });
 
     // const scope = await Scope.updateOne(
@@ -285,6 +289,18 @@ router.put("/edit/:id", async (req, res) => {
 //Add media
 router.post("/media", upload.any(), async (req, res) => {
   res.status(201).json(req.files.map((file) => file.path));
+});
+
+//add mod view
+router.post("/modonly", async (req, res) => {
+  try {
+    const event = await Event.updateMany({}, { $set: { modOnly: false } });
+    // console.log(user, "<==user");
+    await event.save();
+    res.send(event);
+  } catch (error) {
+    return res.send(error);
+  }
 });
 
 module.exports = router;
