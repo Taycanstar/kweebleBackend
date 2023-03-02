@@ -77,6 +77,33 @@ router.post("/", async (req, res) => {
     users,
   } = req.body;
 
+  if (title === "" || title === undefined) {
+    return res.status(400).json({ error: "Title of the product is required" });
+  }
+  if (photos === "" || photos === undefined) {
+    return res
+      .status(400)
+      .json({ error: "Photos of the product are required" });
+  }
+  if (price === "" || price === undefined) {
+    return res.status(400).json({ error: "Price of the product is required" });
+  }
+  if (condition === "" || condition === undefined) {
+    return res
+      .status(400)
+      .json({ error: "Condition of the product is required" });
+  }
+
+  if (category === "" || category === undefined) {
+    return res
+      .status(400)
+      .json({ error: "Condition of the product is required" });
+  }
+
+  if (scope === "" || scope === undefined) {
+    return res.status(400).json({ error: "Scope of the product is required" });
+  }
+
   try {
     const product = new Product({
       title,
