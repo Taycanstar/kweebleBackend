@@ -58,6 +58,9 @@ const eventSchema = new Schema({
   icon: {
     type: String,
   },
+  repeat: {
+    type: String,
+  },
   hostName: {
     type: String,
   },

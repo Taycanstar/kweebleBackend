@@ -112,6 +112,7 @@ router.post("/", async (req, res) => {
     hostName,
     media,
     modOnly,
+    repeat,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -162,6 +163,7 @@ router.post("/", async (req, res) => {
       hostName,
       media,
       modOnly,
+      repeat,
     });
     await event.save();
 
@@ -250,6 +252,7 @@ router.put("/edit/:id", async (req, res) => {
       id,
       media,
       modOnly,
+      repeat,
     } = req.body;
 
     const event = await Event.findByIdAndUpdate(req.params.id, {
@@ -271,6 +274,7 @@ router.put("/edit/:id", async (req, res) => {
       id,
       media,
       modOnly,
+      repeat,
     });
 
     // const scope = await Scope.updateOne(
