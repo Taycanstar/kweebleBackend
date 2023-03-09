@@ -221,7 +221,7 @@ router.put("/:id", async (req, res) => {
 });
 
 //Delete event
-router.delete("/:id", async (req, res) => {
+router.delete("/del/:id", async (req, res) => {
   try {
     const event = await Event.findByIdAndDelete(req.params.id);
     res.send(event);
