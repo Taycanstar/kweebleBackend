@@ -243,8 +243,7 @@ router.get("/", async (req, res) => {
 //Fetch single scope scopes
 router.get("/single/:id", async (req, res) => {
   try {
-    const { id } = req.body;
-    const scope = await Scope.findOne({ _id: id });
+    const scope = await Scope.findOne({ _id: req.params.id });
     res.send(scope);
     // res.send(scopes);
   } catch (error) {
