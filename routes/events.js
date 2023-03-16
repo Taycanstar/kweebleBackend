@@ -307,4 +307,28 @@ router.post("/modonly", async (req, res) => {
   }
 });
 
+//add mod view
+router.post("/addDate", async (req, res) => {
+  try {
+    const event = await Event.updateMany({}, { $set: { date: false } });
+    // console.log(user, "<==user");
+    await event.save();
+    res.send(event);
+  } catch (error) {
+    return res.send(error);
+  }
+});
+
+//Fetch single event
+router.get("/single/:id", async (req, res) => {
+  try {
+    const { ev, id } = req.body;
+    const event = await Event.findOne({ _id: ev });
+    res.send(event);
+    // res.send(scopes);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;

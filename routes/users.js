@@ -824,4 +824,16 @@ router.put("/unfollow/:id", async (req, res) => {
   }
 });
 
+//Fetch single user
+router.get("/single/:id", async (req, res) => {
+  try {
+    const { person, id } = req.body;
+    const user = await User.findOne({ _id: person });
+    res.send(user);
+    // res.send(scopes);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;

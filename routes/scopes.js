@@ -240,6 +240,18 @@ router.get("/", async (req, res) => {
   }
 });
 
+//Fetch single scope scopes
+router.get("/single/:id", async (req, res) => {
+  try {
+    const { scope, id } = req.body;
+    const scope = await Scope.findOne({ _id: scope });
+    res.send(scope);
+    // res.send(scopes);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 //Delete scope
 router.delete("/newScopes/:id", async (req, res) => {
   try {

@@ -184,4 +184,16 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+//Fetch single product
+router.get("/single/:id", async (req, res) => {
+  try {
+    const { prod, id } = req.body;
+    const product = await Product.findOne({ _id: prod });
+    res.send(product);
+    // res.send(scopes);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 module.exports = router;
