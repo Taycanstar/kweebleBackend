@@ -322,8 +322,8 @@ router.post("/addDate", async (req, res) => {
 //Fetch single event
 router.get("/single/:id", async (req, res) => {
   try {
-    const { id } = req.body;
-    const event = await Event.findOne({ _id: id });
+    const event = await Event.findOne({ _id: req.params.id });
+
     res.send(event);
     // res.send(scopes);
   } catch (error) {

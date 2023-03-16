@@ -185,10 +185,11 @@ router.put("/:id", async (req, res) => {
 });
 
 //Fetch single product
+
 router.get("/single/:id", async (req, res) => {
   try {
-    const { id } = req.body;
-    const product = await Product.findOne({ _id: id });
+    const product = await Product.findOne({ _id: req.params.id });
+
     res.send(product);
     // res.send(scopes);
   } catch (error) {

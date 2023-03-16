@@ -827,8 +827,8 @@ router.put("/unfollow/:id", async (req, res) => {
 //Fetch single user
 router.get("/single/:id", async (req, res) => {
   try {
-    const { id } = req.body;
-    const user = await User.findOne({ _id: id });
+    const user = await User.findOne({ _id: req.params.id });
+
     res.send(user);
     // res.send(scopes);
   } catch (error) {

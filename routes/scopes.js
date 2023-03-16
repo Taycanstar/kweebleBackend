@@ -244,10 +244,12 @@ router.get("/", async (req, res) => {
 router.get("/single/:id", async (req, res) => {
   try {
     const scope = await Scope.findOne({ _id: req.params.id });
+    console.log(scope, "this scope");
     res.send(scope);
     // res.send(scopes);
   } catch (error) {
     res.send(error);
+    console.log(error);
   }
 });
 
