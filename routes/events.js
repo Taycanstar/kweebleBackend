@@ -312,7 +312,7 @@ router.post("/modonly", async (req, res) => {
 });
 
 //add mod view
-router.post("/addDate", async (req, res) => {
+router.post("/addDate/:id", async (req, res) => {
   try {
     const event = await Event.findOne({ _id: req.params.id });
     const eventUpdated = await event.updateOne(
