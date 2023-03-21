@@ -319,7 +319,7 @@ router.post("/addDate/:id", async (req, res) => {
       { _id: req.params.id },
       {
         $set: {
-          date: new Date(`2023-03-20T16:00:00Z`),
+          date: new Date(`2023-05-06T12:00:00Z`),
         },
       }
     );
