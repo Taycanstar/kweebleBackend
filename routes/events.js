@@ -314,12 +314,14 @@ router.post("/modonly", async (req, res) => {
 //add mod view
 router.post("/addDate/:id", async (req, res) => {
   try {
-    const event = await Event.findOne({ _id: req.params.id });
-    const eventUpdated = await event.updateOne(
-      {},
+    // const event = await Event.findOne({ _id: req.params.id });
+    const eventUpdated = await Event.updateOne(
+      { _id: req.params.id },
       {
         $set: {
-          date: new Date(`${event.year}-${event.month}-${event.day}T16:00:00Z`),
+          date: new Date(
+            `${eventUpdated.year}-${eventUpdated.month}-${eventUpdated.day}T16:00:00Z`
+          ),
         },
       }
     );
