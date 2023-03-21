@@ -319,9 +319,7 @@ router.post("/addDate/:id", async (req, res) => {
       { _id: req.params.id },
       {
         $set: {
-          date: new Date(
-            `${eventUpdated.year}-${eventUpdated.month}-${eventUpdated.day}T16:00:00Z`
-          ),
+          date: new Date(`${"$year"}-${"$month"}-${"$day"}T16:00:00Z`),
         },
       }
     );
