@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const { Server } = require("socket.io");
 const http = require("http");
+const { initializeApp } = require("firebase-admin/app");
 // const socket = require("socket.io");
 
 const port = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ const io = new Server(server, {
     credentials: true,
   },
 });
+// const firebaseApp = initializeApp();
 
 // const io = socket(server, {
 //   cors: {
@@ -26,28 +28,28 @@ const io = new Server(server, {
 //   },
 // });
 
-io.on("connection", (socket) => {
-  // socket.removeAllListeners();
-  console.log("User connected => " + socket.id);
+// io.on("connection", (socket) => {
+//   // socket.removeAllListeners();
+//   console.log("User connected => " + socket.id);
 
-  socket.on("join_room", (room) => {
-    socket.join(room);
-    console.log(`User with ID: ${socket.id} joined room: ${room}`);
-  });
+//   socket.on("join_room", (room) => {
+//     socket.join(room);
+//     console.log(`User with ID: ${socket.id} joined room: ${room}`);
+//   });
 
-  socket.on("send_message", (message) => {
-    console.log("Send message", message);
+//   socket.on("send_message", (message) => {
+//     console.log("Send message", message);
 
-    io.to(message.room).emit("new_message", {
-      id: new Date().getTime(),
-      ...message,
-    });
-  });
+//     io.to(message.room).emit("new_message", {
+//       id: new Date().getTime(),
+//       ...message,
+//     });
+//   });
 
-  socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id);
-  });
-});
+//   socket.on("disconnect", () => {
+//     console.log("User disconnected", socket.id);
+//   });
+// });
 
 app.use(cors());
 app.use(express.json());
@@ -79,24 +81,3 @@ app.get("/", (req, res) => res.status(200).send("helloo world"));
 // const server = app.listen(process.env.PORT, () =>
 //   console.log(`Server started on ${process.env.PORT}`)
 // );
-
-// const io = socket(server, {
-//   cors: {
-//     origin: "http://localhost:8000",
-//     credentials: true,
-//   },
-// });
-// global.onlineUsers = new Map();
-// io.on("connection", (socket) => {
-//   global.chatSocket = socket;
-//   socket.on("add_user", (userId) => {
-//     onlineUsers.set(userId, socket.id);
-//   });
-
-//   socket.on("send_message", (data) => {
-//     const sendUserSocket = onlineUsers.get(data.to);
-//     if (sendUserSocket) {
-//       socket.to(sendUserSocket).emit("msg_recieve", data.msg);
-//     }
-//   });
-// });
