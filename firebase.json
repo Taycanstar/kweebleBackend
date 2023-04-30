@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "kweeble-app-a7ac2",
+  "private_key_id": "dcaabbd836d872b3516d7d63fba048ca3a83a7d0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCSWTcwexWYMcHj\nr5yrDQT/TBh7ez2OaFlGXw70+Zm9KkjD0YhLL0BVGmc+KZbI1I2rhAC9NdYGhX38\nuOmDwGwsLvQO5SZx89e7wyac9127axx0+HSBpJjBJuJqlubVkpG86QvuqqmEA343\nzLuzuwEwRrXRLPxUBvbbX396Sphom3nw5gt3Jr6+jFUrQeIxxShVA0dkEMCPDpZr\nXIika7q0WIWr6Alm+ip8Vk1jBTUs4AMs5CsiMmf1ne3I5M9KdzanmidWb+5k6y2g\nYbQBK9M+TCq/IaiHrIOFvsCv9fTxHWLYOhIuqwSsEzngrdQ04q7QPmBtOrLV56D7\nsWRKZKdRAgMBAAECggEAA2gTOkwrKQNDfZ7JWUvwyVaGnV01hhqUtWgiC37B3t7c\nmb5HW2SqrTBzpcVHDr6v24WzlLPrmvRBhf/x45C3k+G16aDY378qzuKQhAfYBTRN\nkcV0xM3Fhn12uL9xeRgzzz9neTM8xedk6TyZQ+o+8VY8BjXzW6tb1Kho6bpRyOGI\nk2b5Lliz5X8tQqZeR5Z8RQLSW1wWdaMeVmlZcc3Gqwxyaa2gaJ9wejSl5lpZZZqL\nFJEeYXzXQ8hBIqaraHzroVP89ohAtHm2nLHBO4KFATUmmqEQTzyno2TbVmjIHLGu\n3+Trun6Noax0qG5futkuYmq+WMDzQrBUMUB+EkkRYQKBgQDMUPK+GpFdZKEu7veX\n3jtF9OwFm3cyz2G41rs8Xqqx+HPZ65UAlYSzWeRbwZPLcZrkEhjLkJQAfKOIH2LK\nLMTP5CvlPjK/mgGMlVA+z/RpXz18kNDxHlmqWNvitby5sPoK0VzWhUQoc7tNRlxd\nzuspxb9QyfzvS6RRuth9QetoCQKBgQC3XmktbGClXcQW6N15ksKLnb9CwpFcdScf\nRlBEnHoNtsFvvKA211ua8D9qCXIgUiUJxhlU5RGmYdELemKLgimHh4BVTlKfhnVR\nxEXpcVzq4czYVtBu3YpqaPbhyuFLHO54kdkvV3YcM/c1M4biWWVQlSxI3NXienky\noKNQywfHCQKBgDLvUzSVRvvzZENhC5RusHQmNNjJAxRFouUDkzXfm8o2WBtRoZm9\nrJFRrZ46SfAD6EtHP6sv5dWhPNtoh6ZDNuVkypShxuEBMbWsW47tJM9IEPoG2C/k\nExJmiJqiF+Rq/ErKGszX+D/laiI/kjNIrFODmsg3MrktME+3ttSzJE6RAoGABA6Y\nsSKWuNHsRr18OPZgS4p/8tAvOyZ0aSK7H+l+YdNLUFeSC+ST6Eesf4IZ/lES9LZn\nVROEYnQDlgdtKr0EgjUjR7/l4BWvftGi4llZvvCkAZ1aGznXmCceXzyH44uOUyiW\n748108XqkEjFkTh9H11Nj4cjTFF9YPtg4aa8U1ECgYBVHQsgsSRDQltblhLOwpUw\nRFO+bTqVaK2jIU8m+kZYaJFIvy7Ttw3qx6zW1687HBtXqbYPygZxhZr3loATnMfp\nLSG+kJL0yZU6rHK++qPTq0gCmD7+HDq6YQ6bbzSBEH4avbe14hZzTYHslKtsbSG4\ne0505wr3oR6wfxjo7mhxzQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-i50su@kweeble-app-a7ac2.iam.gserviceaccount.com",
+  "client_id": "104786487065838117262",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-i50su%40kweeble-app-a7ac2.iam.gserviceaccount.com"
+}

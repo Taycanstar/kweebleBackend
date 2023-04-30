@@ -59,6 +59,7 @@ const userSchema = new Schema(
     scopes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Scope" }],
     savedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
     savedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    registrationTokens: [{ type: String }],
   },
   { timestamps: true }
 );

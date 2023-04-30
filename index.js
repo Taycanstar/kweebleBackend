@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 const { Server } = require("socket.io");
 const http = require("http");
-const { initializeApp } = require("firebase-admin/app");
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
+
 // const socket = require("socket.io");
 
 const port = process.env.PORT || 3000;
@@ -18,6 +20,14 @@ const io = new Server(server, {
     origin: "http://localhost:3000",
     credentials: true,
   },
+});
+
+const { initializeApp } = require("firebase-admin/app");
+
+var serviceAccount = require("./firebase.json");
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
 });
 // const firebaseApp = initializeApp();
 
