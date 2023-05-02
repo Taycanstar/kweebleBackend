@@ -101,22 +101,15 @@ router.post("/login", async (req, res) => {
     }
     if (registrationToken) {
       // Check if the user profile already has this device registered
-      console.log("Regist token rec");
       if (
         !user.registrationTokens ||
         !user.registrationTokens.includes(registrationToken)
       ) {
-        console.log("Regist token valid");
-        // Update the user profile
-        // user.registrationTokens = user.registrationTokens
-        //   ? [...user.registrationTokens, registrationToken]
-        //   : [registrationToken];
         await User.findByIdAndUpdate(user._id, {
           registrationTokens: user.registrationTokens
             ? [...user.registrationTokens, registrationToken]
             : [registrationToken],
         });
-        await user.save();
       }
     }
     const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
