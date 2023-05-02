@@ -83,7 +83,8 @@ router.post("/register", async (req, res) => {
 
 //Login userr
 router.post("/login", async (req, res) => {
-  const { email, password, username } = req.body;
+  // Pass the current registrationToken with the request
+  const { email, password, username, registrationToken } = req.body;
   try {
     // let user = await User.findOne({ email });
     // (await User.findOne({ email: req.body.email.toLowerCase() })) ||
@@ -98,7 +99,19 @@ router.post("/login", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
-
+    if (registrationToken) {
+      // Check if the user profile already has this device registered
+      if (
+        !user.registrationTokens ||
+        !user.registrationTokens.includes(registrationToken)
+      ) {
+        // Update the user profile
+        user.registrationTokens = user.registrationTokens
+          ? [...user.registrationTokens, registrationToken]
+          : [registrationToken];
+        await user.save();
+      }
+    }
     const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
       expiresIn: "1h",
     });
@@ -108,6 +121,8 @@ router.post("/login", async (req, res) => {
     console.log(error);
   }
 });
+
+//Update
 
 router.get("/", requireLogin, async (req, res) => {
   res.status(200).json(req.user);
