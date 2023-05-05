@@ -75,8 +75,12 @@ const eventSchema = new Schema({
   media: {
     type: Array,
   },
+
   modOnly: {
     type: Boolean,
+  },
+  notify: {
+    type: String,
   },
   users: [
     {
