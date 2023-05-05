@@ -17,6 +17,7 @@ const Course = require("../models/Course");
 const Item = require("../models/Item");
 const Grade = require("../models/Grade");
 const Event = require("../models/Grade");
+const { getMessaging } = require("firebase-admin/messaging");
 
 const secret = "test";
 
@@ -639,6 +640,18 @@ router.put("/:id", async (req, res) => {
       { $addToSet: { scopes: scope } }
     );
     // console.log(user, "<==user");
+    // Subscribe the devices corresponding to the registration tokens to the
+    // topic.
+    getMessaging()
+      .subscribeToTopic(user.registrationTokens, scope)
+      .then((response) => {
+        // See the MessagingTopicManagementResponse reference documentation
+        // for the contents of response.
+        console.log("Successfully subscribed to topic:", response);
+      })
+      .catch((error) => {
+        console.log("Error subscribing to topic:", error);
+      });
     await user.save();
     res.send(user);
   } catch (error) {
