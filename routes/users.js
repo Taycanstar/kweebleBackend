@@ -635,10 +635,8 @@ router.put("/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
     // console.log(req.body, "<===body");
-    const user = await User.updateOne(
-      { _id: id },
-      { $addToSet: { scopes: scope } }
-    );
+    await User.updateOne({ _id: id }, { $addToSet: { scopes: scope } });
+    const user = await User.findOne({ _id: id });
     // console.log(user, "<==user");
     // Subscribe the devices corresponding to the registration tokens to the
     // topic.
@@ -663,11 +661,22 @@ router.put("/:id", async (req, res) => {
 router.put("/del/:id", async (req, res) => {
   try {
     const { scope, id } = req.body;
-
-    const user = await User.updateOne(
+    await User.updateOne(
       { _id: req.params.id },
       { $pull: { scopes: { $in: [scope] } } }
     );
+    const user = await User.findOne({ _id: id });
+
+    getMessaging()
+      .unsubscribeToTopic(user.registrationTokens, scope)
+      .then((response) => {
+        // See the MessagingTopicManagementResponse reference documentation
+        // for the contents of response.
+        console.log("Successfully unsubscribed to topic:", response);
+      })
+      .catch((error) => {
+        console.log("Error unsubscribing to topic:", error);
+      });
     // console.log(user, "<==user");
     await user.save();
     res.send(user);

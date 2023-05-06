@@ -13,7 +13,7 @@ const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Product = require("../models/Product");
 const Scope = require("../models/Scope");
-
+const { firestore } = require("firebase-admin");
 const secret = "test";
 
 const storage = new CloudinaryStorage({

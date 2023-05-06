@@ -12,6 +12,7 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Event = require("../models/Event");
+const { getFirestore } = require("firebase-admin/firestore");
 
 const secret = "test";
 
@@ -170,6 +171,18 @@ router.post("/", async (req, res) => {
       notify,
     });
     await event.save();
+
+    // We will add a notification to firestore
+    const docRef = getFirestore().collection("notifications").doc(uuidv4());
+    await docRef.set({
+      title: name,
+      body: description,
+      topic: scope,
+      data: {},
+      sent: false,
+      cancel: false,
+      scheduledTime: date, // ToDo : setting the correct date time
+    });
 
     return res.status(201).json({ message: "Event created succesfully" });
   } catch (error) {

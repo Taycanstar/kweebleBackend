@@ -29,6 +29,7 @@ var serviceAccount = require("./firebase.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
+
 // const firebaseApp = initializeApp();
 
 // const io = socket(server, {
