@@ -80,7 +80,10 @@ const eventSchema = new Schema({
     type: Boolean,
   },
   notify: {
-    type: String,
+    type: Boolean,
+  },
+  notificationTime: {
+    type: Date,
   },
   users: [
     {
