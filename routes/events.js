@@ -183,7 +183,7 @@ router.post("/", async (req, res) => {
       data: {},
       sent: false,
       cancel: false,
-      scheduledTime: new Timestamp(notificationTime), // ToDo : setting the correct date time
+      scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
     });
 
     return res.status(201).json({ message: "Event created succesfully" });
