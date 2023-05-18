@@ -641,7 +641,7 @@ router.put("/:id", async (req, res) => {
     // Subscribe the devices corresponding to the registration tokens to the
     // topic.
     getMessaging()
-      .subscribeToTopic(user.registrationTokens, scope)
+      .subscribeToTopic(user.registrationTokens, scope._id)
       .then((response) => {
         // See the MessagingTopicManagementResponse reference documentation
         // for the contents of response.
