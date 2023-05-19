@@ -128,15 +128,7 @@ router.post("/", async (req, res) => {
   if (scope === "" || scope === undefined) {
     return res.status(400).json({ error: "Scope of the event is required" });
   }
-  if (month === "" || month === undefined) {
-    return res.status(400).json({ error: "Date of the event is required" });
-  }
-
-  if (year === "" || year === undefined) {
-    return res.status(400).json({ error: "Date of the event is required" });
-  }
-
-  if (day === "" || day === undefined) {
+  if (date === "" || date === undefined) {
     return res.status(400).json({ error: "Date of the event is required" });
   }
 
