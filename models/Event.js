@@ -79,9 +79,6 @@ const eventSchema = new Schema({
   modOnly: {
     type: Boolean,
   },
-  notify: {
-    type: Boolean,
-  },
   notificationTime: {
     type: Date,
   },
