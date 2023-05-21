@@ -115,7 +115,6 @@ router.post("/", async (req, res) => {
     modOnly,
     repeat,
     date,
-    notify,
     notificationTime,
   } = req.body;
 
@@ -161,22 +160,23 @@ router.post("/", async (req, res) => {
       modOnly,
       repeat,
       date,
-      notify,
       notificationTime,
     });
     await event.save();
 
     // We will add a notification to firestore
     const docRef = getFirestore().collection("notifications").doc(uuidv4());
-    await docRef.set({
-      title: name,
-      body: description,
-      topic: scope,
-      data: {},
-      sent: false,
-      cancel: false,
-      scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
-    });
+    if (notificationTime != null) {
+      await docRef.set({
+        title: name,
+        body: description,
+        topic: scope,
+        data: {},
+        sent: false,
+        cancel: false,
+        scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
+      });
+    }
 
     return res.status(201).json({ message: "Event created succesfully" });
   } catch (error) {
