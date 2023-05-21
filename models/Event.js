@@ -82,6 +82,9 @@ const eventSchema = new Schema({
   notificationTime: {
     type: Date,
   },
+  notiText: {
+    type: String,
+  },
   users: [
     {
       id: mongoose.Schema.Types.ObjectId,
