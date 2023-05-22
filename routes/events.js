@@ -117,6 +117,7 @@ router.post("/", async (req, res) => {
     date,
     notificationTime,
     notiText,
+    link,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -163,6 +164,7 @@ router.post("/", async (req, res) => {
       date,
       notificationTime,
       notiText,
+      link,
     });
     await event.save();
 
@@ -270,7 +272,12 @@ router.put("/edit/:id", async (req, res) => {
       notify,
       notificationTime,
       notiText,
+      link,
     } = req.body;
+
+    const singleEvent = await Event.findById(req.params.id);
+
+    const notiTextBefore = singleEvent.notiText;
 
     const event = await Event.findByIdAndUpdate(req.params.id, {
       name,
@@ -296,12 +303,30 @@ router.put("/edit/:id", async (req, res) => {
       notify,
       notificationTime,
       notiText,
+      link,
     });
 
     // const scope = await Scope.updateOne(
     //   { _id: req.params.id },
     //   { photo: photo }
     // );
+
+    // We will add a notification to firestore
+    if (notiText !== notiTextBefore) {
+      const docRef = getFirestore().collection("notifications").doc(uuidv4());
+      if (notificationTime != null) {
+        await docRef.set({
+          title: name,
+          body: description,
+          topic: scope,
+          data: {},
+          sent: false,
+          cancel: false,
+          scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
+        });
+      }
+    }
+
     console.log(event, "<=event");
 
     await event.save();

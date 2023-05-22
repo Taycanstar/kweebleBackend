@@ -85,6 +85,9 @@ const eventSchema = new Schema({
   notiText: {
     type: String,
   },
+  Link: {
+    type: String,
+  },
   users: [
     {
       id: mongoose.Schema.Types.ObjectId,
