@@ -85,7 +85,7 @@ const eventSchema = new Schema({
   notiText: {
     type: String,
   },
-  Link: {
+  link: {
     type: String,
   },
   users: [
