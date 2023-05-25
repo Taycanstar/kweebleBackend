@@ -399,7 +399,7 @@ router.get("/savedEvents/:userId", async (req, res) => {
     }
 
     // Return the saved events
-    res.json(user.savedEvents);
+    res.send(user.savedEvents);
   } catch (error) {
     // If an error occurred, send a 500 response
     res.status(500).json({ message: error.message });
