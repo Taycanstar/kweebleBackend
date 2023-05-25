@@ -391,7 +391,7 @@ router.get("/single/:id", async (req, res) => {
 router.get("/savedEvents/:userId", async (req, res) => {
   try {
     // Get the user from the database using their id
-    const user = await User.findById(req.params.userId);
+    const user = await User.findOne({ _id: req.params.userId });
 
     // If user was not found, send a 404 response
     if (!user) {
