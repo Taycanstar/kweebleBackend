@@ -385,13 +385,11 @@ router.get("/single/:id", async (req, res) => {
   }
 });
 
-//Fetch saved events from user
-
 // Fetch saved events for a specific user
 router.get("/savedEvents/:userId", async (req, res) => {
   try {
     // Get the user from the database using their id
-    const user = await User.findOne({ _id: req.params.userId });
+    const user = await User.findById(req.params.userId);
 
     // If user was not found, send a 404 response
     if (!user) {
@@ -399,12 +397,21 @@ router.get("/savedEvents/:userId", async (req, res) => {
     }
 
     // Return the saved events
-    res.send(user.savedEvents);
+    res.json(user.savedEvents);
   } catch (error) {
     // If an error occurred, send a 500 response
     res.status(500).json({ message: error.message });
   }
 });
+
+// router.get("/", async (req, res) => {
+//   try {
+//     const events = await Event.find();
+//     res.send(events);
+//   } catch (error) {
+//     res.send(error);
+//   }
+// });
 
 module.exports = router;
 
