@@ -118,6 +118,7 @@ router.post("/", async (req, res) => {
     notificationTime,
     notiText,
     link,
+    endDate,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -165,6 +166,7 @@ router.post("/", async (req, res) => {
       notificationTime,
       notiText,
       link,
+      endDate,
     });
     await event.save();
 
@@ -273,6 +275,7 @@ router.put("/edit/:id", async (req, res) => {
       notificationTime,
       notiText,
       link,
+      endDate,
     } = req.body;
 
     const singleEvent = await Event.findById(req.params.id);
@@ -304,6 +307,7 @@ router.put("/edit/:id", async (req, res) => {
       notificationTime,
       notiText,
       link,
+      endDate,
     });
 
     // const scope = await Scope.updateOne(
@@ -404,15 +408,13 @@ router.get("/savedEvents/:userId", async (req, res) => {
   }
 });
 
-// router.get("/", async (req, res) => {
-//   try {
-//     const events = await Event.find();
-//     res.send(events);
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
-module.exports = router;
+router.get("/saved", async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.send(events);
+  } catch (error) {
+    res.send(error);
+  }
+});
 
 module.exports = router;

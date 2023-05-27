@@ -9,6 +9,9 @@ const eventSchema = new Schema({
   date: {
     type: Date,
   },
+  endDate: {
+    type: Date,
+  },
   day: {
     type: String,
     required: true,
