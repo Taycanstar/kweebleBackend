@@ -104,7 +104,9 @@ router.post("/ask", async (req, res) => {
     res.json({ response: response });
   } else {
     // Handle other types of questions or default case
-    generateResponse(userPrompt);
+    // Handle other types of questions or default case
+    let response = await generateResponse(userPrompt);
+    res.json({ response: response });
   }
 });
 
