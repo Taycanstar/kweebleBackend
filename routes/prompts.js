@@ -6,8 +6,7 @@ const Event = require("../models/Event");
 
 const key = process.env.GP3_API_KEY;
 // MongoDB connection URI
-const uri =
-  "mongodb+srv://dimi:1UHJnTtkZGBofoSA@cluster0.76ok5.mongodb.net/KweebleDatabase?retryWrites=true&w=majority";
+const uri = process.env.MONGODB_URI;
 
 const months = [
   "January",
