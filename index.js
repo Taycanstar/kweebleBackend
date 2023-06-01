@@ -73,6 +73,7 @@ app.use("/products", require("./routes/products"));
 app.use("/scopes", require("./routes/scopes"));
 app.use("/notifications", require("./routes/notifications"));
 app.use("/reports", require("./routes/reports"));
+app.use("/prompts", require("./routes/prompts"));
 
 //db config
 const CONNECTION_URL =
