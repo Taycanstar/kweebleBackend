@@ -64,14 +64,9 @@ async function getUpcomingEvents() {
     const formattedEvents = recentEvents.map((event) => {
       // Format the event data into a string
       // This is just an example, you would replace 'eventName', 'eventDate', etc. with your actual event properties
-      // return `Event: ${event.name}, Date: ${months[event.month - 1]} ${
-      //   event.day
-      // }, ${event.year}, Location: ${event.location}`;
-      console.log(
-        `Event: ${event.name}, Date: ${months[event.month - 1]} ${event.day}, ${
-          event.year
-        }, Location: ${event.location}`
-      );
+      return `Event: ${event.name}, Date: ${months[event.month - 1]} ${
+        event.day
+      }, ${event.year}, Location: ${event.location}`;
     });
   } catch (error) {
     console.log(error);
