@@ -73,15 +73,15 @@ async function getUpcomingEvents() {
   // Query your database and return a list of upcoming events
 }
 
-// Assume you have a function getEventAttendees(eventName) that returns a list of attendees for a specific event
-async function getEventAttendees(eventName) {
-  // Query your database and return a list of attendees for the specified event
-}
+// // Assume you have a function getEventAttendees(eventName) that returns a list of attendees for a specific event
+// async function getEventAttendees(eventName) {
+//   // Query your database and return a list of attendees for the specified event
+// }
 
-// Assume you have a function extractEventName(userPrompt) that extracts the event name from the user's question
-function extractEventName(userPrompt) {
-  // Extract the event name from the user's question
-}
+// // Assume you have a function extractEventName(userPrompt) that extracts the event name from the user's question
+// function extractEventName(userPrompt) {
+//   // Extract the event name from the user's question
+// }
 
 router.post("/ask", async (req, res) => {
   let userPrompt = req.body.question;
@@ -92,17 +92,19 @@ router.post("/ask", async (req, res) => {
     let fullPrompt = `${userPrompt}\nAssistant: The upcoming events are: ${eventsStr}`;
     let response = await generateResponse(fullPrompt);
     res.json({ response: response });
-  } else if (
-    userPrompt.toLowerCase().includes("who") &&
-    userPrompt.toLowerCase().includes("going")
-  ) {
-    let eventName = extractEventName(userPrompt);
-    let attendees = await getEventAttendees(eventName);
-    let attendeesStr = attendees.join(", ");
-    let fullPrompt = `${userPrompt}\nAssistant: The people going to the event are: ${attendeesStr}`;
-    let response = await generateResponse(fullPrompt);
-    res.json({ response: response });
-  } else {
+  }
+  // else if (
+  //   userPrompt.toLowerCase().includes("who") &&
+  //   userPrompt.toLowerCase().includes("going")
+  // ) {
+  //   let eventName = extractEventName(userPrompt);
+  //   let attendees = await getEventAttendees(eventName);
+  //   let attendeesStr = attendees.join(", ");
+  //   let fullPrompt = `${userPrompt}\nAssistant: The people going to the event are: ${attendeesStr}`;
+  //   let response = await generateResponse(fullPrompt);
+  //   res.json({ response: response });
+  // }
+  else {
     // Handle other types of questions or default case
     // Handle other types of questions or default case
     let response = await generateResponse(userPrompt);
