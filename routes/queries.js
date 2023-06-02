@@ -22,8 +22,10 @@ router.post("/new", async (req, res) => {
       model: "text-davinci-003",
       prompt: prompt,
     });
-    console.log(completion.data.choices[0].text);
-    res.send(completion.data.choices[0].text);
+    const response = completion.data.choices[0].text;
+    console.log(response);
+    // res.send();
+    res.status(200).json(response);
   } catch (error) {
     if (error.response) {
       console.log(error.response.status);
