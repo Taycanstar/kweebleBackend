@@ -18,11 +18,16 @@ const openai = new OpenAIApi(configuration);
 router.post("/new", async (req, res) => {
   const { prompt } = req.body;
   try {
-    const completion = await openai.createCompletion({
+    // const completion = await openai.createCompletion({
+    //   model: "text-davinci-003",
+    //   prompt: prompt,
+    // });
+    const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      prompt: prompt,
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.5,
     });
-    const response = completion.data.choices[0].text;
+    const response = completion.data.choices[0].message.content;
     console.log(response);
     // res.send();
     res.status(200).json(response);
