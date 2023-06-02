@@ -5,13 +5,15 @@ const { MongoClient } = require("mongodb");
 const Event = require("../models/Event");
 const { Configuration, OpenAIApi } = require("openai");
 
-const key = process.env.GP3_API_KEY;
+const key = process.env.OPENAI_KEY;
 // MongoDB connection URI
 const uri = process.env.MONGODB_URI;
 
 const configuration = new Configuration({
-  apiKey: process.env.GP3_API_KEY,
+  apiKey: process.env.OPENAI_KEY,
 });
+
+const openai = new OpenAIApi(configuration);
 
 router.post("/new", async (req, res) => {
   const { prompt } = req.body;

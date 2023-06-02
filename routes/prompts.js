@@ -5,12 +5,12 @@ const { MongoClient } = require("mongodb");
 const Event = require("../models/Event");
 const { Configuration, OpenAIApi } = require("openai");
 
-const key = process.env.GP3_API_KEY;
+const key = process.env.OPENAI_KEY;
 // MongoDB connection URI
 const uri = process.env.MONGODB_URI;
 
 const configuration = new Configuration({
-  apiKey: process.env.GP3_API_KEY,
+  apiKey: process.env.OPENAI_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
@@ -37,7 +37,7 @@ const months = [
 
 async function generateResponse(prompt) {
   const response = await axios.post(
-    "https://api.openai.com/v1/engines/davinci-codex/completions",
+    "https://api.openai.com/v1/engines/text-davinci-003/completions",
     {
       prompt: prompt,
       max_tokens: 100,
@@ -98,11 +98,35 @@ async function getUpcomingEvents() {
 router.post("/ask", async (req, res) => {
   let userPrompt = req.body.question;
 
+  const client = new MongoClient(uri);
+  await client.connect();
+
+  // Access the events collection
+  const db = client.db();
+  const eventsCollection = db.collection("events");
+
+  // Fetch the first 3 most recent events from the database
+  const recentEvents = await eventsCollection
+    .find()
+    .sort({ date: -1 })
+    .limit(3)
+    .toArray();
+
+  const formattedEvents = recentEvents.map((event) => {
+    // Format the event data into a string
+    // This is just an example, you would replace 'eventName', 'eventDate', etc. with your actual event properties
+    return `Event: ${event.name}, Date: ${months[event.month - 1]} ${
+      event.day
+    }, ${event.year}, Location: ${event.location}`;
+  });
+
   if (userPrompt.toLowerCase().includes("upcoming events")) {
-    let upcomingEvents = await getUpcomingEvents();
-    let eventsStr = formattedEvents.join(", ");
+    let upcomingEvents = formattedEvents;
+    console.log(upcomingEvents, "evs");
+    let eventsStr = upcomingEvents.join(", ");
     let fullPrompt = `${userPrompt}\nAssistant: The upcoming events are: ${eventsStr}`;
     let response = await generateResponse(fullPrompt);
+    console.log(response, "this is a response");
     res.json({ response: response });
   }
   // else if (
@@ -119,6 +143,7 @@ router.post("/ask", async (req, res) => {
   else {
     // Handle other types of questions or default case
     // Handle other types of questions or default case
+    console.log(response);
     let response = await generateResponse(userPrompt);
     res.json({ response: response });
   }
