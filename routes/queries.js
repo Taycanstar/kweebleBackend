@@ -19,7 +19,7 @@ router.post("/new", async (req, res) => {
   const { prompt } = req.body;
   try {
     const completion = await openai.createCompletion({
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       prompt: prompt,
     });
     const response = completion.data.choices[0].text;
