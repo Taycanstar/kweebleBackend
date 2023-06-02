@@ -3,10 +3,22 @@ const express = require("express");
 const router = require("express").Router();
 const { MongoClient } = require("mongodb");
 const Event = require("../models/Event");
+const { Configuration, OpenAIApi } = require("openai");
 
 const key = process.env.GP3_API_KEY;
 // MongoDB connection URI
 const uri = process.env.MONGODB_URI;
+
+const configuration = new Configuration({
+  apiKey: process.env.GP3_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
+// const completion = await openai.createCompletion({
+//   model: "text-davinci-003",
+//   prompt: "Hello world",
+// });
 
 const months = [
   "January",

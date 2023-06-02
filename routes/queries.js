@@ -1,33 +1,34 @@
-const express = require("express");
 const axios = require("axios");
+const express = require("express");
 const router = require("express").Router();
+const { MongoClient } = require("mongodb");
+const Event = require("../models/Event");
+const { Configuration, OpenAIApi } = require("openai");
 
 const key = process.env.GP3_API_KEY;
+// MongoDB connection URI
+const uri = process.env.MONGODB_URI;
 
-router.post("/api/gpt3", async (req, res) => {
-  const { query } = req.body;
+const configuration = new Configuration({
+  apiKey: process.env.GP3_API_KEY,
+});
 
+router.post("/new", async (req, res) => {
+  const { prompt } = req.body;
   try {
-    const response = await axios.post(
-      "https://api.openai.com/v1/engines/davinci-codex/completions",
-      {
-        prompt: query,
-        max_tokens: 100,
-        temperature: 0.8,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${key}`,
-        },
-      }
-    );
-
-    const output = response.data.choices[0].text.trim();
-    res.json({ response: output });
+    const completion = await openai.createCompletion({
+      model: "text-davinci-003",
+      prompt: prompt,
+    });
+    console.log(completion.data.choices[0].text);
+    res.send(completion.data.choices[0].text);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred" });
+    if (error.response) {
+      console.log(error.response.status);
+      console.log(error.response.data);
+    } else {
+      console.log(error.message);
+    }
   }
 });
 
