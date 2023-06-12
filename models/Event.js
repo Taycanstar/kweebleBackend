@@ -5,6 +5,7 @@ const eventSchema = new Schema({
   name: {
     type: String,
     required: true,
+    index: true,
   },
   date: {
     type: Date,

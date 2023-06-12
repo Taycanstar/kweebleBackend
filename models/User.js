@@ -60,6 +60,13 @@ const userSchema = new Schema(
     savedEvents: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
     savedProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
     registrationTokens: [{ type: String }],
+    evaConversationHistory: [
+      {
+        role: String,
+        content: String,
+        isLiked: Boolean,
+      },
+    ],
   },
   { timestamps: true }
 );

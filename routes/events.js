@@ -331,8 +331,6 @@ router.put("/edit/:id", async (req, res) => {
       }
     }
 
-    console.log(event, "<=event");
-
     await event.save();
     res.send(event);
   } catch (error) {

@@ -73,12 +73,14 @@ router.post("/register", async (req, res) => {
       followers,
       following,
       registrationTokens,
+      evaConversationHistory: [],
     });
     await user.save();
 
     return res.status(201).json({ message: "User created succesfully" });
   } catch (err) {
     console.log(err);
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -872,6 +874,127 @@ router.get("/single/:id", async (req, res) => {
     // res.send(scopes);
   } catch (error) {
     res.send(error);
+  }
+});
+
+// Endpoint to fetch the user's evaConversationHistory
+router.get("/conversation-history/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (user && user.evaConversationHistory) {
+      res.status(200).json(user.evaConversationHistory);
+    } else {
+      res.status(404).json({
+        message: "User not found or conversation history not available.",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error." });
+  }
+});
+
+//clear chat history with eva
+// Server-side route handler to delete all messages for a user
+router.put("/delete/messages", async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    // Retrieve the user's conversation history from the data storage
+    const user = await User.findById(userId);
+    if (!user) {
+      // User not found, return an error response
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Clear the user's conversation history
+    user.evaConversationHistory = [];
+
+    // Update your data storage to reflect the modified conversation history
+    await user.save();
+
+    res.status(200).json({ message: "success" });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//like message
+router.put("/like/message", async (req, res) => {
+  try {
+    const { userId, msgId } = req.body;
+
+    // Retrieve the user's document from the data storage
+    const user = await User.findById(userId);
+    if (!user) {
+      // User not found, return an error response
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the specific message in the user's conversation history
+    let message = user.evaConversationHistory.id(msgId);
+    if (!message) {
+      // Message not found, return an error response
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Set the isLiked field of the message to true
+    // This will create the isLiked field if it doesn't exist
+    message.isLiked = true;
+    // message.set({ isLiked: true });
+
+    user.markModified("evaConversationHistory");
+
+    // Save the user document
+    await user.save();
+
+    // Response success
+    res.status(200).json({ message: "success message set to liked" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while liking the message" });
+  }
+});
+
+//dislike
+router.put("/dislike/message", async (req, res) => {
+  try {
+    const { userId, msgId } = req.body;
+
+    // Retrieve the user's document from the data storage
+    const user = await User.findById(userId);
+    if (!user) {
+      // User not found, return an error response
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the specific message in the user's conversation history
+    let message = user.evaConversationHistory.id(msgId);
+    if (!message) {
+      // Message not found, return an error response
+      return res.status(404).json({ error: "Message not found" });
+    }
+
+    // Set the isLiked field of the message to true
+    // This will create the isLiked field if it doesn't exist
+    message.isLiked = false;
+    // message.set({ isLiked: true });
+
+    user.markModified("evaConversationHistory");
+
+    // Save the user document
+    await user.save();
+
+    // Response success
+    res.status(200).json({ message: "success message set to disliked" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "An error occurred while liking the message" });
   }
 });
 

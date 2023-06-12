@@ -7,6 +7,7 @@ const { Server } = require("socket.io");
 const http = require("http");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const Event = require("./models/Event");
 
 // const socket = require("socket.io");
 
@@ -75,6 +76,7 @@ app.use("/notifications", require("./routes/notifications"));
 app.use("/reports", require("./routes/reports"));
 app.use("/prompts", require("./routes/prompts"));
 app.use("/queries", require("./routes/queries"));
+app.use("/feedbacks", require("./routes/feedbacks"));
 
 //db config
 const CONNECTION_URL =
