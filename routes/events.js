@@ -172,17 +172,18 @@ router.post("/", async (req, res) => {
 
     // We will add a notification to firestore
     const docRef = getFirestore().collection("notifications").doc(uuidv4());
-    if (notificationTime != null) {
-      await docRef.set({
-        title: name,
-        body: description,
-        topic: scope,
-        data: {},
-        sent: false,
-        cancel: false,
-        scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
-      });
-    }
+    console.log(docRef, "hey");
+    // if (notificationTime != null) {
+    await docRef.set({
+      title: name,
+      body: description,
+      topic: scope,
+      data: {},
+      sent: false,
+      cancel: false,
+      scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
+    });
+    // }
 
     return res.status(201).json({ message: "Event created succesfully" });
   } catch (error) {
