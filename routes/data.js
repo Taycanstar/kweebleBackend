@@ -15,23 +15,8 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const id = req.params.id;
   User.findById(id)
-    .then((user) => {
-      // Subscribe the devices corresponding to the registration tokens to the
-      // topic.
-      if (user.scopes) {
-        user.scopes.forEach((scope) => {
-          getMessaging()
-            .subscribeToTopic(user.registrationTokens, scope._id)
-            .then((response) => {
-              // See the MessagingTopicManagementResponse reference documentation
-              // for the contents of response.
-              console.log("Successfully subscribed to topic:", response);
-            })
-            .catch((error) => {
-              console.log("Error subscribing to topic:", error);
-            });
-        });
-      }
+    .then((data) => {
+      // console.log("Data: ", data);
 
       res.json(data);
     })

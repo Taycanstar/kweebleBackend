@@ -115,6 +115,19 @@ router.post("/login", async (req, res) => {
         });
       }
     }
+
+    // Assuming user.scopes is the array of scopes
+    for (let i = 0; i < user.scopes.length; i++) {
+      getMessaging()
+        .subscribeToTopic(user.registrationTokens, user.scopes[i]._id)
+        .then((response) => {
+          console.log("Successfully subscribed to topic:", response);
+        })
+        .catch((error) => {
+          console.log("Error subscribing to topic:", error);
+        });
+    }
+
     const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
       expiresIn: "1h",
     });
@@ -995,6 +1008,33 @@ router.put("/dislike/message", async (req, res) => {
     res
       .status(500)
       .json({ error: "An error occurred while liking the message" });
+  }
+});
+
+//Add scope to user
+router.put("/:id", async (req, res) => {
+  try {
+    const { scope, id } = req.body;
+    // console.log(req.body, "<===body");
+    await User.updateOne({ _id: id }, { $addToSet: { scopes: scope } });
+    const user = await User.findOne({ _id: id });
+    // console.log(user, "<==user");
+    // Subscribe the devices corresponding to the registration tokens to the
+    // topic.
+    getMessaging()
+      .subscribeToTopic(user.registrationTokens, scope._id)
+      .then((response) => {
+        // See the MessagingTopicManagementResponse reference documentation
+        // for the contents of response.
+        console.log("Successfully subscribed to topic:", response);
+      })
+      .catch((error) => {
+        console.log("Error subscribing to topic:", error);
+      });
+    await user.save();
+    res.send(user);
+  } catch (error) {
+    res.send(error);
   }
 });
 
