@@ -116,43 +116,6 @@ router.post("/login", async (req, res) => {
       }
     }
 
-    // // Assuming user.scopes is the array of scopes
-    // for (let i = 0; i < user.scopes.length; i++) {
-    //   getMessaging()
-    //     .subscribeToTopic(user.registrationTokens, user.scopes[i]._id)
-    //     .then((response) => {
-    //       console.log("Successfully subscribed to topic:", response);
-    //     })
-    //     .catch((error) => {
-    //       console.log("Error subscribing to topic:", error);
-    //     });
-    // }
-
-    // Array to hold all promises
-    // let promises = [];
-
-    // for (let i = 0; i < user.scopes.length; i++) {
-    //   promises.push(
-    //     getMessaging().subscribeToTopic(
-    //       user.registrationTokens,
-    //       user.scopes[i]._id
-    //     )
-    //   );
-    // }
-
-    // Promise.all(promises)
-    //   .then((responses) => {
-    //     responses.forEach((response, index) => {
-    //       console.log(
-    //         `Successfully subscribed to topic ${user.scopes[index]._id}:`,
-    //         response
-    //       );
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log("Error subscribing to topics:", error);
-    //   });
-
     const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
       expiresIn: "1h",
     });
