@@ -95,6 +95,9 @@ const eventSchema = new Schema({
   notificationDescription: {
     type: String,
   },
+  notificationId: {
+    type: mongoose.Schema.Types.ObjectId,
+  },
   users: [
     {
       id: mongoose.Schema.Types.ObjectId,

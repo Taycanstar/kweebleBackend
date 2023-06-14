@@ -170,26 +170,53 @@ router.post("/", async (req, res) => {
       endDate,
       notificationDescription,
     });
-    await event.save();
+
+    //new
+    if (notificationTime != null) {
+      // Generate a unique ID for the notification
+      const notificationId = getFirestore()
+        .collection("notifications")
+        .doc().id;
+
+      // Save the notification ID in the event
+      event.notificationId = notificationId;
+
+      const docRef = await getFirestore()
+        .collection("notifications")
+        .doc(notificationId)
+        .set({
+          title: name,
+          body:
+            notificationDescription !== ""
+              ? notificationDescription
+              : `Starting at ${startTime}`,
+          topic: scope,
+          data: {},
+          sent: false,
+          cancel: false,
+          scheduledTime: new Date(notificationTime),
+        });
+    }
+    //end new
 
     // We will add a notification to firestore
-    const docRef = getFirestore().collection("notifications").doc(uuidv4());
-    console.log(docRef, "hey");
-    if (notificationTime != null) {
-      await docRef.set({
-        title: name,
-        body:
-          notificationDescription !== ""
-            ? notificationDescription
-            : `Starting at ${startTime}`,
-        topic: scope,
-        data: {},
-        sent: false,
-        cancel: false,
-        scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
-      });
-    }
-
+    // const docRef = getFirestore().collection("notifications").doc(uuidv4());
+    // console.log(docRef, "hey");
+    // if (notificationTime != null) {
+    //   await docRef.set({
+    //     title: name,
+    //     body:
+    //       notificationDescription !== ""
+    //         ? notificationDescription
+    //         : `Starting at ${startTime}`,
+    //     topic: scope,
+    //     data: {},
+    //     sent: false,
+    //     cancel: false,
+    //     scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
+    //   });
+    // }
+    await event.save();
     return res.status(201).json({ message: "Event created succesfully" });
   } catch (error) {
     res.send(error);
@@ -282,11 +309,13 @@ router.put("/edit/:id", async (req, res) => {
       notiText,
       link,
       endDate,
+      notificationDescription,
     } = req.body;
 
     const singleEvent = await Event.findById(req.params.id);
 
     const notiTextBefore = singleEvent.notiText;
+    const notificationId = event.notificationId;
 
     const event = await Event.findByIdAndUpdate(req.params.id, {
       name,
@@ -314,6 +343,7 @@ router.put("/edit/:id", async (req, res) => {
       notiText,
       link,
       endDate,
+      notificationDescription,
     });
 
     // const scope = await Scope.updateOne(
@@ -323,16 +353,31 @@ router.put("/edit/:id", async (req, res) => {
 
     // We will add a notification to firestore
     if (notiText !== notiTextBefore) {
-      const docRef = getFirestore().collection("notifications").doc(uuidv4());
+      // const docRef = getFirestore().collection("notifications").doc(uuidv4());
+      // if (notificationTime != null) {
+      //   await docRef.set({
+      //     title: name,
+      //     body: description,
+      //     topic: scope,
+      //     data: {},
+      //     sent: false,
+      //     cancel: false,
+      //     scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
+      //   });
+      // }
+      const docRef = getFirestore()
+        .collection("notifications")
+        .doc(notificationId); // use existing notificationId
+
       if (notificationTime != null) {
-        await docRef.set({
+        await docRef.update({
           title: name,
-          body: description,
+          body:
+            notificationDescription !== ""
+              ? notificationDescription
+              : `Starting at ${startTime}`,
           topic: scope,
-          data: {},
-          sent: false,
-          cancel: false,
-          scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
+          scheduledTime: new Date(notificationTime), // make sure to update the scheduled time too
         });
       }
     }
