@@ -176,7 +176,7 @@ router.post("/", async (req, res) => {
     if (notificationTime != null) {
       await docRef.set({
         title: `${name} is starting at soon!`,
-        body: `${description}. Starting at ${startTime}`,
+        body: `${description}. It will start at ${startTime}`,
         topic: scope,
         data: {},
         sent: false,
