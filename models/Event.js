@@ -96,7 +96,7 @@ const eventSchema = new Schema({
     type: String,
   },
   notificationId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
   },
   users: [
     {
