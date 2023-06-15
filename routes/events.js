@@ -120,6 +120,7 @@ router.post("/", async (req, res) => {
     link,
     endDate,
     notificationDescription,
+    notificationId,
   } = req.body;
 
   if (name === "" || name === undefined) {
@@ -169,6 +170,7 @@ router.post("/", async (req, res) => {
       link,
       endDate,
       notificationDescription,
+      notificationId,
     });
 
     //new
