@@ -174,7 +174,7 @@ router.post("/", async (req, res) => {
     //new
     if (notificationTime != null) {
       // Generate a unique ID for the notification
-      const notificationId = getFirestore()
+      const notificationId = await getFirestore()
         .collection("notifications")
         .doc().id;
 
