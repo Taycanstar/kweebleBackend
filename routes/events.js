@@ -344,6 +344,7 @@ router.put("/edit/:id", async (req, res) => {
     });
 
     const notiTextBefore = singleEvent.notiText;
+    const notiTimeBefore = singleEvent.notificationTime;
     const notificationId = event.notificationId;
 
     // const scope = await Scope.updateOne(
@@ -352,7 +353,7 @@ router.put("/edit/:id", async (req, res) => {
     // );
 
     // We will add a notification to firestore
-    if (notiText !== notiTextBefore) {
+    if (notificationTime !== notiTimeBefore) {
       // const docRef = getFirestore().collection("notifications").doc(uuidv4());
       // if (notificationTime != null) {
       //   await docRef.set({
