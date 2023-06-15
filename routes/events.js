@@ -314,9 +314,6 @@ router.put("/edit/:id", async (req, res) => {
 
     const singleEvent = await Event.findById(req.params.id);
 
-    const notiTextBefore = singleEvent.notiText;
-    const notificationId = event.notificationId;
-
     const event = await Event.findByIdAndUpdate(req.params.id, {
       name,
       location,
@@ -345,6 +342,9 @@ router.put("/edit/:id", async (req, res) => {
       endDate,
       notificationDescription,
     });
+
+    const notiTextBefore = singleEvent.notiText;
+    const notificationId = event.notificationId;
 
     // const scope = await Scope.updateOne(
     //   { _id: req.params.id },
