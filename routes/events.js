@@ -378,6 +378,7 @@ router.put("/edit/:id", async (req, res) => {
               ? notificationDescription
               : `Starting at ${startTime}`,
           topic: scope,
+          sent: false,
           scheduledTime: new Date(notificationTime), // make sure to update the scheduled time too
         });
       }
