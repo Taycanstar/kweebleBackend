@@ -751,7 +751,7 @@ router.put("/events/del/:id", async (req, res) => {
       { $pull: { savedEvents: { $in: [event] } } }
     );
     // console.log(user, "<==user");
-    await user.save();
+    // await user.save();
     res.send(user);
   } catch (error) {
     return res.send(error);
@@ -768,7 +768,7 @@ router.put("/products/del/:id", async (req, res) => {
       { $pull: { savedProducts: { $in: [product] } } }
     );
     // console.log(user, "<==user");
-    await user.save();
+    // await user.save();
     res.send(user);
   } catch (error) {
     return res.send(error);
