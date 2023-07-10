@@ -121,25 +121,26 @@ router.post("/", async (req, res) => {
     endDate,
     notificationDescription,
   } = req.body;
-
-  if (name === "" || name === undefined) {
-    return res.status(400).json({ error: "Title of the event is required" });
-  }
-  if (location === "" || location === undefined) {
-    return res.status(400).json({ error: "Location of the event is required" });
-  }
-  if (scope === "" || scope === undefined) {
-    return res.status(400).json({ error: "Scope of the event is required" });
-  }
-  if (date === "" || date === undefined) {
-    return res.status(400).json({ error: "Date of the event is required" });
-  }
-
-  if (startTime === "" || startTime === undefined) {
-    return res.status(400).json({ error: "Time of the event is required" });
-  }
-
   try {
+    if (name === "" || name === undefined) {
+      return res.status(400).json({ error: "Title of the event is required" });
+    }
+    if (location === "" || location === undefined) {
+      return res
+        .status(400)
+        .json({ error: "Location of the event is required" });
+    }
+    if (scope === "" || scope === undefined) {
+      return res.status(400).json({ error: "Scope of the event is required" });
+    }
+    if (date === "" || date === undefined) {
+      return res.status(400).json({ error: "Date of the event is required" });
+    }
+
+    if (startTime === "" || startTime === undefined) {
+      return res.status(400).json({ error: "Time of the event is required" });
+    }
+
     const event = new Event({
       name,
       location,
@@ -197,25 +198,7 @@ router.post("/", async (req, res) => {
           scheduledTime: new Date(notificationTime),
         });
     }
-    //end new
 
-    // We will add a notification to firestore
-    // const docRef = getFirestore().collection("notifications").doc(uuidv4());
-    // console.log(docRef, "hey");
-    // if (notificationTime != null) {
-    //   await docRef.set({
-    //     title: name,
-    //     body:
-    //       notificationDescription !== ""
-    //         ? notificationDescription
-    //         : `Starting at ${startTime}`,
-    //     topic: scope,
-    //     data: {},
-    //     sent: false,
-    //     cancel: false,
-    //     scheduledTime: new Date(notificationTime), // ToDo : setting the correct date time
-    //   });
-    // }
     await event.save();
     return res.status(201).json({ message: "Event created succesfully" });
   } catch (error) {
