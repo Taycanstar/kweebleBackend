@@ -385,116 +385,7 @@ router.put("/email/:id", async (req, res) => {
   }
 });
 
-// //verify-password
-// router.post("/verify-password", async (req, res) => {
-//   const { password, email } = req.body;
-//   try {
-//     let user = await User.findOne({ email });
-//     if (!user) {
-//       return res.status(400).json({ error: "Invalid credentials" });
-//     }
-//     const isMatch = await bcrypt.compare(password, user.password);
-//     // const isMatch = await (password === user.password);
-//     if (!isMatch) {
-//       return res.status(400).json({ error: "Incorrect Password" });
-//     }
-
-//     return res.status(200).json({ message: "success" });
-//   } catch (error) {
-//     console.log(error);
-//   }
-// });
-
-// //delete user
-// router.delete("/", requireLogin, async (req, res) => {
-//   const _id = req.user._id;
-//   // console.log(req.user);
-//   // console.log(_id);
-//   const result = await User.deleteOne({ _id: _id });
-//   console.log(result);
-//   res.send("Account deactivated succesfully!");
-// });
-
-// router.post("/forgot-password", async (req, res, next) => {
-//   // 1. Get user based on posted email
-//   const user = await User.findOne({ email: req.body.email });
-//   if (!user) {
-//     return res.status(400).json({ error: "No user found" });
-//   }
-//   //2generate token
-
-//   const resetToken = user.createPasswordResetToken();
-//   await user.save({ requireLogin: false });
-
-//   //3 send as email
-//   const resetURL = `${req.protocol}://${req.get(
-//     "host"
-//   )}/auth/reset-password/${resetToken}`;
-
-//   // const message = `Forgot your password? Submit a PATCH request with your new password to: ${resetURL}.\n If you did not forget your password please ignore this`;
-
-//   const message = `To reset your password please use this One time password (OTP) \n
-//   ${resetToken} \n
-//   Do not share this OTP with anyone. Kweeble takes your account security very seriously. Kweeble Customer Service will never ask you to disclose or verify your Kweeble password, OTP, or credit card. If you receive a suspicious email with the link to update your account information, do not click on the link--instead, report the email to Kweeble for investigation. We hope to see you again soon!
-
-//   Thanks for using Kweeble!
-
-//   `;
-
-//   try {
-//     await sendEmail({
-//       email: user.email,
-//       subject: "Your password reset token (valid for 10 minutes)",
-//       message,
-//     });
-
-//     res.status(200).json({
-//       status: "success",
-//       message: "Token sent to email",
-//     });
-//   } catch (error) {
-//     user.passwordResetToken = undefined;
-//     user.passwordResetExpires = undefined;
-//     await user.save({ requireLogin: false });
-//     return res.status(500).json({ error: "Email was unable to send" });
-//     return res.status(500).json({ error: error });
-//   }
-// });
-
-// router.patch("/reset-password/:token", async (req, res) => {
-//   //1Get user based on the token
-
-//   const hashedToken = crypto
-//     .createHash("sha256")
-//     .update(req.params.token)
-//     .digest("hex");
-//   // const hashedToken = bcrypt.hash(req.params.token, 256);
-
-//   const user = await User.findOne({
-//     passwordResetToken: hashedToken,
-//     passwordResetExpires: { $gt: Date.now() },
-//   });
-
-//   //2 if token has not expired, and there is a user, set the new password
-//   if (!user) {
-//     return res.status(400).json({ error: "Token is invalid or has expired" });
-//   }
-
-//   user.password = await bcrypt.hash(req.body.password, 10);
-
-//   user.passwordResetToken = undefined;
-//   user.passwordResetExpires = undefined;
-
-//   await user.save();
-
-//   // log the user in set jwt
-//   const token = jwt.sign({ _id: user._id }, secret, {
-//     expiresIn: "1h",
-//   });
-
-//   return res.status(200).json({ status: "success", token });
-// });
-
+//Forgot Password
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
   // const otp = crypto.randomBytes(3).toString("hex");
@@ -508,11 +399,7 @@ router.post("/forgot-password", async (req, res) => {
 
   await confirmation.save();
 
-  const message = `To reset your password please use this One time password (OTP) \n
-    ${otp} \n
-    Do not share this OTP with anyone. Kweeble takes your account security very seriously. Kweeble Customer Service will never ask you to disclose or verify your Kweeble password, OTP, or credit card. If you receive a suspicious email with the link to update your account information, do not click on the link--instead, report the email to Kweeble for investigation. We hope to see you again soon!
-
-    Thanks for using Kweeble!`;
+  const message = `Your Kweeble one-time password (OTP) is: <b>${otp}</b>`;
 
   try {
     await sendEmail({
@@ -529,6 +416,31 @@ router.post("/forgot-password", async (req, res) => {
     // await user.save({ requireLogin: false });
     return res.status(500).json({ error: "Email was unable to send" });
   }
+});
+
+//Confirm OTP
+router.patch("/confirm-otp", async (req, res) => {
+  const { confirmationToken, email } = req.body;
+
+  // Retrieve the confirmation document from the Confirmation collection
+  const confirmation = await Confirmation.findOne({ confirmationToken });
+  if (!confirmation) {
+    return res.status(404).send({ message: "Confirmation token not found" });
+  }
+
+  // Check if the email and hashedPassword match the confirmation document
+  if (confirmation.email !== email) {
+    return res
+      .status(401)
+      .send({ message: "Invalid confirmation token, email, or password" });
+  }
+
+  let user = await User.findOne({ email });
+
+  // Delete the confirmation document from the Confirmation collection
+  await Confirmation.deleteOne({ confirmationToken });
+
+  res.status(200).send({ message: "Otp confirmed", user });
 });
 
 router.patch("/reset-password/:token", async (req, res) => {
