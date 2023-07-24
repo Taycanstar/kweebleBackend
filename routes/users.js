@@ -504,12 +504,12 @@ router.post("/forgot-password", async (req, res) => {
   // Generate a one-time code
   const otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit number
 
-  const confirmation = new Confirmation({
-    email,
-    confirmationToken: otp,
-  });
+  // const confirmation = new Confirmation({
+  //   email,
+  //   confirmationToken: otp,
+  // });
 
-  await confirmation.save();
+  // await confirmation.save();
 
   const message = `To reset your password please use this One time password (OTP) \n
   ${resetToken} \n
@@ -519,7 +519,7 @@ router.post("/forgot-password", async (req, res) => {
 
   `;
 
-  res.status(200).json({
+  return res.status(200).json({
     status: "success",
     message: "Token sent to email",
   });
