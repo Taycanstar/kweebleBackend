@@ -12,7 +12,6 @@ const crypto = require("crypto");
 const cloudinary = require("cloudinary").v2;
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require("../utils/email");
-const sendIt = require("../utils/newEmail");
 const Course = require("../models/Course");
 const Item = require("../models/Item");
 const Confirmation = require("../models/Confirmation");
@@ -496,51 +495,51 @@ router.put("/email/:id", async (req, res) => {
 //   return res.status(200).json({ status: "success", token });
 // });
 
-router.post("/forgot-password", async (req, res, next) => {
-  const { email } = req.body;
-  let user = await User.findOne({ email });
-  if (!user) {
-    return res.status(400).json({ message: "User not found" });
-  }
-  // Generate a one-time code
-  const otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit number
+// router.post("/forgot-password", async (req, res) => {
+//   const { email } = req.body;
+//   let user = await User.findOne({ email });
+//   if (!user) {
+//     return res.status(400).json({ message: "User not found" });
+//   }
+//   // Generate a one-time code
+//   const otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit number
 
-  const confirmation = new Confirmation({
-    email,
-    confirmationToken: otp,
-  });
+//   const confirmation = new Confirmation({
+//     email,
+//     confirmationToken: otp,
+//   });
 
-  await confirmation.save();
+//   await confirmation.save();
 
-  const message = `To reset your password please use this One time password (OTP) \n
-  ${resetToken} \n
-  Do not share this OTP with anyone. Kweeble takes your account security very seriously. Kweeble Customer Service will never ask you to disclose or verify your Kweeble password, OTP, or credit card. If you receive a suspicious email with the link to update your account information, do not click on the link--instead, report the email to Kweeble for investigation. We hope to see you again soon!
+//   const message = `To reset your password please use this One time password (OTP) \n
+//   ${resetToken} \n
+//   Do not share this OTP with anyone. Kweeble takes your account security very seriously. Kweeble Customer Service will never ask you to disclose or verify your Kweeble password, OTP, or credit card. If you receive a suspicious email with the link to update your account information, do not click on the link--instead, report the email to Kweeble for investigation. We hope to see you again soon!
 
-  Thanks for using Kweeble!
+//   Thanks for using Kweeble!
 
-  `;
+//   `;
 
-  res.status(200).json({
-    status: "success",
-    message: "Token sent to email",
-  });
+//   res.status(200).json({
+//     status: "success",
+//     message: "Token sent to email",
+//   });
 
-  // try {
-  //   await sendEmail({
-  //     email,
-  //     subject: "Your password reset token",
-  //     message,
-  //   });
+// try {
+//   await sendEmail({
+//     email,
+//     subject: "Your password reset token",
+//     message,
+//   });
 
-  //   res.status(200).json({
-  //     status: "success",
-  //     message: "Token sent to email",
-  //   });
-  // } catch (error) {
-  //   await user.save({ requireLogin: false });
-  //   return res.status(500).json({ error: "Email was unable to send" });
-  // }
-});
+//   res.status(200).json({
+//     status: "success",
+//     message: "Token sent to email",
+//   });
+// } catch (error) {
+//   await user.save({ requireLogin: false });
+//   return res.status(500).json({ error: "Email was unable to send" });
+// }
+// });
 
 router.patch("/reset-password/:token", async (req, res) => {
   //1Get user based on the token
