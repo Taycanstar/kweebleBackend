@@ -11,10 +11,19 @@ const Event = require("./models/Event");
 
 // const socket = require("socket.io");
 
-const port = 8001;
+const port = process.env.PORT;
 
 // const server = http.createServer(app);
-// const server = app.listen(port);
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
+
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true,
+  },
+});
 
 const { initializeApp } = require("firebase-admin/app");
 
@@ -86,4 +95,6 @@ app.get("/", (req, res) => res.status(200).send("helloo world"));
 
 // app.listen(port, () => console.log(`listening on localhost:${port}`));
 
-const server = app.listen(8001, () => console.log(`Server started on ${port}`));
+// const server = app.listen(process.env.PORT, () =>
+//   console.log(`Server started on ${process.env.PORT}`)
+// );
