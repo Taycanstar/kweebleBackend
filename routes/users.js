@@ -15,7 +15,7 @@ const sendEmail = require("../utils/email");
 const sendIt = require("../utils/newEmail");
 const Course = require("../models/Course");
 const Item = require("../models/Item");
-const Grade = require("../models/Grade");
+const Confirmation = require("../models/Confirmation");
 const Event = require("../models/Grade");
 const { getMessaging } = require("firebase-admin/messaging");
 
@@ -523,7 +523,7 @@ router.post("/forgot-password", async (req, res, next) => {
   try {
     await sendEmail({
       email,
-      subject: "Your password reset token (valid for 10 minutes)",
+      subject: "Your password reset token",
       message,
     });
 
@@ -532,8 +532,6 @@ router.post("/forgot-password", async (req, res, next) => {
       message: "Token sent to email",
     });
   } catch (error) {
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
     await user.save({ requireLogin: false });
     return res.status(500).json({ error: "Email was unable to send" });
   }
