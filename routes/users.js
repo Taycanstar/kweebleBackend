@@ -443,6 +443,28 @@ router.post("/confirm-otp", async (req, res) => {
   res.status(200).send({ message: "Otp confirmed", user });
 });
 
+//change password
+router.post("/change-new-password/:email", async (req, res) => {
+  const { password } = req.body;
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    let user = await User.findOne({ email: req.params.email });
+
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    user.password = hashedPassword;
+    await user.save();
+
+    console.log(user, "success");
+    res.status(201).send({ message: "Password changed successfully." });
+  } catch (error) {
+    res.status(500).send({ message: "Failed to change password" });
+    console.log(error);
+  }
+});
+
 router.patch("/reset-password/:token", async (req, res) => {
   //1Get user based on the token
 
