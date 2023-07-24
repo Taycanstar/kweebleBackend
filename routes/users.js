@@ -524,21 +524,21 @@ router.post("/forgot-password", async (req, res) => {
     message: "Token sent to email",
   });
 
-  try {
-    await sendEmail({
-      email,
-      subject: "Your password reset token",
-      message,
-    });
+  // try {
+  //   await sendEmail({
+  //     email,
+  //     subject: "Your password reset token",
+  //     message,
+  //   });
 
-    res.status(200).json({
-      status: "success",
-      message: "Token sent to email",
-    });
-  } catch (error) {
-    await user.save({ requireLogin: false });
-    return res.status(500).json({ error: "Email was unable to send" });
-  }
+  //   res.status(200).json({
+  //     status: "success",
+  //     message: "Token sent to email",
+  //   });
+  // } catch (error) {
+  //   await user.save({ requireLogin: false });
+  //   return res.status(500).json({ error: "Email was unable to send" });
+  // }
 });
 
 router.patch("/reset-password/:token", async (req, res) => {
