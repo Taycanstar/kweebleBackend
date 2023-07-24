@@ -16,4 +16,4 @@ const sendEmail = async (options) => {
   });
 };
 
-export default sendEmail;
+module.exports = sendEmail;
