@@ -515,11 +515,11 @@ router.post("/forgot-password", async (req, res) => {
     Thanks for using Kweeble!`;
 
   try {
-    // await sendEmail({
-    //   email: email,
-    //   subject: "Kweeble - Reset password",
-    //   message: message,
-    // });
+    await sendEmail({
+      email: email,
+      subject: "Kweeble - Reset password",
+      message: message,
+    });
 
     res.status(200).json({
       status: "success",
