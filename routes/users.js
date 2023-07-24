@@ -497,6 +497,14 @@ router.put("/email/:id", async (req, res) => {
 
 router.post("/forgot-password", async (req, res) => {
   const { email } = req.body;
+  const otp = crypto.randomBytes(6).toString("hex");
+
+  const confirmation = new Confirmation({
+    email,
+    confirmationToken: otp,
+  });
+
+  await confirmation.save();
 
   try {
     if (email) {
