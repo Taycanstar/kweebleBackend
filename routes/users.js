@@ -508,13 +508,23 @@ router.post("/forgot-password", async (req, res) => {
 
   await confirmation.save();
 
+  const message = `To reset your password please use this One time password (OTP) \n
+    ${otp} \n
+    Do not share this OTP with anyone. Kweeble takes your account security very seriously. Kweeble Customer Service will never ask you to disclose or verify your Kweeble password, OTP, or credit card. If you receive a suspicious email with the link to update your account information, do not click on the link--instead, report the email to Kweeble for investigation. We hope to see you again soon!
+
+    Thanks for using Kweeble!`;
+
   try {
-    if (email) {
-      res.status(200).json({
-        status: "success",
-        message: "Token sent to email",
-      });
-    }
+    await sendEmail({
+      email: email,
+      subject: "Kweeble - Reset password",
+      message,
+    });
+
+    res.status(200).json({
+      status: "success",
+      message: "Token sent to email",
+    });
   } catch (error) {
     // await user.save({ requireLogin: false });
     return res.status(500).json({ error: "Email was unable to send" });
