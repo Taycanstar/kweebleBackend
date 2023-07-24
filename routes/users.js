@@ -518,7 +518,7 @@ router.post("/forgot-password", async (req, res) => {
     await sendEmail({
       email: email,
       subject: "Kweeble - Reset password",
-      message,
+      message: message,
     });
 
     res.status(200).json({
