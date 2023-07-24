@@ -419,7 +419,7 @@ router.post("/forgot-password", async (req, res) => {
 });
 
 //Confirm OTP
-router.patch("/confirm-otp", async (req, res) => {
+router.post("/confirm-otp", async (req, res) => {
   const { confirmationToken, email } = req.body;
 
   // Retrieve the confirmation document from the Confirmation collection
