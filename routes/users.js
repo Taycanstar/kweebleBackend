@@ -84,35 +84,89 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//Login userr
+// //Login userr
+// router.post("/login", async (req, res) => {
+//   // Pass the current registrationToken with the request
+//   const { email, password, username, registrationToken } = req.body;
+//   try {
+//     // let user = await User.findOne({ email });
+//     // (await User.findOne({ email: req.body.email.toLowerCase() })) ||
+//     //   (await User.findOne({ username: req.body.username.toLowerCase() }))
+//     let user =
+//       (await User.findOne({ email })) || (await User.findOne({ username }));
+//     if (!user) {
+//       return res.status(400).json({ error: "Invalid credentials" });
+//     }
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     // const isMatch = await (password === user.password);
+//     if (!isMatch) {
+//       return res.status(400).json({ error: "Invalid credentials" });
+//     }
+//     if (registrationToken) {
+//       // Check if the user profile already has this device registered
+//       if (
+//         !user.registrationTokens ||
+//         !user.registrationTokens.includes(registrationToken)
+//       ) {
+//         await User.findByIdAndUpdate(user._id, {
+//           registrationTokens: user.registrationTokens
+//             ? [...user.registrationTokens, registrationToken]
+//             : [registrationToken],
+//         });
+//       }
+//     }
+
+//     const token = jwt.sign({ _id: user._id }, process.env.SECRET, {
+//       expiresIn: "1h",
+//     });
+
+//     await getMessaging()
+//       .subscribeToTopic(user.registrationTokens, user.scopes._id)
+//       .then((response) => {
+//         // See the MessagingTopicManagementResponse reference documentation
+//         // for the contents of response.
+//         console.log("Successfully subscribed to topic:", response);
+//       })
+//       .catch((error) => {
+//         console.log("Error subscribing to topic:", error);
+//       });
+
+//     return res.status(200).json({ token });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// });
+
 router.post("/login", async (req, res) => {
-  // Pass the current registrationToken with the request
   const { email, password, username, registrationToken } = req.body;
   try {
-    // let user = await User.findOne({ email });
-    // (await User.findOne({ email: req.body.email.toLowerCase() })) ||
-    //   (await User.findOne({ username: req.body.username.toLowerCase() }))
     let user =
       (await User.findOne({ email })) || (await User.findOne({ username }));
+
     if (!user) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
+
     const isMatch = await bcrypt.compare(password, user.password);
-    // const isMatch = await (password === user.password);
+
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid credentials" });
     }
+
     if (registrationToken) {
-      // Check if the user profile already has this device registered
       if (
         !user.registrationTokens ||
         !user.registrationTokens.includes(registrationToken)
       ) {
-        await User.findByIdAndUpdate(user._id, {
-          registrationTokens: user.registrationTokens
-            ? [...user.registrationTokens, registrationToken]
-            : [registrationToken],
-        });
+        user = await User.findByIdAndUpdate(
+          user._id,
+          {
+            registrationTokens: user.registrationTokens
+              ? [...user.registrationTokens, registrationToken]
+              : [registrationToken],
+          },
+          { new: true } // This option makes findByIdAndUpdate return the updated document
+        );
       }
     }
 
@@ -120,14 +174,27 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
+    for (const scopeId of user.scopes) {
+      for (const token of user.registrationTokens) {
+        await getMessaging()
+          .subscribeToTopic(token, scopeId)
+          .then((response) => {
+            console.log("Successfully subscribed to topic:", response);
+          })
+          .catch((error) => {
+            console.log("Error subscribing to topic:", error);
+          });
+      }
+    }
+
     return res.status(200).json({ token });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ error: "Server error" });
   }
 });
 
 //Update
-
 router.get("/", requireLogin, async (req, res) => {
   res.status(200).json(req.user);
 });
