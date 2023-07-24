@@ -120,17 +120,6 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    await getMessaging()
-      .subscribeToTopic(user.registrationTokens, user.scopes._id)
-      .then((response) => {
-        // See the MessagingTopicManagementResponse reference documentation
-        // for the contents of response.
-        console.log("Successfully subscribed to topic:", response);
-      })
-      .catch((error) => {
-        console.log("Error subscribing to topic:", error);
-      });
-
     return res.status(200).json({ token });
   } catch (error) {
     console.log(error);
